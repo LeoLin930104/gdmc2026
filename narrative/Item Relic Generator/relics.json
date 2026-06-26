@@ -1,0 +1,49 @@
+{
+  "relics": [
+    {
+      "name": "Abyssal Conch of Whispers",
+      "description": "A spiral shell that hums with distant tides.",
+      "lore": "It is said to carry the voices of a drowned civilization lost beneath endless waters.",
+      "rarity": "Epic",
+      "item_type": "minecraft:nautilus_shell",
+      "color": "dark_purple",
+      "effects_hint": "water breathing"
+    },
+    {
+      "name": "Tidebound Prism",
+      "description": "A crystal refracting light like shifting waves.",
+      "lore": "Forged in the pressure of the deep, it bends both light and memory.",
+      "rarity": "Rare",
+      "item_type": "minecraft:prismarine_crystals",
+      "color": "aqua",
+      "effects_hint": "night vision underwater"
+    },
+    {
+      "name": "Barnacle-Encrusted Idol",
+      "description": "A corroded figure coated in ancient growth.",
+      "lore": "Once worshipped by ocean dwellers, now abandoned to the silent currents.",
+      "rarity": "Common",
+      "item_type": "minecraft:clay_ball",
+      "color": "gray",
+      "effects_hint": "minor resistance"
+    },
+    {
+      "name": "Pearl of the Sunken Court",
+      "description": "A luminous pearl pulsing with faint warmth.",
+      "lore": "Legends claim it was carried by rulers of a kingdom swallowed by the sea.",
+      "rarity": "Legendary",
+      "item_type": "minecraft:ender_pearl",
+      "color": "gold",
+      "effects_hint": "teleportation boost"
+    },
+    {
+      "name": "Coralbound Relic Tablet",
+      "description": "A stone slab etched with fading glyphs.",
+      "lore": "Its markings tell of rituals performed before the oceans claimed the land.",
+      "rarity": "Rare",
+      "item_type": "minecraft:prismarine_shard",
+      "color": "aqua",
+      "effects_hint": "conduit power"
+    }
+  ]
+}

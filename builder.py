@@ -25,6 +25,8 @@ AIR_BLOCK = "minecraft:air"
 FARM_BORDER_BLOCK = "minecraft:oak_log"
 FARM_SOIL_BLOCK = "minecraft:farmland"
 FARM_WATER_BLOCK = "minecraft:water"
+# CHANGED FOR NARRATIVE: gate Phase-2C farm-field placement (classification untouched) so Premade Builds/farm_field.py is the sole crop-field source; True restores the generator's fields.
+BUILD_FARM_FIELDS = False
 CROP_BLOCKS = [
     ("minecraft:wheat", {"age": "7"}),
     ("minecraft:carrots", {"age": "7"}),
@@ -50,6 +52,52 @@ ZONE_BORDER_BLOCKS = [
     "minecraft:purple_stained_glass",
     "minecraft:yellow_stained_glass",
 ]
+
+# Biome-adaptive (surface, foundation) for cell surface/plot pads/foundations; substring-matched on the sampled biome id, first hit wins, else DEFAULT_GROUND.
+DEFAULT_GROUND = ("minecraft:grass_block", "minecraft:dirt")
+GROUND_BLOCKS_BY_BIOME = [
+    # (biome-id substrings, surface_block, foundation_block)
+    # sandstone (not sand) on top too: sand is gravity-affected and would fall unpredictably over the foundation columns.
+    (("desert",),                 "minecraft:sandstone",     "minecraft:sandstone"),
+    (("badlands", "mesa"),        "minecraft:red_sandstone", "minecraft:red_sandstone"),
+    (("beach", "shore"),          "minecraft:sandstone",     "minecraft:sandstone"),
+    (("mushroom",),               "minecraft:mycelium",      "minecraft:dirt"),
+    (("snow", "frozen", "ice", "grove"), "minecraft:snow_block", "minecraft:dirt"),
+    (("mangrove", "swamp"),       "minecraft:grass_block",   "minecraft:dirt"),
+]
+# Generic simulated-terrain surfaces swapped for the biome surface outside the plots so the open area matches; other palette blocks (water, stone, natural sand) pass through.
+REMAPPABLE_GROUND_SURFACES = {
+    "minecraft:grass_block",
+    "minecraft:dirt",
+    "minecraft:coarse_dirt",
+    "minecraft:podzol",
+}
+
+
+def ground_blocks_for_biome(biome):
+    """(surface, foundation) ground blocks matched to `biome` (a biome id string).
+
+    Falls back to grass_block/dirt for temperate or unknown biomes.
+    """
+    b = (biome or "").lower()
+    for keys, surface, foundation in GROUND_BLOCKS_BY_BIOME:
+        if any(k in b for k in keys):
+            return surface, foundation
+    return DEFAULT_GROUND
+
+
+def sample_settlement_biome(editor, sim, origin):
+    """Best-effort biome id at the settlement center; None if it can't be read."""
+    try:
+        W, _H, D = sim['blocks'].shape
+        cx, cz = W // 2, D // 2
+        ox, oz = int(origin[0]), int(origin[2])
+        cy = int(sim['heightmap'][cz, cx])
+        return editor.getBiome((ox + cx, cy, oz + cz))
+    except Exception as exc:
+        print(f"[warn] biome sample failed ({exc!r}); using default ground blocks.")
+        return None
+
 
 def load_simulated_data():
     try:
@@ -341,6 +389,13 @@ def deploy_settlement(
     require_matching_terrain_and_blocks(sim['heightmap'], blocks)
     
     W, H, D = blocks.shape
+
+    # Shadow CELL_SURFACE_BLOCK/FOUNDATION_BLOCK with biome-matched locals; nested placement helpers close over them, so all pads/columns/foundations follow the biome.
+    biome = sample_settlement_biome(editor, sim, origin)
+    CELL_SURFACE_BLOCK, FOUNDATION_BLOCK = ground_blocks_for_biome(biome)
+    print(f"🌍 Biome '{biome}' -> ground surface {CELL_SURFACE_BLOCK}, "
+          f"foundation {FOUNDATION_BLOCK}")
+
     core_indices = load_core_indices()
     if core_indices and max(core_indices) >= len(sim['seeds']):
         raise ValueError(
@@ -462,7 +517,11 @@ def deploy_settlement(
         block_idx = int(blocks[local_x, y, local_z])
         if block_idx == 0:
             return fallback
-        return palette[block_idx]
+        block = palette[block_idx]
+        # Remap generic ground (grass/dirt) to the biome surface so the open area matches; non-ground palette blocks pass through.
+        if block in REMAPPABLE_GROUND_SURFACES:
+            return CELL_SURFACE_BLOCK
+        return block
 
     def clear_above_surface(local_x, local_z, extra_air=4):
         target_y = int(sim['heightmap'][local_z, local_x])
@@ -681,27 +740,31 @@ def deploy_settlement(
             place_path_column(local_x, local_z)
             stats["paths"] += 1
 
-        print("🌾 Phase 2C: Placing farms...")
-        for farm_cells in farms.values():
-            _, border_cells, water_cells, crop_cells = farm_layout(farm_cells)
+        if BUILD_FARM_FIELDS:  # CHANGED FOR NARRATIVE: see flag definition above
+            print("🌾 Phase 2C: Placing farms...")
+            for farm_cells in farms.values():
+                _, border_cells, water_cells, crop_cells = farm_layout(farm_cells)
 
-            for local_x, local_z in border_cells:
-                y = int(sim['heightmap'][local_z, local_x])
-                place_terrain_column(local_x, local_z, FOUNDATION_BLOCK)
-                place_if_needed(local_x, y + 1, local_z, FARM_BORDER_BLOCK)
-                stats["farms"] += 1
+                for local_x, local_z in border_cells:
+                    y = int(sim['heightmap'][local_z, local_x])
+                    place_terrain_column(local_x, local_z, FOUNDATION_BLOCK)
+                    place_if_needed(local_x, y + 1, local_z, FARM_BORDER_BLOCK)
+                    stats["farms"] += 1
 
-            for local_x, local_z in water_cells:
-                y = int(sim['heightmap'][local_z, local_x])
-                place_terrain_column(local_x, local_z, FOUNDATION_BLOCK)
-                place_if_needed(local_x, y, local_z, FARM_WATER_BLOCK)
-                stats["farms"] += 1
+                for local_x, local_z in water_cells:
+                    y = int(sim['heightmap'][local_z, local_x])
+                    place_terrain_column(local_x, local_z, FOUNDATION_BLOCK)
+                    place_if_needed(local_x, y, local_z, FARM_WATER_BLOCK)
+                    stats["farms"] += 1
 
-            for local_x, local_z in crop_cells:
-                y = int(sim['heightmap'][local_z, local_x])
-                place_terrain_column(local_x, local_z, FARM_SOIL_BLOCK)
-                place_if_needed(local_x, y + 1, local_z, crop_for(local_x, local_z))
-                stats["farms"] += 1
+                for local_x, local_z in crop_cells:
+                    y = int(sim['heightmap'][local_z, local_x])
+                    place_terrain_column(local_x, local_z, FARM_SOIL_BLOCK)
+                    place_if_needed(local_x, y + 1, local_z, crop_for(local_x, local_z))
+                    stats["farms"] += 1
+        else:
+            print("🌾 Phase 2C: Farm fields skipped (BUILD_FARM_FIELDS=False; "
+                  "narrative layer renders them).")
 
         print("🏠 Phase 2D: Placing placeholder buildings in largest cell rectangles...")
         if building_rects:
