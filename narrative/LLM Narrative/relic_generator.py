@@ -239,6 +239,9 @@ def generate_relics(
     except LLMUnavailable as exc:
         print(f"[warn] generate_relics: LLM unavailable ({exc}); using offline fallback relics.")
         return fallback_relics(theme, count, settlement, effective_biome)
+    except Exception as exc:
+        print(f"[warn] generate_relics: LLM call failed ({exc!r}); using offline fallback relics.")
+        return fallback_relics(theme, count, settlement, effective_biome)
     # Strict parse first; on a stochastic JSON glitch, fall back to salvaging
     # individual objects so one malformed entry doesn't waste the whole run.
     try:

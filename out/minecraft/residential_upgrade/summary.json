@@ -1,0 +1,152 @@
+{
+  "kind": "residential_upgrade_animation_manifest",
+  "upgrade_policy": "append_only_residential_cell_schedule",
+  "levels": [
+    {
+      "kind": "residential_upgrade_level",
+      "upgrade_policy": "append_only_residential_cell_schedule",
+      "level": 1,
+      "name": "basic_shelter",
+      "seed": 50,
+      "score_total": 0.7777777777777776,
+      "valid": true,
+      "wall_face_preset": "narrative_strained_birch_050.wallface",
+      "wall_face_design_path": "C:\\Users\\haeka\\repos\\gdmc2026\\narrative_wallfaces\\narrative_strained_birch_050.wallface",
+      "entrance_face": "west",
+      "interior_style_id": "modern_minimalist+room_variants",
+      "layout_variant_id": "wfc_mcts_append_seed_50",
+      "bbox": [
+        0,
+        0,
+        0,
+        21,
+        11,
+        21
+      ],
+      "path": "C:\\Users\\haeka\\repos\\gdmc2026\\out\\minecraft\\residential_upgrade\\level_1_basic_shelter.json",
+      "block_count": 2943,
+      "structure_cache_path": "C:\\Users\\haeka\\repos\\gdmc2026\\out\\minecraft\\residential_upgrade\\structure_cache\\level_1_basic_shelter_structure.json",
+      "structure_block_count": 1250,
+      "structure_bbox": [
+        1,
+        0,
+        1,
+        20,
+        5,
+        20
+      ]
+    },
+    {
+      "kind": "residential_upgrade_level",
+      "upgrade_policy": "append_only_residential_cell_schedule",
+      "level": 2,
+      "name": "small_home",
+      "seed": 50,
+      "score_total": 0.8130099038380493,
+      "valid": false,
+      "wall_face_preset": "narrative_strained_birch_050.wallface",
+      "wall_face_design_path": "C:\\Users\\haeka\\repos\\gdmc2026\\narrative_wallfaces\\narrative_strained_birch_050.wallface",
+      "entrance_face": "west",
+      "interior_style_id": "modern_minimalist+room_variants",
+      "layout_variant_id": "wfc_mcts_append_seed_50",
+      "bbox": [
+        0,
+        0,
+        0,
+        31,
+        14,
+        21
+      ],
+      "path": "C:\\Users\\haeka\\repos\\gdmc2026\\out\\minecraft\\residential_upgrade\\level_2_small_home.json",
+      "block_count": 3055,
+      "structure_cache_path": "C:\\Users\\haeka\\repos\\gdmc2026\\out\\minecraft\\residential_upgrade\\structure_cache\\level_2_small_home_structure.json",
+      "structure_block_count": 1902,
+      "structure_bbox": [
+        1,
+        0,
+        1,
+        30,
+        11,
+        20
+      ]
+    },
+    {
+      "kind": "residential_upgrade_level",
+      "upgrade_policy": "append_only_residential_cell_schedule",
+      "level": 3,
+      "name": "family_home",
+      "seed": 50,
+      "score_total": 0.8068884216743244,
+      "valid": false,
+      "wall_face_preset": "narrative_strained_birch_050.wallface",
+      "wall_face_design_path": "C:\\Users\\haeka\\repos\\gdmc2026\\narrative_wallfaces\\narrative_strained_birch_050.wallface",
+      "entrance_face": "west",
+      "interior_style_id": "modern_minimalist+room_variants",
+      "layout_variant_id": "wfc_mcts_append_seed_50",
+      "bbox": [
+        0,
+        0,
+        0,
+        31,
+        20,
+        31
+      ],
+      "path": "C:\\Users\\haeka\\repos\\gdmc2026\\out\\minecraft\\residential_upgrade\\level_3_family_home.json",
+      "block_count": 5093,
+      "structure_cache_path": "C:\\Users\\haeka\\repos\\gdmc2026\\out\\minecraft\\residential_upgrade\\structure_cache\\level_3_family_home_structure.json",
+      "structure_block_count": 3414,
+      "structure_bbox": [
+        1,
+        0,
+        1,
+        30,
+        17,
+        30
+      ]
+    }
+  ],
+  "diffs": [
+    {
+      "kind": "residential_upgrade_diff",
+      "upgrade_policy": "append_only_residential_cell_schedule",
+      "from_level": 1,
+      "to_level": 2,
+      "wall_face_preset": "narrative_strained_birch_050.wallface",
+      "wall_face_design_path": "C:\\Users\\haeka\\repos\\gdmc2026\\narrative_wallfaces\\narrative_strained_birch_050.wallface",
+      "entrance_face": "west",
+      "interior_style_id": "modern_minimalist+room_variants",
+      "layout_variant_id": "wfc_mcts_append_seed_50",
+      "bbox": [
+        1,
+        0,
+        0,
+        31,
+        14,
+        21
+      ],
+      "path": "C:\\Users\\haeka\\repos\\gdmc2026\\out\\minecraft\\residential_upgrade\\diff_1_to_2.json",
+      "block_count": 2328
+    },
+    {
+      "kind": "residential_upgrade_diff",
+      "upgrade_policy": "append_only_residential_cell_schedule",
+      "from_level": 2,
+      "to_level": 3,
+      "wall_face_preset": "narrative_strained_birch_050.wallface",
+      "wall_face_design_path": "C:\\Users\\haeka\\repos\\gdmc2026\\narrative_wallfaces\\narrative_strained_birch_050.wallface",
+      "entrance_face": "west",
+      "interior_style_id": "modern_minimalist+room_variants",
+      "layout_variant_id": "wfc_mcts_append_seed_50",
+      "bbox": [
+        10,
+        0,
+        1,
+        31,
+        20,
+        31
+      ],
+      "path": "C:\\Users\\haeka\\repos\\gdmc2026\\out\\minecraft\\residential_upgrade\\diff_2_to_3.json",
+      "block_count": 2646
+    }
+  ]
+}

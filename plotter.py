@@ -110,9 +110,13 @@ def largest_buildable_rectangle_from_data(seeds, hmap, cell_idx, setback=3.0, or
     if rect is None:
         return None
 
-    center_x = rect["x"] + rect["width"] // 2
-    center_z = rect["z"] + rect["depth"] // 2
-    rect["y"] = int(hmap[center_z, center_x])
+    height_region = hmap[
+        rect["z"] : rect["z"] + rect["depth"],
+        rect["x"] : rect["x"] + rect["width"],
+    ]
+    rect["y"] = int(np.max(height_region))
+    rect["height_min"] = int(np.min(height_region))
+    rect["height_max"] = int(np.max(height_region))
     rect["cell_id"] = int(cell_idx)
     if origin is not None:
         rect["world_x"] = int(origin[0] + rect["x"])
@@ -206,10 +210,18 @@ def visualize_house_volumes(module_size=7, max_floors=3):
              origin=viz['origin'], meta=viz['meta'])
     print(f"House volumes visualized with up to {max_floors} floors.")
 
-def find_modular_plots(module_size=7, setback=3.0, farm_setback=2.0):
+def find_modular_plots(
+    module_size=7,
+    setback=3.0,
+    farm_setback=2.0,
+    min_build_width=0,
+    min_build_depth=0,
+):
     """
     setback: distance for houses (usually larger to account for eaves/porches)
     farm_setback: distance for farm borders from path centerlines
+    min_build_width/min_build_depth: drop building rectangles smaller than this
+        footprint (0 disables the filter, preserving the original behaviour).
     """
     ctx = load_plotter_context()
     seeds, hmap, core_indices = ctx['seeds'], ctx['heightmap'], ctx['core_indices']
@@ -278,7 +290,11 @@ def find_modular_plots(module_size=7, setback=3.0, farm_setback=2.0):
                 setback=setback,
                 origin=ctx['origin'],
             )
-            if rect is not None:
+            if (
+                rect is not None
+                and rect["width"] >= min_build_width
+                and rect["depth"] >= min_build_depth
+            ):
                 building_rects[p_idx] = rect
             plotted_houses[p_idx] = valid_modules
             for mx, mz in valid_modules:
@@ -325,6 +341,8 @@ def find_modular_plots(module_size=7, setback=3.0, farm_setback=2.0):
         module_size=np.array(module_size),
         setback=np.array(setback),
         farm_setback=np.array(farm_setback),
+        min_build_width=np.array(min_build_width),
+        min_build_depth=np.array(min_build_depth),
     )
 
 if __name__ == "__main__":

@@ -580,7 +580,6 @@ def main(
     settlement=None,
     place_items: bool = True,
     farm_fields: bool = True,
-    roads: bool = True,
 ) -> None:
     """Place premade builds on the non-farm districts' farm cells.
 
@@ -597,10 +596,6 @@ def main(
     `farm_fields`: also render the farm-ROLE district's cells as mood-scaled crop
     fields (the generator no longer places them — BUILD_FARM_FIELDS=False). Skip
     with --no-farm-fields to leave that district as bare ground.
-
-    `roads`: also repaint the generator's roads (path_mask) by mood tier.
-    Overwrites the road SURFACE only (no generator edit). Skip with --no-roads to
-    leave the generator's stone roads as-is.
     """
     data_path = Path(npz) if npz else _DEFAULT_DATA_NPZ
     plots_path = Path(plots) if plots else _DEFAULT_PLOTS_NPZ
@@ -619,9 +614,7 @@ def main(
     origin = data["origin"]
     heightmap = data["heightmap"]
     zone_seed_points = data["zone_seed_points"]
-    path_mask = data["path_mask"] if "path_mask" in data.files else None   # road-edge anchoring + repaint
-    path_base_y = data["path_base_y"] if "path_base_y" in data.files else None   # road surface height
-    path_slab_mask = data["path_slab_mask"] if "path_slab_mask" in data.files else None  # road slope slabs
+    path_mask = data["path_mask"] if "path_mask" in data.files else None
 
     plots_data = np.load(plots_path, allow_pickle=True)
     farms = _items_to_dict(plots_data["farms"]) if "farms" in plots_data.files else {}
@@ -664,13 +657,6 @@ def main(
     elif farm_fields:
         print("No farm-district cells to render as crop fields.")
 
-    n_road_cells = int(path_mask.sum()) if (roads and path_mask is not None) else 0
-    if roads and path_mask is not None:
-        print(f"Planned road repaint for {n_road_cells} path cell(s) at mood tier "
-              f"'{tier}'.")
-    elif roads:
-        print("No path_mask in npz — skipping road repaint.")
-
     if dry_run:
         show_decay = decay and tier == "struggling"
         if show_decay:
@@ -700,17 +686,6 @@ def main(
     chosen = placements[: max_builds or None]
     seed_name = str(settlement.name)
     totals = Counter()
-
-    # Roads first so yards/builds/chests overlapping a path edge land on top of the repainted road, not under it.
-    if roads and path_mask is not None:
-        from road import place_roads
-        print(f"\nRepainting roads at mood tier '{tier}'...")
-        rstats = place_roads(editor, path_mask, path_base_y, path_slab_mask,
-                             heightmap, origin, mood=tier, seed_name=seed_name)
-        totals["road_cols"] = rstats["surface"] + rstats["slabs"]
-        print(f"  roads: {rstats['surface']} surface + {rstats['slabs']} slab cell(s).")
-    elif roads:
-        print("\n[warn] no path_mask in npz; skipping road repaint.")
 
     # Narrative items: one diary + tool + relic per district, routed into a
     # build's chest. Planned over `chosen` so a payload always lands on a build we
@@ -779,11 +754,8 @@ def main(
     item_note = f", {totals['chests_filled']} chest(s) filled" if totals["chests_filled"] else ""
     field_note = (f", {totals['field_cols']} field column(s) "
                   f"({totals['crops']} crops)") if totals["field_cols"] else ""
-    road_note = ""
-    if totals["road_cols"]:
-        road_note = f", {totals['road_cols']} road cell(s) repainted"
     print(f"Done: {totals['builds']} build(s) in {len(chosen)} cell(s), "
-          f"{totals['placed']} blocks placed{decay_summary}{item_note}{field_note}{road_note}.")
+          f"{totals['placed']} blocks placed{decay_summary}{item_note}{field_note}.")
 
 
 if __name__ == "__main__":
@@ -813,13 +785,10 @@ if __name__ == "__main__":
     ap.add_argument("--no-farm-fields", action="store_false", dest="farm_fields",
                     help="Skip rendering the farm-role district's crop fields "
                          "(the generator no longer places them either).")
-    ap.add_argument("--no-roads", action="store_false", dest="roads",
-                    help="Skip the mood road repaint (leaves the generator's "
-                         "stone roads untouched).")
     args = ap.parse_args()
     main(
         theme=args.theme, npz=args.npz, plots=args.plots,
         dry_run=args.dry_run, max_builds=args.max_builds, biome_override=args.biome,
         tier_override=args.tier, rotation_override=args.rotation, decay=args.decay,
-        place_items=args.place_items, farm_fields=args.farm_fields, roads=args.roads,
+        place_items=args.place_items, farm_fields=args.farm_fields,
     )

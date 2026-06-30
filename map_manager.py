@@ -1,4 +1,6 @@
 import os
+import math
+import re
 import numpy as np
 from gdpc import Editor, WorldSlice, Rect
 
@@ -54,11 +56,85 @@ WATER_BLOCKS = {"minecraft:water", "minecraft:flowing_water"}
 #(384, 128, 128)
 #(384, 128, -128)
 
+# Narrative default capture centre, used as the last-resort fallback when no
+# explicit region/center/origin is provided and no player position is readable.
+NARRATIVE_DEFAULT_CENTER = (384, 128, 128)
+
+
+def _parse_env_int_tuple(name, expected_len):
+    raw = os.environ.get(name)
+    if not raw:
+        return None
+    parts = [part.strip() for part in raw.replace(",", " ").split()]
+    if len(parts) != expected_len:
+        raise ValueError(
+            f"{name} must contain {expected_len} integer values; got {raw!r}"
+        )
+    return tuple(int(part) for part in parts)
+
+
+def _normalise_host(host):
+    if host.startswith(("http://", "https://")):
+        return host
+    return f"http://{host}"
+
+
+def _parse_player_pose(data):
+    pos_match = re.search(r"Pos:\[([^\]]+)\]", data)
+    if not pos_match:
+        return None
+    pos_values = [part.strip().rstrip("dD") for part in pos_match.group(1).split(",")]
+    if len(pos_values) < 3:
+        return None
+    return (
+        int(math.floor(float(pos_values[0]))),
+        int(math.floor(float(pos_values[1]))),
+        int(math.floor(float(pos_values[2]))),
+    )
+
+
+def _get_player_position_from_http(host):
+    import requests
+
+    response = requests.get(
+        f"{_normalise_host(host).rstrip('/')}/players",
+        params={"includeData": "true"},
+        timeout=1.0,
+    )
+    response.raise_for_status()
+    players = response.json()
+    if not players:
+        raise RuntimeError("GDMC server returned no players")
+    pose = _parse_player_pose(players[0].get("data", ""))
+    if pose is None:
+        raise RuntimeError("could not parse player position from GDMC player data")
+    return pose
+
+
 class MapManager:
-    def __init__(self, area_size: int = 256, default_center=(384, 128, 128)):
-        self.editor = Editor()
-        self.area_size = area_size
-        self.default_center = default_center
+    def __init__(
+        self,
+        area_size: int | None = None,
+        region_center=None,
+        region_origin=None,
+        default_center=None,
+        host=None,
+    ):
+        if host is None:
+            self.editor = Editor()
+        else:
+            self.editor = Editor(host=_normalise_host(host))
+        # Defaults preserve the narrative pipeline's original behaviour
+        # (256-wide capture centred on (384, 128, 128)) while still allowing
+        # the prefab pipeline to override via args or GDMC_* env vars.
+        self.area_size = int(area_size or os.environ.get("GDMC_AREA_SIZE", 256))
+        self.region_center = region_center or _parse_env_int_tuple("GDMC_REGION_CENTER", 3)
+        self.region_origin = region_origin or _parse_env_int_tuple("GDMC_REGION_ORIGIN", 2)
+        self.default_center = (
+            default_center
+            or _parse_env_int_tuple("GDMC_DEFAULT_CENTER", 3)
+            or NARRATIVE_DEFAULT_CENTER
+        )
 
         # Ensure directories exist
         os.makedirs(DATA_DIR, exist_ok=True)
@@ -71,27 +147,59 @@ class MapManager:
         except Exception:
             return False
 
+    def resolve_center(self):
+        """Resolve the capture centre from override, player position, or explicit fallback."""
+        if self.region_center is not None:
+            return tuple(int(value) for value in self.region_center)
+        if self.region_origin is not None:
+            ox, oz = (int(value) for value in self.region_origin)
+            half = self.area_size // 2
+            return (ox + half, 0, oz + half)
+
+        try:
+            get_player_pos = getattr(self.editor, "getPlayerPos", None)
+            if callable(get_player_pos):
+                center = get_player_pos()
+                if center is not None:
+                    return tuple(int(value) for value in center)
+            return _get_player_position_from_http(self.editor.host)
+        except Exception as exc:
+            player_error = exc
+        else:
+            player_error = None
+
+        if self.default_center is not None:
+            return tuple(int(value) for value in self.default_center)
+
+        raise RuntimeError(
+            "No capture region is available. Join the Minecraft world so the "
+            "player position can be read, or provide GDMC_REGION_CENTER / "
+            "GDMC_REGION_ORIGIN, or pass --region-center / --region-origin "
+            "through the wrapper script."
+        ) from player_error
+
     def fetch_live_world_slice(
         self,
+        center=None,
+        origin=None,
     ) -> tuple[WorldSlice, tuple[int, int, int, int]]:
         """
-        Calculates player/default center and pulls chunk-aligned raw slice.
+        Calculates the requested region and pulls a raw slice.
         Returns:
             (world_slice, (x1, z1, x2, z2))
         """
-        try:
-            center = self.editor.getPlayerPos()
+        if origin is not None:
+            x1, z1 = (int(value) for value in origin)
+        else:
             if center is None:
-                center = self.default_center
-        except Exception:
-            center = self.default_center
+                center = self.resolve_center()
 
-        cx, _, cz = center
-        half = self.area_size // 2
+            cx, _, cz = center
+            half = self.area_size // 2
 
-        # Align to chunk boundaries (16x16)
-        x1 = (int(cx - half) // 16) * 16
-        z1 = (int(cz - half) // 16) * 16
+            # Align player/centre driven captures to chunk boundaries (16x16).
+            x1 = (int(cx - half) // 16) * 16
+            z1 = (int(cz - half) // 16) * 16
         x2 = x1 + self.area_size
         z2 = z1 + self.area_size
 
@@ -173,15 +281,15 @@ class MapManager:
 
         return slope, flat_mask
 
-    def load_environment_dataset(self, force_refresh: bool = False) -> dict:
+    def load_environment_dataset(self, force_refresh: bool = False, center=None, origin=None) -> dict:
         """
         Master retrieval command.
-        Pulls fresh matrices from Minecraft if online (saving it to cache), 
+        Pulls fresh matrices from Minecraft if online (saving it to cache),
         otherwise gracefully pulls from local compressed data storage arrays.
         """
         if self.is_minecraft_available() and not force_refresh:
             print("✅ Minecraft detected. Parsing live environment context...")
-            world_slice, bounds = self.fetch_live_world_slice()
+            world_slice, bounds = self.fetch_live_world_slice(center=center, origin=origin)
             hm, tree_map, water_map = self.extract_and_orient_maps(world_slice)
             slope, flat_mask = self.compute_slopes(hm)
 

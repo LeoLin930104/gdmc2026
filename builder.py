@@ -22,6 +22,12 @@ PATH_SLAB_BLOCKS = {
 CELL_SURFACE_BLOCK = "minecraft:grass_block"
 FOUNDATION_BLOCK = "minecraft:dirt"
 AIR_BLOCK = "minecraft:air"
+# House-footprint markers painted by the plotter (terracotta). When buildings
+# are reserved rather than placed (prefab pipeline), these are read back as
+# plain ground so the reserved plots don't show the marker block.
+HOUSE_MARKER_BLOCKS = {
+    "minecraft:terracotta",
+}
 FARM_BORDER_BLOCK = "minecraft:oak_log"
 FARM_SOIL_BLOCK = "minecraft:farmland"
 FARM_WATER_BLOCK = "minecraft:water"
@@ -375,7 +381,12 @@ def deploy_settlement(
     tree_interval=11,
     tree_rate=0.7,
     landscaping_seed=42,
+    place_debug_frame=True,
+    place_placeholders=True,
 ):
+    # Defaults reproduce the narrative pipeline's behaviour (diagnostic frame +
+    # placeholder buildings). The prefab pipeline calls with both False to
+    # suppress the frame and reserve building footprints for its own prefabs.
     print("🚀 Initializing live settlement generation via GDPC...")
     manager = MapManager()
     if not manager.is_minecraft_available(): return
@@ -518,6 +529,10 @@ def deploy_settlement(
         if block_idx == 0:
             return fallback
         block = palette[block_idx]
+        # Suppress house-footprint markers so reserved building plots read as
+        # plain ground (prefab/placeholder buildings fill them in Phase 2D).
+        if block in HOUSE_MARKER_BLOCKS:
+            return fallback
         # Remap generic ground (grass/dirt) to the biome surface so the open area matches; non-ground palette blocks pass through.
         if block in REMAPPABLE_GROUND_SURFACES:
             return CELL_SURFACE_BLOCK
@@ -706,20 +721,21 @@ def deploy_settlement(
     editor.buffering = True 
 
     try:
-        print("📍 Phase 0: Deploying diagnostic Sky-Frame at Y=150...")
         diag_y = 120
-        editor.placeBlock(local_to_world(origin, 0, diag_y, 0), Block("minecraft:emerald_block"))             
-        editor.placeBlock(local_to_world(origin, W - 1, diag_y, 0), Block("minecraft:redstone_block"))    
-        editor.placeBlock(local_to_world(origin, 0, diag_y, D - 1), Block("minecraft:lapis_block"))       
-        editor.placeBlock(local_to_world(origin, W - 1, diag_y, D - 1), Block("minecraft:gold_block"))
-        for x in range(1, W - 1):
-            editor.placeBlock(local_to_world(origin, x, diag_y, 0), Block("minecraft:red_stained_glass"))
-            editor.placeBlock(local_to_world(origin, x, diag_y, D - 1), Block("minecraft:white_stained_glass"))
-        for z in range(1, D - 1):
-            editor.placeBlock(local_to_world(origin, 0, diag_y, z), Block("minecraft:blue_stained_glass"))
-            editor.placeBlock(local_to_world(origin, W - 1, diag_y, z), Block("minecraft:white_stained_glass"))
-        print("🗺️ Phase 0B: Drawing sky-level zone borders...")
-        place_zone_sky_borders(diag_y)
+        if place_debug_frame:
+            print("📍 Phase 0: Deploying diagnostic Sky-Frame at Y=120...")
+            editor.placeBlock(local_to_world(origin, 0, diag_y, 0), Block("minecraft:emerald_block"))
+            editor.placeBlock(local_to_world(origin, W - 1, diag_y, 0), Block("minecraft:redstone_block"))
+            editor.placeBlock(local_to_world(origin, 0, diag_y, D - 1), Block("minecraft:lapis_block"))
+            editor.placeBlock(local_to_world(origin, W - 1, diag_y, D - 1), Block("minecraft:gold_block"))
+            for x in range(1, W - 1):
+                editor.placeBlock(local_to_world(origin, x, diag_y, 0), Block("minecraft:red_stained_glass"))
+                editor.placeBlock(local_to_world(origin, x, diag_y, D - 1), Block("minecraft:white_stained_glass"))
+            for z in range(1, D - 1):
+                editor.placeBlock(local_to_world(origin, 0, diag_y, z), Block("minecraft:blue_stained_glass"))
+                editor.placeBlock(local_to_world(origin, W - 1, diag_y, z), Block("minecraft:white_stained_glass"))
+            print("🗺️ Phase 0B: Drawing sky-level zone borders...")
+            place_zone_sky_borders(diag_y)
 
         print(f"🧹 Phase 1: Clearing target settlement footprint...")
         for local_x, local_z in iter_mask(target_mask):
@@ -766,17 +782,22 @@ def deploy_settlement(
             print("🌾 Phase 2C: Farm fields skipped (BUILD_FARM_FIELDS=False; "
                   "narrative layer renders them).")
 
-        print("🏠 Phase 2D: Placing placeholder buildings in largest cell rectangles...")
-        if building_rects:
+        if place_placeholders:
+            print("🏠 Phase 2D: Placing placeholder buildings in largest cell rectangles...")
+        else:
+            print("🏠 Phase 2D: Reserving building footprints for prefab placement...")
+        if place_placeholders and building_rects:
             for rect in building_rects.values():
                 place_bounded_placeholder_building(rect)
                 stats["buildings"] += 1
-        else:
+        elif place_placeholders:
             module_floor_maps = compute_module_floors(plots, module_size)
             for floor_map in module_floor_maps.values():
                 for (mx, mz), floor_count in floor_map.items():
                     place_legacy_module_building(mx, mz, floor_count)
                     stats["buildings"] += 1
+        else:
+            stats["buildings"] += len(building_rects)
 
         print("🌳 Phase 2E: Placing trees, bushes, and flowers...")
         for local_x, local_z in trees:

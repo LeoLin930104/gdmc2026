@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -21,9 +22,38 @@ if hasattr(sys.stdout, "reconfigure"):  # Windows cp1252 -> UTF-8 for symbols
 # This file lives in <repo>/narrative/, so the gdmc2026 generator IS the parent.
 _GEN_DIR = ROOT.parent
 _NPZ = _GEN_DIR / "data" / "settlement_data.npz"
+_IDENTITY = _GEN_DIR / "data" / "settlement_identity.json"
+
+try:
+    from wallface_narrative import biome_family as _biome_family
+except Exception:  # noqa: BLE001 - generator is optional; fall back to a neutral family
+    def _biome_family(_biome: str | None) -> str:
+        return "temperate"
 
 DEFAULT_THEME = "Fantasy"
 DEFAULT_WORLD = "New World"
+
+
+def write_identity(theme: str, biome: str | None, mood_tier: str | None,
+                   *, name: str | None = None, era: str | None = None) -> None:
+    _IDENTITY.parent.mkdir(parents=True, exist_ok=True)
+    payload = {"theme": theme, "biome": biome, "biome_family": _biome_family(biome), "mood_tier": mood_tier}
+    if name is not None:
+        payload["name"] = name
+    if era is not None:
+        payload["era"] = era
+    _IDENTITY.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    print(f"Identity persisted -> {_IDENTITY} (mood={mood_tier!r}, biome={biome!r}).")
+
+
+def load_identity() -> dict | None:
+    if not _IDENTITY.exists():
+        return None
+    try:
+        return json.loads(_IDENTITY.read_text(encoding="utf-8"))
+    except Exception as exc:  # noqa: BLE001 - a bad identity file should not abort the run
+        print(f"[warn] could not read {_IDENTITY} ({exc}); ignoring.")
+        return None
 
 # steps
 
@@ -105,16 +135,16 @@ def run_datapack(settlement, world: str, theme: str, biome: str | None,
 def run_premades(settlement, theme: str, npz: str | None, plots: str | None,
                  dry_run: bool, max_builds: int | None, tier_override: str | None,
                  rotation_override: int | None, decay: bool, place_items: bool,
-                 farm_fields: bool, roads: bool) -> None:
+                 farm_fields: bool) -> None:
     import place_premades
     print("=" * 72)
-    print("STEP 3  Premade builds on farm cells (mood palette + decay + district items + crop fields + roads)")
+    print("STEP 3  Premade builds on farm cells (mood palette + decay + district items + crop fields)")
     print("=" * 72)
     place_premades.main(
         theme=theme, npz=npz, plots=plots, dry_run=dry_run, max_builds=max_builds,
         tier_override=tier_override, rotation_override=rotation_override,
         decay=decay, settlement=settlement, place_items=place_items,
-        farm_fields=farm_fields, roads=roads,
+        farm_fields=farm_fields,
     )
     print()
 
@@ -128,6 +158,10 @@ def main() -> None:
     ap.add_argument("--generate", action="store_true",
                     help="Run the gdmc2026 generator first (needs an open world + "
                          "GDMC HTTP interface). Default: assume it already ran.")
+    ap.add_argument("--identity-only", action="store_true",
+                    help="Compute the settlement identity (mood + biome) and write "
+                         "data/settlement_identity.json, then exit. Run this BEFORE "
+                         "the town generator so it can pick mood-matched prefabs.")
     ap.add_argument("--theme", default=DEFAULT_THEME,
                     help=f"Settlement theme (default: {DEFAULT_THEME!r}).")
     ap.add_argument("--world", default=DEFAULT_WORLD,
@@ -144,9 +178,6 @@ def main() -> None:
                     help="Skip per-district diaries + tools + relics placed in build chests.")
     ap.add_argument("--no-farm-fields", action="store_false", dest="farm_fields",
                     help="Skip rendering the farm-role district's mood-scaled crop fields.")
-    ap.add_argument("--no-roads", action="store_false", dest="roads",
-                    help="Skip the mood road repaint (leaves the generator's "
-                         "stone roads untouched).")
     ap.add_argument("--max", type=int, default=None, dest="max_builds",
                     help="Cap the number of premade builds placed (testing).")
     ap.add_argument("--npz", default=None, help="Path to settlement_data.npz.")
@@ -159,6 +190,16 @@ def main() -> None:
                     help="Skip the premade-builds step.")
     args = ap.parse_args()
 
+    identity = load_identity()
+
+    if args.identity_only:
+        biome = args.biome or (identity or {}).get("biome") or _detect_biome()
+        settlement = build_settlement(args.theme, biome)
+        mood_tier = args.tier or settlement.mood_tier
+        write_identity(args.theme, biome, mood_tier,
+                       name=settlement.name, era=settlement.era)
+        return
+
     if args.generate:
         run_generator()
 
@@ -168,8 +209,11 @@ def main() -> None:
             f"  python \"{_GEN_DIR / 'main.py'}\""
         )
 
-    biome = args.biome or _detect_biome()
+    biome = args.biome or (identity or {}).get("biome") or _detect_biome()
     settlement = build_settlement(args.theme, biome)
+    if identity and identity.get("mood_tier") and not args.tier:
+        settlement.mood_tier = identity["mood_tier"]
+        print(f"  mood pinned from identity file: {settlement.mood_tier}")
 
     if args.dry_run:
         # Dry run: no world side effects. Datapack writes files, so skip it too.
@@ -177,8 +221,7 @@ def main() -> None:
         run_premades(settlement, args.theme, args.npz, args.plots, dry_run=True,
                      max_builds=args.max_builds, tier_override=args.tier,
                      rotation_override=args.rotation, decay=args.decay,
-                     place_items=args.place_items, farm_fields=args.farm_fields,
-                     roads=args.roads)
+                     place_items=args.place_items, farm_fields=args.farm_fields)
         return
 
     if not args.skip_datapack:
@@ -188,8 +231,7 @@ def main() -> None:
         run_premades(settlement, args.theme, args.npz, args.plots, dry_run=False,
                      max_builds=args.max_builds, tier_override=args.tier,
                      rotation_override=args.rotation, decay=args.decay,
-                     place_items=args.place_items, farm_fields=args.farm_fields,
-                     roads=args.roads)
+                     place_items=args.place_items, farm_fields=args.farm_fields)
 
     print("=" * 72)
     print("Done. In-game: /reload, then once: /function area_discovery:setup")

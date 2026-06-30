@@ -316,6 +316,9 @@ def generate_diaries(
     except LLMUnavailable as exc:
         print(f"[warn] generate_diaries: LLM unavailable ({exc}); using offline fallback diaries.")
         return fallback_diaries(settlement, specs, effective_biome)
+    except Exception as exc:
+        print(f"[warn] generate_diaries: LLM call failed ({exc!r}); using offline fallback diaries.")
+        return fallback_diaries(settlement, specs, effective_biome)
 
     # Strict parse first; on a stochastic JSON glitch, fall back to salvaging
     # individual objects so one malformed entry doesn't waste the whole run

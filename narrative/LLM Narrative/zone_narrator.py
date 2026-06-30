@@ -65,6 +65,9 @@ def generate_zone_subtitle(
     except LLMUnavailable as exc:
         print(f"[warn] generate_zone_subtitle: LLM unavailable ({exc}); using offline fallback subtitle.")
         return fallback_subtitle(zone_type, settlement, effective_biome)
+    except Exception as exc:
+        print(f"[warn] generate_zone_subtitle: LLM call failed ({exc!r}); using offline fallback subtitle.")
+        return fallback_subtitle(zone_type, settlement, effective_biome)
     # Strip outer quotes/whitespace, then collapse any internal whitespace
     # (including stray newlines if the LLM emits a two-line subtitle) into
     # single spaces. The actionbar renders as one line and a literal \n

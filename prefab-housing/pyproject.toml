@@ -1,0 +1,31 @@
+[project]
+name = "prefab-housing"
+version = "0.1.0"
+description = "Procedural prefab-housing pipeline (WFC + MCTS + utility scoring)"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "matplotlib>=3.10.9",
+    "numba>=0.61.2",
+    "numpy>=1.26.0",
+]
+
+[tool.uv.sources]
+voxel-renderer = { workspace = true }
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+    "voxel-renderer",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/prefab_housing"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

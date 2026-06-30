@@ -1,0 +1,242 @@
+{
+  "metadata": {
+    "kind": "llm_generated_room_style_overrides",
+    "generated_on": "2026-06-25",
+    "model": "qwen36-35b-a3b-q5",
+    "source": "local OpenAI-compatible LocalLLM server",
+    "normalised_block_ids": {
+      "minecraft:brown_bed": "minecraft:yellow_bed",
+      "minecraft:orange_carpet": "minecraft:yellow_carpet",
+      "minecraft:black_carpet": "minecraft:blue_carpet"
+    }
+  },
+  "room_styles": {
+    "bedroom": [
+      {
+        "id": "modern_minimalist",
+        "label": "Modern Minimalist",
+        "overrides": {
+          "bed_block": "minecraft:white_bed",
+          "wardrobe_block": "minecraft:smooth_stone",
+          "desk_top_block": "minecraft:quartz_slab",
+          "rug_primary_block": "minecraft:light_gray_carpet",
+          "accent_light_block": "minecraft:lantern"
+        }
+      },
+      {
+        "id": "rustic_wood",
+        "label": "Rustic Wood",
+        "overrides": {
+          "bed_block": "minecraft:yellow_bed",
+          "wardrobe_block": "minecraft:dark_oak_planks",
+          "desk_top_block": "minecraft:spruce_slab",
+          "rug_primary_block": "minecraft:yellow_carpet",
+          "accent_light_block": "minecraft:lantern"
+        }
+      },
+      {
+        "id": "cozy_craft",
+        "label": "Cozy Craft",
+        "overrides": {
+          "bed_block": "minecraft:red_bed",
+          "wardrobe_block": "minecraft:barrel",
+          "desk_top_block": "minecraft:birch_slab",
+          "rug_primary_block": "minecraft:lime_carpet",
+          "accent_light_block": "minecraft:sea_lantern"
+        }
+      }
+    ],
+    "living": [
+      {
+        "id": "urban_loft",
+        "label": "Urban Loft",
+        "overrides": {
+          "sofa_base_block": "minecraft:gray_concrete",
+          "sofa_top_block": "minecraft:gray_carpet",
+          "table_top_block": "minecraft:quartz_slab",
+          "rug_primary_block": "minecraft:light_gray_carpet",
+          "accent_light_block": "minecraft:lantern"
+        }
+      },
+      {
+        "id": "forest_retreat",
+        "label": "Forest Retreat",
+        "overrides": {
+          "sofa_base_block": "minecraft:spruce_planks",
+          "sofa_top_block": "minecraft:green_carpet",
+          "table_top_block": "minecraft:spruce_slab",
+          "rug_primary_block": "minecraft:green_carpet",
+          "accent_light_block": "minecraft:sea_lantern"
+        }
+      },
+      {
+        "id": "desert_sand",
+        "label": "Desert Sand",
+        "overrides": {
+          "sofa_base_block": "minecraft:white_concrete",
+          "sofa_top_block": "minecraft:yellow_carpet",
+          "table_top_block": "minecraft:smooth_stone_slab",
+          "rug_primary_block": "minecraft:yellow_carpet",
+          "accent_light_block": "minecraft:lantern"
+        }
+      }
+    ],
+    "kitchen": [
+      {
+        "id": "clean_modern",
+        "label": "Clean Modern",
+        "overrides": {
+          "kitchen_counter_block": "minecraft:white_concrete",
+          "kitchen_top_block": "minecraft:quartz_slab",
+          "storage_block": "minecraft:barrel",
+          "accent_light_block": "minecraft:sea_lantern"
+        }
+      },
+      {
+        "id": "stone_rustic",
+        "label": "Stone Rustic",
+        "overrides": {
+          "kitchen_counter_block": "minecraft:stone_bricks",
+          "kitchen_top_block": "minecraft:smooth_stone_slab",
+          "storage_block": "minecraft:bookshelf",
+          "accent_light_block": "minecraft:lantern"
+        }
+      },
+      {
+        "id": "bamboo_breeze",
+        "label": "Bamboo Breeze",
+        "overrides": {
+          "kitchen_counter_block": "minecraft:bamboo_planks",
+          "kitchen_top_block": "minecraft:bamboo_slab",
+          "storage_block": "minecraft:barrel",
+          "accent_light_block": "minecraft:sea_lantern"
+        }
+      }
+    ],
+    "bathroom": [
+      {
+        "id": "ocean_spa",
+        "label": "Ocean Spa",
+        "overrides": {
+          "bathroom_wall_block": "minecraft:light_blue_concrete",
+          "shower_glass_block": "minecraft:light_blue_stained_glass",
+          "storage_block": "minecraft:barrel",
+          "accent_light_block": "minecraft:sea_lantern"
+        }
+      },
+      {
+        "id": "marble_classic",
+        "label": "Marble Classic",
+        "overrides": {
+          "bathroom_wall_block": "minecraft:smooth_stone",
+          "shower_glass_block": "minecraft:glass_pane",
+          "storage_block": "minecraft:bookshelf",
+          "accent_light_block": "minecraft:lantern"
+        }
+      },
+      {
+        "id": "stone_cave",
+        "label": "Stone Cave",
+        "overrides": {
+          "bathroom_wall_block": "minecraft:stone_bricks",
+          "shower_glass_block": "minecraft:light_blue_stained_glass",
+          "storage_block": "minecraft:barrel",
+          "accent_light_block": "minecraft:lantern"
+        }
+      }
+    ],
+    "entry": [
+      {
+        "id": "grand_hall",
+        "label": "Grand Hall",
+        "overrides": {
+          "table_top_block": "minecraft:quartz_slab",
+          "storage_block": "minecraft:barrel",
+          "rug_primary_block": "minecraft:white_carpet",
+          "accent_light_block": "minecraft:sea_lantern"
+        }
+      },
+      {
+        "id": "wooden_entrance",
+        "label": "Wooden Entrance",
+        "overrides": {
+          "table_top_block": "minecraft:birch_slab",
+          "storage_block": "minecraft:bookshelf",
+          "rug_primary_block": "minecraft:yellow_carpet",
+          "accent_light_block": "minecraft:lantern"
+        }
+      },
+      {
+        "id": "stone_path",
+        "label": "Stone Path",
+        "overrides": {
+          "table_top_block": "minecraft:smooth_stone_slab",
+          "storage_block": "minecraft:barrel",
+          "rug_primary_block": "minecraft:gray_carpet",
+          "accent_light_block": "minecraft:lantern"
+        }
+      }
+    ],
+    "corridor": [
+      {
+        "id": "long_hallway",
+        "label": "Long Hallway",
+        "overrides": {
+          "rug_primary_block": "minecraft:gray_carpet",
+          "rug_secondary_block": "minecraft:light_gray_carpet",
+          "storage_block": "minecraft:barrel",
+          "accent_light_block": "minecraft:lantern"
+        }
+      },
+      {
+        "id": "bright_corridor",
+        "label": "Bright Corridor",
+        "overrides": {
+          "rug_primary_block": "minecraft:white_carpet",
+          "rug_secondary_block": "minecraft:light_gray_carpet",
+          "storage_block": "minecraft:bookshelf",
+          "accent_light_block": "minecraft:sea_lantern"
+        }
+      },
+      {
+        "id": "dark_passage",
+        "label": "Dark Passage",
+        "overrides": {
+          "rug_primary_block": "minecraft:blue_carpet",
+          "rug_secondary_block": "minecraft:gray_carpet",
+          "storage_block": "minecraft:barrel",
+          "accent_light_block": "minecraft:lantern"
+        }
+      }
+    ],
+    "stairwell": [
+      {
+        "id": "stone_stairs",
+        "label": "Stone Stairs",
+        "overrides": {
+          "bathroom_wall_block": "minecraft:smooth_stone",
+          "table_top_block": "minecraft:smooth_stone_slab",
+          "accent_light_block": "minecraft:lantern"
+        }
+      },
+      {
+        "id": "quartz_stairs",
+        "label": "Quartz Stairs",
+        "overrides": {
+          "bathroom_wall_block": "minecraft:quartz_block",
+          "table_top_block": "minecraft:quartz_slab",
+          "accent_light_block": "minecraft:sea_lantern"
+        }
+      },
+      {
+        "id": "wooden_stairs",
+        "label": "Wooden Stairs",
+        "overrides": {
+          "bathroom_wall_block": "minecraft:spruce_planks",
+          "table_top_block": "minecraft:spruce_slab",
+          "accent_light_block": "minecraft:lantern"
+        }
+      }
+    ]
+  }
+}

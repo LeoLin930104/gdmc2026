@@ -5,7 +5,14 @@ from scipy.ndimage import binary_dilation, gaussian_filter
 from coordinate_system import terrain_shape
 
 
-def generate_voronoi_diagram():
+def generate_voronoi_diagram(
+    grid_spacing=30,
+    drift_steps=15,
+    drift_speed=1.5,
+    jitter_ratio=0.0,
+    random_seed=42,
+    buffer_stride=5,
+):
     # 1. LOAD TERRAIN DATA
     data = np.load('data/data.npz')
     heightmap = data['heightmap']
@@ -22,17 +29,23 @@ def generate_voronoi_diagram():
     obstacle_mask = water_map | chasm_mask
     edge_mask = binary_dilation(obstacle_mask) & ~obstacle_mask
     edge_coords = np.argwhere(edge_mask)
-    buffer_seeds = edge_coords[::5][:, [1, 0]] 
+    if edge_coords.size:
+        buffer_seeds = edge_coords[::max(1, int(buffer_stride))][:, [1, 0]].astype(float)
+    else:
+        buffer_seeds = np.empty((0, 2), dtype=float)
 
     # 3. SETTLEMENT SEED GENERATION (Slope-Drift)
-    grid_spacing = 30
-    drift_steps = 15
-    drift_speed = 1.5
-
     x_range = np.arange(grid_spacing // 2, W, grid_spacing)
     z_range = np.arange(grid_spacing // 2, D, grid_spacing)
     gx, gz = np.meshgrid(x_range, z_range)
     drift_seeds = np.vstack([gx.ravel(), gz.ravel()]).T.astype(float)
+
+    if len(drift_seeds) and jitter_ratio > 0:
+        rng = np.random.default_rng(random_seed)
+        jitter = float(grid_spacing) * float(jitter_ratio)
+        drift_seeds += rng.uniform(-jitter, jitter, size=drift_seeds.shape)
+        drift_seeds[:, 0] = np.clip(drift_seeds[:, 0], 0, W - 1)
+        drift_seeds[:, 1] = np.clip(drift_seeds[:, 1], 0, D - 1)
 
     smooth_h = gaussian_filter(heightmap.astype(float), sigma=1.5)
     dz, dx = np.gradient(smooth_h)
@@ -49,11 +62,19 @@ def generate_voronoi_diagram():
         ix, iz = np.clip(s, 0, [W-1, D-1]).astype(int)
         if not obstacle_mask[iz, ix]:
             valid_drift.append(s)
-    drift_seeds = np.array(valid_drift)
+    drift_seeds = np.asarray(valid_drift, dtype=float).reshape(-1, 2)
 
     # 4. COMBINE SEEDS & GENERATE DIAGRAMS
     # We keep track of how many seeds are "House" seeds vs "Buffer" seeds
-    all_seeds = np.vstack([drift_seeds, buffer_seeds])
+    seed_sets = [seeds for seeds in (drift_seeds, buffer_seeds) if len(seeds)]
+    if not seed_sets:
+        raise RuntimeError("Voronoi generation found no valid dry settlement seeds.")
+    all_seeds = np.vstack(seed_sets)
+    if len(all_seeds) < 4:
+        raise RuntimeError(
+            f"Voronoi generation needs at least 4 seeds; got {len(all_seeds)}. "
+            "Use a larger land area or reduce obstacle filtering."
+        )
     num_drift = len(drift_seeds)
 
     vor = Voronoi(all_seeds)
