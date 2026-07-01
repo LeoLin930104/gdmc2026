@@ -1,0 +1,244 @@
+{
+  "_comment": "Offline fallback content, authored by Claude to match each generator's schema. Used by fallback_content.py when lm_client.chat() raises LLMUnavailable (LM Studio not connected). It describes ONE coherent settlement -- Emberwell -- so the offline pipeline still reads as a single place, honoring the 'one Settlement, threaded everywhere' rule. theme/biome from the caller override the settlement's theme/biome fields; the authored fiction stays otherwise.",
+
+  "settlement": {
+    "name": "Emberwell",
+    "era": "two generations after the Great Burn",
+    "founding_story": "Emberwell rose again around a deep cold spring that alone survived the wildfire which swept the valley, drawing back the families who had fled into the hills. Its folk smith iron and burn charcoal under careful watch, and an iron bell hangs at every door to be rung at the first scent of smoke.",
+    "primary_industry": "ironworking and charcoal-burning",
+    "central_virtue": "vigilance",
+    "collective_fear": "another wildfire",
+    "historical_wound": "the Great Burn that took the old village",
+    "motif": "iron bells",
+    "worldview": "the spring remembers what the fire forgets",
+    "social_structure": "a council of hearth-wardens",
+    "outsider_reputation": "grim, watchful, slow to trust"
+  },
+
+  "goal": {
+    "summary": "deepen the cold cistern before the dry season",
+    "stakes": "if the wells run low again, a single spark could finish what the Great Burn began."
+  },
+
+  "shared_events": [
+    "the night the bells first rang false",
+    "the long dry summer of '31",
+    "the warden's daughter's wedding by the spring",
+    "the charcoal-pit collapse",
+    "the season the smiths ran short of ore"
+  ],
+
+  "mood_tier": "strained",
+
+  "subtitles": {
+    "town": "where the anvils never fully cool",
+    "nature": "the spring's green margin, jealously watered",
+    "ruins": "charred timbers the Burn left standing",
+    "landmark": "the cold spring that outlived the fire",
+    "dungeon": "below, where the old pits caved in",
+    "default": "an iron bell waits at every door"
+  },
+
+  "district_names": [
+    { "name": "The Bellyard",   "preset": "town" },
+    { "name": "Springside",     "preset": "nature" },
+    { "name": "Cinderrow",      "preset": "ruins" },
+    { "name": "The Coldwell",   "preset": "landmark" },
+    { "name": "Old Forgeworks", "preset": "town" },
+    { "name": "The Sunk Pits",  "preset": "dungeon" },
+    { "name": "Wardens' Rise",  "preset": "landmark" }
+  ],
+
+  "relics": [
+    {
+      "name": "The Coldspring Draught",
+      "item_type": "minecraft:heart_of_the_sea",
+      "description": "Water from the spring that would not burn.",
+      "lore": "Drawn the morning after the Great Burn, it has never once gone warm.",
+      "color": "aqua",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "Warden Aldra's Warning Horn",
+      "item_type": "minecraft:goat_horn",
+      "description": "Sounded to muster the bucket-line.",
+      "lore": "Its note still scatters the crows from the charcoal pits at dawn.",
+      "color": "gold",
+      "rarity": "Rare"
+    },
+    {
+      "name": "The Emberwell Charcoal Tally",
+      "item_type": "minecraft:book",
+      "description": "Every cord burned, every bell recast.",
+      "lore": "Kept since the night the bells first rang false, in case they ever should again.",
+      "color": "yellow",
+      "rarity": "Common"
+    },
+    {
+      "name": "Bell-Iron Nugget",
+      "item_type": "minecraft:iron_nugget",
+      "description": "Filed from the first bell recast after the Burn.",
+      "lore": "Carried for luck by every smith who returned to the cold spring.",
+      "color": "white",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "The Unburnt Feather",
+      "item_type": "minecraft:feather",
+      "description": "Found whole in the ashes of the old village.",
+      "lore": "The children say the spring's grey bird dropped it where the fire could not reach.",
+      "color": "white",
+      "rarity": "Common"
+    },
+    {
+      "name": "Forge-Master's Ember Pouch",
+      "item_type": "minecraft:blaze_powder",
+      "description": "Kept to relight the great forge, and never more than that.",
+      "lore": "In Emberwell even fire is rationed; this pouch is counted twice each night.",
+      "color": "gold",
+      "rarity": "Rare"
+    },
+    {
+      "name": "The Watch-Bell of Emberwell",
+      "item_type": "minecraft:bell",
+      "description": "Recast after the old one rang false.",
+      "lore": "It is struck only when smoke is truly on the wind, so no warden may ever cry wolf again.",
+      "color": "gold",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Ember-Glass Shard",
+      "item_type": "minecraft:amethyst_shard",
+      "description": "Fused in the heat of the Great Burn.",
+      "lore": "Kept on the council table as proof the whole valley once came within a night of dying.",
+      "color": "light_purple",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "The Smoke-Watch Timepiece",
+      "item_type": "minecraft:clock",
+      "description": "Marks the warden's shifts on the wall.",
+      "lore": "Its slow tick is the only sound on a still night, when every ear is straining for the bells.",
+      "color": "yellow",
+      "rarity": "Common"
+    }
+  ],
+
+  "tools": [
+    {
+      "preset": "town",
+      "name": "Warden Aldra's Trusty Sword",
+      "item_type": "minecraft:iron_sword",
+      "description": "The hearth-warden's blade, kept for the long smoke-watches.",
+      "lore": "Carried on every wall since the night the bells first rang false.",
+      "color": "green",
+      "rarity": "Uncommon"
+    },
+    {
+      "preset": "nature",
+      "name": "Old Pell's Worn Hoe",
+      "item_type": "minecraft:wooden_hoe",
+      "description": "Tends the jealously-watered gardens by the spring.",
+      "lore": "Pell has turned the green margin with it every dry season since the summer of '31.",
+      "color": "yellow",
+      "rarity": "Old"
+    },
+    {
+      "preset": "ruins",
+      "name": "Bryn's Salvage Axe",
+      "item_type": "minecraft:stone_axe",
+      "description": "Pulled from a house the Burn left standing.",
+      "lore": "Its haft is scorched black but the head still bites clean.",
+      "color": "yellow",
+      "rarity": "Old"
+    },
+    {
+      "preset": "landmark",
+      "name": "The Coldwell Blessing-Blade",
+      "item_type": "minecraft:golden_sword",
+      "description": "Drawn only at the spring's yearly blessing.",
+      "lore": "Gilded by the first smiths who dared return to the cold water.",
+      "color": "aqua",
+      "rarity": "Rare"
+    },
+    {
+      "preset": "dungeon",
+      "name": "Tomas's Pit Pickaxe",
+      "item_type": "minecraft:iron_pickaxe",
+      "description": "For the collapsed charcoal pits below.",
+      "lore": "The only tool that came back up the season the pit-beams gave way.",
+      "color": "green",
+      "rarity": "Uncommon"
+    },
+    {
+      "preset": "town",
+      "name": "Smith Hedda's Sturdy Axe",
+      "item_type": "minecraft:iron_axe",
+      "description": "Splits cordwood for the charcoal mounds.",
+      "lore": "Reforged twice for the cistern work, when the smiths ran short of ore.",
+      "color": "green",
+      "rarity": "Uncommon"
+    },
+    {
+      "preset": "nature",
+      "name": "Joss's Patient Rod",
+      "item_type": "minecraft:fishing_rod",
+      "description": "Worked at the cold spring's outflow at dawn.",
+      "lore": "Joss fishes the spring-pool so the cistern crews have something hot waiting at dusk.",
+      "color": "yellow",
+      "rarity": "Common"
+    }
+  ],
+
+  "diaries": [
+    {
+      "preset": "town",
+      "author_name": "Hearth-Warden Aldra",
+      "author_role": "warden",
+      "book_title": "The Smoke-Watch",
+      "page": "Third night on the wall, and still I count the bells before I sleep. We must have the cistern deep before the dry months -- Sister Eda says the spring is already low. The night the bells rang false, I learned to trust my own nose over iron."
+    },
+    {
+      "preset": "nature",
+      "author_name": "Old Pell",
+      "author_role": "gardener",
+      "book_title": "Spring Ledger",
+      "page": "Turned the green margin again. It drinks more than the spring can spare this year, same as the long dry summer of '31. Aldra wants every bucket for the cistern now. I water at dusk so the warden won't see, and beg the spring's pardon."
+    },
+    {
+      "preset": "ruins",
+      "author_name": "Bryn",
+      "author_role": "salvager",
+      "book_title": "Cinderrow Notes",
+      "page": "Pulled good nails from a house the Burn left standing. Folk say Cinderrow is unlucky, but I married Sael by that same spring and we were glad. The cistern work pays in charcoal, so I dig. An iron bell still hangs in the dead doorway."
+    },
+    {
+      "preset": "landmark",
+      "author_name": "Sister Eda",
+      "author_role": "spring-keeper",
+      "book_title": "By the Coldwell",
+      "page": "The Coldwell has not gone warm in two generations, but it sinks. I keep the tally for Aldra -- so many hands a day on the cistern, so much water held. The spring remembers what the fire forgets, and I mean to help it remember longer."
+    },
+    {
+      "preset": "dungeon",
+      "author_name": "Tomas",
+      "author_role": "pit-warden",
+      "book_title": "Below the Pits",
+      "page": "Back down the charcoal pits since the collapse. We shore the old beams and haul out what ore the smiths ran short of. It is dark work and the air bites, but the cistern needs stone and the forges need fuel. I ring my bell at every shift."
+    },
+    {
+      "preset": "town",
+      "author_name": "Merin",
+      "author_role": "settler",
+      "book_title": "Hearth Notes",
+      "page": "Another day for the cistern. Everyone digs who can. I keep an iron bell by the door as my mother did, and listen for smoke on the wind. We lost a whole village once; we will not lose this cold spring too."
+    },
+    {
+      "preset": "nature",
+      "author_name": "Joss",
+      "author_role": "angler",
+      "book_title": "Spring-Mouth Log",
+      "page": "Cold work at the spring-mouth before dawn, but the cistern crews want something hot at dusk. The pool sinks lower each week, same as the long dry summer of '31. Aldra says fish while we still can. I keep my bell on the bank."
+    }
+  ]
+}

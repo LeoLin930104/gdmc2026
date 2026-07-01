@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>MC Settlement — Voxel Visualiser</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;600&display=swap');
+
+  :root {
+    --bg:        #0a0d0f;
+    --panel:     #111518;
+    --border:    #1e2a30;
+    --accent:    #00e5aa;
+    --accent2:   #00aaff;
+    --warn:      #ffaa00;
+    --text:      #c8d8e0;
+    --dim:       #4a6070;
+    --mono:      'Share Tech Mono', monospace;
+    --sans:      'Exo 2', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    height: 100vh;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    grid-template-rows: 60px 1fr;
+  }
+
+  /* --- UI Layout --- */
+  header {
+    grid-column: 1 / -1;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    justify-content: space-between;
+    z-index: 100;
+  }
+
+  .logo { font-family: var(--mono); font-size: 1.2rem; color: var(--accent); letter-spacing: 2px; }
+
+  aside {
+    background: var(--panel);
+    border-right: 1px solid var(--border);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+    z-index: 90;
+  }
+
+  main { position: relative; background: #000; overflow: hidden; }
+
+  /* --- Widgets --- */
+  .card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 15px; border-radius: 4px; }
+  .card h3 { font-size: 0.7rem; text-transform: uppercase; color: var(--dim); margin-bottom: 10px; letter-spacing: 1px; }
+
+  .stat-row { display: flex; justify-content: space-between; font-family: var(--mono); margin-bottom: 5px; font-size: 0.9rem; }
+  .stat-val { color: var(--accent2); }
+
+  .control-group { margin-bottom: 15px; }
+  label { display: block; font-size: 0.8rem; margin-bottom: 8px; color: var(--text); }
+
+  input[type=range] { width: 100%; cursor: pointer; accent-color: var(--accent); }
+
+  .btn-toggle {
+    width: 100%; padding: 8px; background: transparent; border: 1px solid var(--dim);
+    color: var(--dim); cursor: pointer; transition: 0.2s; font-family: var(--mono); font-size: 0.8rem;
+  }
+  .btn-toggle.active { border-color: var(--accent); color: var(--accent); background: rgba(0, 229, 170, 0.1); }
+
+  #loading {
+    position: absolute; inset: 0; background: var(--bg); display: flex;
+    flex-direction: column; align-items: center; justify-content: center; z-index: 1000;
+  }
+  .spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  canvas { outline: none; }
+</style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="spinner"></div>
+  <p style="margin-top: 20px; font-family: var(--mono); color: var(--dim);">SYNCHRONIZING VOXEL STREAM...</p>
+</div>
+
+<header>
+  <div class="logo">VORONOI_SETTLEMENT_GEN</div>
+  <div style="font-family: var(--mono); font-size: 0.8rem; color: var(--dim);">
+    STATUS: <span style="color:var(--accent)">ONLINE</span> | WORLD: <span id="hdr-world">--</span>
+  </div>
+</header>
+
+<aside>
+  <div class="card">
+    <h3>Data Stats</h3>
+    <div class="stat-row"><span>Blocks</span><span class="stat-val" id="hdr-blocks">0</span></div>
+    <div class="stat-row"><span>Palette</span><span class="stat-val" id="hdr-palette">0</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Elevation Filter (Y)</h3>
+    <div class="control-group">
+      <label>Y-Min: <span id="lbl-ymin" style="color:var(--accent)">0</span></label>
+      <input type="range" id="sl-ymin" min="0" max="100" value="0">
+    </div>
+    <div class="control-group">
+      <label>Y-Max: <span id="lbl-ymax" style="color:var(--accent)">100</span></label>
+      <input type="range" id="sl-ymax" min="0" max="100" value="100">
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Visibility</h3>
+    <button id="btn-air" class="btn-toggle" onclick="toggleAir()" style="margin-bottom:10px">SHOW AIR</button>
+    <button id="btn-water" class="btn-toggle active" onclick="toggleWater()">SHOW WATER</button>
+  </div>
+
+  <div id="legend-container" class="card" style="flex-grow: 1; overflow-y: auto;">
+    <h3>Legend</h3>
+    <div id="legend" style="display:flex; flex-direction:column; gap:8px;"></div>
+  </div>
+</aside>
+
+<main id="container"></main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.158.0/three.min.js"></script>
+<script>
+let W, H, D;
+let originY = 0;
+let palette = [];
+let colorMap = {};
+let blocksArr = null;
+
+let scene, camera, renderer, container;
+let camTarget, camDist = 50;
+let meshes = [];
+
+let showAir = false;
+let showWater = true;
+let yFilterMin = 0;
+let yFilterMax = 100;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// DATA FETCHING
+// ─────────────────────────────────────────────────────────────────────────────
+
+window.addEventListener('DOMContentLoaded', () => {
+  initThree();
+  fetchSlice();
+});
+// ─────────────────────────────────────────────────────────────────────────────
+// Absolute Camera Translation (Fixed Orientation)
+// ─────────────────────────────────────────────────────────────────────────────
+window.addEventListener('keydown', (e) => {
+  const moveSpeed = 3.0;
+
+  // 1. Get the direction vectors from the current camera orientation
+  const up = new THREE.Vector3(0, 1, 0); // Absolute world up
+
+  const forward = new THREE.Vector3(camera.up);
+  camera.getWorldDirection(forward); // The direction the camera is facing
+
+  const right = new THREE.Vector3();
+  right.crossVectors(forward, camera.up).normalize(); // Perpendicular for strafing
+
+
+  // 2. We must move BOTH position and target to maintain orientation
+  const translation = new THREE.Vector3();
+
+  switch(e.key) {
+    case 'ArrowUp':
+      translation.copy(forward).multiplyScalar(moveSpeed);
+      break;
+    case 'ArrowDown':
+      translation.copy(forward).multiplyScalar(-moveSpeed);
+      break;
+    case 'ArrowLeft':
+      translation.copy(right).multiplyScalar(-moveSpeed);
+      break;
+    case 'ArrowRight':
+      translation.copy(right).multiplyScalar(moveSpeed);
+      break;
+    case ' ':
+      translation.copy(up).multiplyScalar(moveSpeed);
+      break;
+    case 'Shift':
+      translation.copy(up).multiplyScalar(-moveSpeed);
+      break;
+    default:
+      return;
+  }
+
+  // 3. Apply the shift
+  camera.position.add(translation);
+  camTarget.add(translation);
+
+  // Update Three.js internals
+  camera.updateProjectionMatrix();
+});
+
+async function fetchSlice() {
+  try {
+    const resp = await fetch('/slice.json');
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const data = await resp.json();
+    initSlice(data);
+  } catch (e) {
+    console.warn("Fetch failed, using dummy data.", e);
+    initSlice(generateDemoData(32, 16, 32));
+  }
+}
+
+function initSlice(data) {
+  [W, H, D] = data.size;
+  originY = data.origin[1];
+  palette = data.palette;
+  colorMap = data.color_map;
+
+  // Robust base64 to Uint16 decoding
+  const b64 = data.blocks_b64 || data.blocks;
+  const binaryString = atob(b64);
+  const bytes = new Uint8Array(binaryString.length);
+  for (let i = 0; i < binaryString.length; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+  blocksArr = new Uint16Array(bytes.buffer);
+
+  // UI Setup
+  document.getElementById('hdr-blocks').textContent = (W * H * D).toLocaleString();
+  document.getElementById('hdr-palette').textContent = palette.length;
+  document.getElementById('hdr-world').textContent = (data.metadata && data.metadata.world_name) || "Untitled";
+
+  const ymin = document.getElementById('sl-ymin');
+  const ymax = document.getElementById('sl-ymax');
+  ymin.max = H - 1; ymax.max = H - 1;
+  ymin.value = 0; ymax.value = H - 1;
+  yFilterMin = 0; yFilterMax = H - 1;
+
+  ymin.oninput = (e) => { yFilterMin = +e.target.value; updateYLabel(); rebuildMeshes(); };
+  ymax.oninput = (e) => { yFilterMax = +e.target.value; updateYLabel(); rebuildMeshes(); };
+
+  updateYLabel();
+  buildLegend();
+
+  camTarget = new THREE.Vector3(W / 2, H / 4, D / 2);
+  camDist = Math.max(W, D) * 1.2;
+  updateCamera();
+
+  rebuildMeshes();
+  document.getElementById('loading').style.display = 'none';
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// RENDER ENGINE
+// ─────────────────────────────────────────────────────────────────────────────
+
+function initThree() {
+  container = document.getElementById('container');
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x0a0d0f);
+
+  camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 2000);
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  container.appendChild(renderer.domElement);
+
+  const ambient = new THREE.AmbientLight(0xffffff, 0.8);
+  scene.add(ambient);
+
+  const sun = new THREE.DirectionalLight(0xffffff, 0.5);
+  sun.position.set(50, 100, 20);
+  scene.add(sun);
+
+  window.addEventListener('resize', () => {
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth, container.clientHeight);
+  });
+
+  setupControls();
+  animate();
+}
+
+function rebuildMeshes() {
+  meshes.forEach(m => scene.remove(m));
+  meshes = [];
+
+  const geometry = new THREE.BoxGeometry(1, 1, 1);
+  const instancedMeshes = {};
+
+  for (let x = 0; x < W; x++) {
+    for (let y = yFilterMin; y <= yFilterMax; y++) {
+      for (let z = 0; z < D; z++) {
+        const idx = x * (H * D) + y * D + z;
+        const blockId = blocksArr[idx];
+        const name = palette[blockId];
+
+        if (!name || name === 'minecraft:air' && !showAir) continue;
+        if (name === 'minecraft:water' && !showWater) continue;
+
+        if (!instancedMeshes[blockId]) {
+          const color = colorMap[name] || "#ffffff";
+          const material = new THREE.MeshLambertMaterial({ color: new THREE.Color(color) });
+          if (name.includes('water')) material.transparent = true, material.opacity = 0.6;
+
+          instancedMeshes[blockId] = {
+            mesh: new THREE.InstancedMesh(geometry, material, 100000),
+            count: 0
+          };
+        }
+
+        const data = instancedMeshes[blockId];
+        const dummy = new THREE.Object3D();
+        dummy.position.set(x, y, z);
+        dummy.updateMatrix();
+        data.mesh.setMatrixAt(data.count++, dummy.matrix);
+      }
+    }
+  }
+
+  for (const id in instancedMeshes) {
+    const im = instancedMeshes[id].mesh;
+    im.count = instancedMeshes[id].count;
+    scene.add(im);
+    meshes.push(im);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────────────────────────────────────
+
+function setupControls() {
+  let isDragging = false;
+  let prevX, prevY;
+
+  container.addEventListener('mousedown', (e) => { isDragging = true; prevX = e.clientX; prevY = e.clientY; });
+  window.addEventListener('mouseup', () => isDragging = false);
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - prevX;
+    const dy = e.clientY - prevY;
+
+    const rotSpeed = 0.005;
+    const horizontalAngle = dx * rotSpeed;
+    const verticalAngle = dy * rotSpeed;
+
+    const offset = camera.position.clone().sub(camTarget);
+    const radius = offset.length();
+
+    let theta = Math.atan2(offset.x, offset.z) - horizontalAngle;
+    let phi = Math.acos(offset.y / radius) - verticalAngle;
+    phi = Math.max(0.1, Math.min(Math.PI - 0.1, phi));
+
+    camera.position.set(
+      camTarget.x + radius * Math.sin(phi) * Math.sin(theta),
+      camTarget.y + radius * Math.cos(phi),
+      camTarget.z + radius * Math.sin(phi) * Math.cos(theta)
+    );
+    camera.lookAt(camTarget);
+
+    prevX = e.clientX; prevY = e.clientY;
+  });
+
+  container.addEventListener('wheel', (e) => {
+    camDist += e.deltaY * 0.05;
+    updateCamera();
+  });
+}
+
+function updateCamera() {
+  const offset = camera.position.clone().sub(camTarget).normalize().multiplyScalar(camDist);
+  camera.position.copy(camTarget.clone().add(offset));
+  camera.lookAt(camTarget);
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+}
+
+function updateYLabel() {
+  document.getElementById('lbl-ymin').textContent = yFilterMin + originY;
+  document.getElementById('lbl-ymax').textContent = yFilterMax + originY;
+}
+
+function toggleAir() { showAir = !showAir; document.getElementById('btn-air').classList.toggle('active'); rebuildMeshes(); }
+function toggleWater() { showWater = !showWater; document.getElementById('btn-water').classList.toggle('active'); rebuildMeshes(); }
+
+function buildLegend() {
+  const container = document.getElementById('legend');
+  container.innerHTML = '';
+  palette.forEach(name => {
+    if (name === 'minecraft:air') return;
+    const row = document.createElement('div');
+    row.style.display = 'flex'; row.style.alignItems = 'center'; row.style.gap = '10px';
+    const box = document.createElement('div');
+    box.style.width = '12px'; box.style.height = '12px';
+    box.style.background = colorMap[name] || '#fff';
+    const label = document.createElement('span');
+    label.style.fontSize = '0.75rem'; label.style.fontFamily = 'var(--mono)';
+    label.textContent = name.split(':')[1].replace('_', ' ');
+    row.appendChild(box); row.appendChild(label);
+    container.appendChild(row);
+  });
+}
+
+function generateDemoData(w, h, d) {
+  const palette = ["minecraft:air", "minecraft:grass_block", "minecraft:water", "minecraft:cobblestone"];
+  const blocks = new Uint16Array(w * h * d);
+  for (let x = 0; x < w; x++) {
+    for (let z = 0; z < d; z++) {
+      const surface = Math.floor(h / 2 + Math.sin(x / 4) * 2);
+      for (let y = 0; y < h; y++) {
+        const idx = x * (h * d) + y * d + z;
+        if (y < surface) blocks[idx] = 1;
+        else if (y < h / 2 + 1) blocks[idx] = 2;
+      }
+    }
+  }
+  return {
+    size: [w, h, d], origin: [0, 0, 0], palette,
+    color_map: {"minecraft:grass_block": "#5D8A3C", "minecraft:water": "#2255CC", "minecraft:cobblestone": "#7F7F7F"},
+    blocks_b64: btoa(String.fromCharCode(...new Uint8Array(blocks.buffer))),
+    metadata: { world_name: "DEMO FALLBACK" }
+  };
+}
+</script>
+</body>
+</html>

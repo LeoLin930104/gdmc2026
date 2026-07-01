@@ -1,0 +1,36 @@
+[project]
+name = "gdmc-procedural-prefab-housing"
+version = "0.1.0"
+description = "GDMC procedural prefab-housing pipeline (workspace root)"
+requires-python = ">=3.12"
+dependencies = [
+    "gdpc>=8.1.0",
+    "nbtlib>=2.0.4",
+    # Depend on the workspace members so `uv sync` actually installs them into
+    # the env (otherwise prefab_housing / voxel_renderer aren't importable).
+    "prefab-housing",
+    "requests>=2.31",
+    "voxel-renderer",
+]
+
+[tool.uv.workspace]
+members = ["voxel-renderer", "prefab-housing"]
+
+[tool.uv.sources]
+prefab-housing = { workspace = true }
+voxel-renderer = { workspace = true }
+
+[tool.uv]
+# The repo root holds loose base-generator modules (builder.py, plotter.py, ...)
+# imported via sys.path by the town-gen script, not an installable package, so
+# don't try to build/install the root itself — only its deps and the members.
+package = false
+override-dependencies = ["pyopengl>=3.1.7"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["voxel-renderer/tests", "prefab-housing/tests"]

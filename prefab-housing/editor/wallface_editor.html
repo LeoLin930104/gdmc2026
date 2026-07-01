@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Wall Face Texture Editor</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: system-ui, sans-serif;
+      background: #161616;
+      color: #f0f0f0;
+    }
+    body {
+      margin: 0;
+      display: grid;
+      grid-template-columns: 340px 1fr 520px;
+      min-height: 100vh;
+    }
+    aside, main, section {
+      padding: 16px;
+      box-sizing: border-box;
+      border-right: 1px solid #2b2b2b;
+    }
+    section {
+      border-right: 0;
+    }
+    h1, h2 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+    .toolbar, .row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    input, button, select, textarea {
+      background: #202020;
+      color: #f0f0f0;
+      border: 1px solid #3a3a3a;
+      border-radius: 6px;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+    button {
+      cursor: pointer;
+    }
+    button.active {
+      background: #3566d6;
+    }
+    #grid {
+      display: grid;
+      gap: 2px;
+      justify-content: start;
+      background: #2a2a2a;
+      padding: 4px;
+      border-radius: 8px;
+      width: fit-content;
+    }
+    .cell {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #3a3a3a;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .cell.empty {
+      background: #111;
+      color: #555;
+    }
+    #blockResults {
+      max-height: 300px;
+      overflow: auto;
+      display: grid;
+      gap: 6px;
+    }
+    .block-item {
+      display: grid;
+      grid-template-columns: 18px 1fr auto;
+      gap: 8px;
+      align-items: center;
+      padding: 6px;
+      border: 1px solid #333;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .swatch {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      border: 1px solid #444;
+      background: #666;
+    }
+    textarea {
+      width: 100%;
+      height: 28vh;
+      font-family: ui-monospace, monospace;
+      white-space: pre;
+    }
+    .muted {
+      color: #9a9a9a;
+      font-size: 12px;
+    }
+    .preview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .preview-grid figure {
+      margin: 0;
+      background: #1d1d1d;
+      border: 1px solid #333;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .preview-grid img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: contain;
+      background: #111;
+    }
+    .preview-grid figcaption {
+      padding: 6px 8px;
+      font-size: 12px;
+      color: #b8b8b8;
+      text-transform: lowercase;
+    }
+  </style>
+</head>
+<body>
+  <aside>
+    <h1>Wall Face Editor</h1>
+    <div class="toolbar">
+      <label>Width <input id="width" type="number" min="1" value="8"></label>
+      <label>Height <input id="height" type="number" min="1" value="6"></label>
+      <button id="newDesign">New</button>
+    </div>
+    <div class="toolbar" id="layerTabs"></div>
+    <div class="row">
+      <strong>Selected block:</strong>
+      <span id="selectedBlock">minecraft:black_concrete</span>
+    </div>
+    <div class="row">
+      <button id="eraseBlock">Erase</button>
+      <button id="togglePickMode">Pick From Grid</button>
+    </div>
+    <div class="muted">Right-click or Alt-click a painted cell to sample its block. Pick mode enables left-click sampling.</div>
+    <div id="grid"></div>
+  </aside>
+
+  <main>
+    <h2>Block Search</h2>
+    <div class="toolbar">
+      <input id="blockSearch" type="search" placeholder="Search block id">
+    </div>
+    <div id="blockResults"></div>
+  </main>
+
+  <section>
+    <h2>Design File</h2>
+    <div class="toolbar">
+      <input id="designPath" type="text" style="flex: 1" placeholder="path/to/design.wallface">
+      <button id="loadDesign">Load</button>
+      <button id="saveDesign">Save</button>
+      <button id="refreshPreview">Refresh Preview</button>
+    </div>
+    <div class="muted" id="status">Loading…</div>
+    <div class="preview-grid">
+      <figure>
+        <img id="previewIsoLeft" alt="iso left preview">
+        <figcaption>iso_left</figcaption>
+      </figure>
+      <figure>
+        <img id="previewIsoRight" alt="iso right preview">
+        <figcaption>iso_right</figcaption>
+      </figure>
+      <figure>
+        <img id="previewProfile" alt="profile preview">
+        <figcaption>profile</figcaption>
+      </figure>
+      <figure>
+        <img id="previewTop" alt="top preview">
+        <figcaption>top</figcaption>
+      </figure>
+    </div>
+    <textarea id="designText" readonly></textarea>
+  </section>
+
+  <script>
+    const layerOrder = [-2, -1, 0, 1, 2];
+    let design = null;
+    let blocks = [];
+    let activeLayer = 1;
+    let selectedBlock = "minecraft:black_concrete";
+    let previewTimer = null;
+    let pickMode = false;
+    let previewInFlight = false;
+    let previewQueued = false;
+    let previewRevision = 0;
+    let renderedRevision = -1;
+
+    async function fetchJson(url, options) {
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        throw new Error(await response.text());
+      }
+      return response.json();
+    }
+
+    function layerRows(layer) {
+      return design.layers[String(layer)];
+    }
+
+    function setStatus(message) {
+      document.getElementById("status").textContent = message;
+    }
+
+    function renderPreview(preview) {
+      document.getElementById("previewIsoLeft").src = `data:image/png;base64,${preview.iso_left}`;
+      document.getElementById("previewIsoRight").src = `data:image/png;base64,${preview.iso_right}`;
+      document.getElementById("previewProfile").src = `data:image/png;base64,${preview.profile}`;
+      document.getElementById("previewTop").src = `data:image/png;base64,${preview.top}`;
+    }
+
+    function updateSelectedBlockLabel() {
+      document.getElementById("selectedBlock").textContent = selectedBlock || "(erase)";
+    }
+
+    function renderPickMode() {
+      const button = document.getElementById("togglePickMode");
+      if (pickMode) {
+        button.classList.add("active");
+        button.textContent = "Picking…";
+      } else {
+        button.classList.remove("active");
+        button.textContent = "Pick From Grid";
+      }
+    }
+
+    function pickBlockFromCell(blockId) {
+      if (!blockId) {
+        setStatus("Only non-empty cells can be sampled");
+        return false;
+      }
+      selectedBlock = blockId;
+      updateSelectedBlockLabel();
+      pickMode = false;
+      renderPickMode();
+      setStatus(`Selected ${blockId}`);
+      return true;
+    }
+
+    function renderLayerTabs() {
+      const host = document.getElementById("layerTabs");
+      host.innerHTML = "";
+      for (const layer of layerOrder) {
+        const button = document.createElement("button");
+        button.textContent = `layer ${layer}`;
+        if (layer === activeLayer) {
+          button.classList.add("active");
+        }
+        button.onclick = () => {
+          activeLayer = layer;
+          renderLayerTabs();
+          renderGrid();
+        };
+        host.appendChild(button);
+      }
+    }
+
+    function blockColour(blockId) {
+      const hash = Array.from(blockId).reduce((acc, ch) => (acc * 33 + ch.charCodeAt(0)) >>> 0, 5381);
+      return `hsl(${hash % 360}deg 45% 45%)`;
+    }
+
+    function renderGrid() {
+      const grid = document.getElementById("grid");
+      grid.style.gridTemplateColumns = `repeat(${design.width}, 28px)`;
+      grid.innerHTML = "";
+      const rows = layerRows(activeLayer);
+      rows.forEach((row, y) => {
+        row.forEach((blockId, x) => {
+          const cell = document.createElement("button");
+          cell.className = "cell" + (blockId ? "" : " empty");
+          cell.textContent = blockId ? blockId.split(":")[1].slice(0, 2) : ".";
+          cell.title = blockId || "empty";
+          cell.style.background = blockId ? blockColour(blockId) : "#111";
+          cell.onclick = (event) => {
+            if (pickMode || event.altKey) {
+              pickBlockFromCell(blockId);
+              return;
+            }
+            design.layers[String(activeLayer)][y][x] = selectedBlock || null;
+            renderGrid();
+            renderText();
+            schedulePreview();
+          };
+          cell.oncontextmenu = (event) => {
+            event.preventDefault();
+            pickBlockFromCell(blockId);
+            return false;
+          };
+          grid.appendChild(cell);
+        });
+      });
+    }
+
+    function renderBlocks() {
+      const term = document.getElementById("blockSearch").value.trim().toLowerCase();
+      const host = document.getElementById("blockResults");
+      host.innerHTML = "";
+      blocks
+        .filter((entry) => entry.id.toLowerCase().includes(term))
+        .slice(0, 300)
+        .forEach((entry) => {
+          const item = document.createElement("button");
+          item.className = "block-item";
+          item.onclick = () => {
+            selectedBlock = entry.id;
+            updateSelectedBlockLabel();
+          };
+          const swatch = document.createElement("span");
+          swatch.className = "swatch";
+          swatch.style.background = blockColour(entry.id);
+          const label = document.createElement("span");
+          label.textContent = entry.id;
+          const meta = document.createElement("span");
+          meta.textContent = entry.has_texture ? "tex" : "flat";
+          item.appendChild(swatch);
+          item.appendChild(label);
+          item.appendChild(meta);
+          host.appendChild(item);
+        });
+    }
+
+    function renderText() {
+      const symbolMap = new Map();
+      const symbolAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@%&*+=!?/<>[]{}()#$^~;:,|-_";
+      let next = 0;
+      for (const layer of layerOrder) {
+        for (const row of design.layers[String(layer)]) {
+          for (const blockId of row) {
+            if (blockId && !symbolMap.has(blockId)) {
+              symbolMap.set(blockId, symbolAlphabet[next++]);
+            }
+          }
+        }
+      }
+      const lines = ["wallface-v1", `size ${design.width} ${design.height}`];
+      for (const [blockId, symbol] of symbolMap.entries()) {
+        lines.push(`symbol ${symbol} ${blockId}`);
+      }
+      lines.push("");
+      for (const layer of layerOrder) {
+        lines.push(`layer ${layer}`);
+        for (const row of design.layers[String(layer)]) {
+          lines.push(row.map((blockId) => blockId ? symbolMap.get(blockId) : ".").join(""));
+        }
+        lines.push("");
+      }
+      document.getElementById("designText").value = lines.join("\n").trimEnd() + "\n";
+    }
+
+    function freshDesign(width, height) {
+      const layers = Object.fromEntries(
+        layerOrder.map((layer) => [
+          String(layer),
+          Array.from(
+            { length: height },
+            () => Array.from({ length: width }, () => layer === 0 ? "minecraft:white_concrete" : null)
+          )
+        ])
+      );
+      return {
+        width,
+        height,
+        layers,
+      };
+    }
+
+    async function loadInitialDesign() {
+      const width = Number(document.getElementById("width").value);
+      const height = Number(document.getElementById("height").value);
+      const payload = await fetchJson(`/api/design?width=${width}&height=${height}`);
+      design = payload.design;
+      document.getElementById("width").value = design.width;
+      document.getElementById("height").value = design.height;
+      document.getElementById("designPath").value = payload.path || "";
+      renderLayerTabs();
+      renderGrid();
+      renderText();
+      renderPreview(payload.preview);
+      renderedRevision = previewRevision;
+      setStatus(`Loaded ${payload.path || "new design"}`);
+    }
+
+    async function refreshPreview() {
+      if (!design) {
+        return;
+      }
+      if (previewInFlight) {
+        previewQueued = true;
+        return;
+      }
+      if (renderedRevision === previewRevision) {
+        return;
+      }
+      previewInFlight = true;
+      const targetRevision = previewRevision;
+      setStatus("Rendering preview…");
+      try {
+        const payload = await fetchJson("/api/preview", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ design })
+        });
+        renderPreview(payload.preview);
+        renderedRevision = targetRevision;
+        setStatus("Preview updated");
+      } finally {
+        previewInFlight = false;
+        if (previewQueued || renderedRevision !== previewRevision) {
+          previewQueued = false;
+          window.clearTimeout(previewTimer);
+          previewTimer = window.setTimeout(() => {
+            refreshPreview().catch((error) => {
+              setStatus(`Preview error: ${error.message}`);
+            });
+          }, 500);
+        }
+      }
+    }
+
+    function schedulePreview() {
+      previewRevision += 1;
+      window.clearTimeout(previewTimer);
+      previewTimer = window.setTimeout(() => {
+        refreshPreview().catch((error) => {
+          setStatus(`Preview error: ${error.message}`);
+        });
+      }, 600);
+    }
+
+    async function saveDesign() {
+      const path = document.getElementById("designPath").value.trim();
+      const payload = await fetchJson("/api/save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ design, path })
+      });
+      document.getElementById("designPath").value = payload.path;
+      document.getElementById("designText").value = payload.text;
+      renderPreview(payload.preview);
+      renderedRevision = previewRevision;
+      setStatus(`Saved ${payload.path}`);
+    }
+
+    async function loadDesign() {
+      const path = document.getElementById("designPath").value.trim();
+      if (!path) {
+        setStatus("No design path provided");
+        return;
+      }
+      const payload = await fetchJson("/api/load", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ path })
+      });
+      design = payload.design;
+      document.getElementById("width").value = design.width;
+      document.getElementById("height").value = design.height;
+      document.getElementById("designText").value = payload.text;
+      renderLayerTabs();
+      renderGrid();
+      renderText();
+      renderPreview(payload.preview);
+      renderedRevision = previewRevision;
+      setStatus(`Loaded ${payload.path}`);
+    }
+
+    async function init() {
+      blocks = (await fetchJson("/api/blocks")).blocks;
+      renderBlocks();
+      updateSelectedBlockLabel();
+      await loadInitialDesign();
+
+      document.getElementById("blockSearch").addEventListener("input", renderBlocks);
+      document.getElementById("newDesign").onclick = () => {
+        const width = Number(document.getElementById("width").value);
+        const height = Number(document.getElementById("height").value);
+        design = freshDesign(width, height);
+        previewRevision += 1;
+        renderLayerTabs();
+        renderGrid();
+        renderText();
+        schedulePreview();
+        setStatus("Created new wall design with white base layer");
+      };
+      document.getElementById("eraseBlock").onclick = () => {
+        selectedBlock = null;
+        updateSelectedBlockLabel();
+        pickMode = false;
+        renderPickMode();
+      };
+      document.getElementById("togglePickMode").onclick = () => {
+        pickMode = !pickMode;
+        renderPickMode();
+        setStatus(pickMode ? "Pick mode enabled" : "Pick mode disabled");
+      };
+      document.getElementById("saveDesign").onclick = saveDesign;
+      document.getElementById("loadDesign").onclick = loadDesign;
+      document.getElementById("refreshPreview").onclick = () => {
+        refreshPreview().catch((error) => setStatus(`Preview error: ${error.message}`));
+      };
+      renderPickMode();
+    }
+
+    init().catch((error) => {
+      setStatus(`Error: ${error.message}`);
+      console.error(error);
+    });
+  </script>
+</body>
+</html>
