@@ -29,13 +29,6 @@ BIOME_TRAITS: dict[str, str] = {
 
 
 def biome_hint(biome: str | None) -> str:
-    """Return a short LLM prompt hint for `biome`, or "" if biome is falsy.
-
-    Examples:
-      biome_hint("minecraft:dark_forest") -> "dark_forest — looming dark oak canopy, ..."
-      biome_hint("weirdland")             -> "weirdland"
-      biome_hint(None)                    -> ""
-    """
     if not biome:
         return ""
     key = biome.strip().lower()
@@ -46,11 +39,6 @@ def biome_hint(biome: str | None) -> str:
 
 
 def sample_biome(editor: Any, pos: tuple[int, int, int]) -> str:
-    """Return the namespaced biome id at `pos` via GDPC.
-
-    `editor` is a gdpc.Editor instance; no gdpc import here so this module
-    stays loadable without gdpc installed (callers already hold an Editor).
-    """
     return editor.getBiome(pos)
 
 
@@ -59,13 +47,6 @@ def get_player_position(
     port: int = 9000,
     timeout: float = 5.0,
 ) -> tuple[int, int, int]:
-    """Return the first online player's (x, y, z) as integer block coords.
-
-    Hits the GDMC HTTP Interface mod's GET /players?includeData=true endpoint
-    and parses Pos:[Xd,Yd,Zd] out of the player's NBT data. Hard-fails on
-    connection error, empty player list, or unparseable response so config
-    issues surface immediately rather than mid-pipeline.
-    """
     import math
     import re
     import requests
@@ -95,6 +76,5 @@ def sample_biome_at_player(
     host: str = "localhost",
     port: int = 9000,
 ) -> tuple[str, tuple[int, int, int]]:
-    """Return (namespaced_biome_id, player_position) for the first online player."""
     pos = get_player_position(host=host, port=port)
     return sample_biome(editor, pos), pos

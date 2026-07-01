@@ -70,7 +70,6 @@ carvings, not a mining town with fear=flooding and motif=seashells)."""
 
 
 def _extract_json_object(text: str) -> dict:
-    """Parse the first JSON object in `text`, tolerating surrounding junk."""
     text = text.strip()
     text = re.sub(r"^```(?:json)?\s*", "", text)
     text = re.sub(r"\s*```$", "", text)
@@ -124,13 +123,6 @@ def generate_settlement(
     biome: str | None = None,
     max_tokens: int = 700,
 ) -> Settlement:
-    """Generate one Settlement identity from a theme string.
-
-    If `biome` is provided (e.g. "minecraft:dark_forest"), its canonical traits
-    are injected into the prompt so the LLM grounds mood/materials/threats in
-    that biome. The caller's raw biome string is stored on the returned
-    Settlement for downstream zone/relic calls to inherit.
-    """
     hint = biome_hint(biome)
     biome_line = f"Biome: {hint}. Let this shape mood, materials, and threats.\n\n" if hint else ""
     user_prompt = (

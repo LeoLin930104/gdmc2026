@@ -73,14 +73,12 @@ class DatapackGenerator:
     # -- Zone registration ---------------------------------------------------
 
     def add_zone(self, zone: Zone) -> "DatapackGenerator":
-        """Register one zone.  Returns self for chaining."""
         if any(z.zone_id == zone.zone_id for z in self._zones):
             raise ValueError(f"Duplicate zone_id: {zone.zone_id!r}")
         self._zones.append(zone)
         return self
 
     def add_zones(self, zones: list[Zone]) -> "DatapackGenerator":
-        """Register multiple zones at once.  Returns self for chaining."""
         for z in zones:
             self.add_zone(z)
         return self
@@ -129,10 +127,6 @@ class DatapackGenerator:
     # -- Public generate -----------------------------------------------------
 
     def generate(self) -> Path:
-        """
-        Write the full datapack to disk.
-        Returns the path to the generated datapack root directory.
-        """
         self._written: list[Path] = []
         cfg = self.config
 
@@ -201,7 +195,6 @@ class DatapackGenerator:
     # -- Reporting -----------------------------------------------------------
 
     def summary(self) -> str:
-        """Return a human-readable summary string and print it."""
         lines = [
             "",
             "━" * 60,

@@ -7,6 +7,28 @@ import families
 
 GRASS = "minecraft:grass_block"
 
+# --- biome-adaptive base ground -------------------------------------------
+# The "healthy" ground block that stands in for grass, so a desert town sits on
+# sand, a badlands town on red sand, a taiga on podzol, etc. Keyword-matched
+# from the biome id (mirrors wallface_narrative.biome_family, kept local to
+# avoid a cross-package import). Anything unmatched stays temperate grass.
+_BIOME_GROUND = (
+    (("desert",), "minecraft:sand"),
+    (("badlands", "mesa"), "minecraft:red_sand"),
+    (("snow", "frozen", "ice"), "minecraft:snow_block"),
+    (("taiga", "grove", "old_growth"), "minecraft:podzol"),
+    (("mushroom",), "minecraft:mycelium"),
+)
+
+
+def biome_ground(biome: str | None) -> str:
+    b = (biome or "").lower()
+    for keys, block in _BIOME_GROUND:
+        if any(k in b for k in keys):
+            return block
+    return GRASS
+
+
 # --- ground: weighted (block, weight) -------------------------------------
 _MOOD_GROUND = {
     "thriving":   [(GRASS, 12)],
@@ -93,21 +115,24 @@ def place_yard(
     role: str,
     mood: str,
     seed_name: str,
+    biome: str | None = None,
     clear_height: int = 5,
 ) -> dict:
-    """Decorate a farm cell's leftover space (everything outside the build(s)).
-
-    `cells` are the cell's local (x, z) positions; `occupied` is the set of
-    local (x, z) covered by any build footprint in the cell (one build, or a
-    cluster) — those are skipped. For each yard cell: lay a mood/role ground
-    block, clear above (wipes generator crops/borders), and maybe a prop (plants
-    only on plantable ground) or a perimeter fence.
-    """
     from gdpc import Block  # lazy
 
     ox, oz = int(origin[0]), int(origin[2])
     occupied = {(int(x), int(z)) for x, z in occupied}
     ground_pool = _pool(_MOOD_GROUND, _ROLE_GROUND, mood, role)
+    # Swap the temperate grass base for the biome's ground (sand/podzol/snow/...)
+    # so the yard matches the surrounding terrain instead of always reading grass.
+    base_ground = biome_ground(biome)
+    plantable = _PLANTABLE
+    if base_ground != GRASS:
+        ground_pool = [(base_ground if blk == GRASS else blk, w) for blk, w in ground_pool]
+        # podzol/mycelium hold plants; sand/snow don't, so props on them are
+        # skipped below (no floating flowers) rather than forced.
+        if base_ground in ("minecraft:podzol", "minecraft:mycelium"):
+            plantable = _PLANTABLE | {base_ground}
     prop_pool = _pool(_MOOD_PROPS, _ROLE_PROPS, mood, role)
     air = Block("minecraft:air")
 
@@ -144,8 +169,8 @@ def place_yard(
         if token is None:
             continue
         prop = _resolve(token, rng)
-        if prop not in _NON_PLANT and ground_block not in _PLANTABLE:
-            continue  # would pop off gravel/path — skip
+        if prop not in _NON_PLANT and ground_block not in plantable:
+            continue  # would pop off gravel/path/sand — skip
         editor.placeBlock((wx, g + 1, wz), Block(prop))
         stats["props"] += 1
 

@@ -44,12 +44,6 @@ Rules:
 
 
 def _extract_json_array(text: str) -> list:
-    """Parse the first JSON array in `text`, tolerating surrounding junk.
-
-    Same shape as the extractor each downstream generator carries — copied
-    here rather than imported to keep this module self-contained (matches how
-    relic/diary/tool generators each have their own copy).
-    """
     text = text.strip()
     text = re.sub(r"^```(?:json)?\s*", "", text)
     text = re.sub(r"\s*```$", "", text)
@@ -81,17 +75,6 @@ def generate_shared_events(
     count: int = 4,
     max_tokens: int = 400,
 ) -> list[str]:
-    """Generate `count` short concrete event phrases grounded in `settlement`.
-
-    The call grounds events in the settlement's biome + identity axes + core
-    context so downstream cross-references between diaries/tools/relics feel
-    like memories of the same place.
-
-    Warn-and-recover: on any failure (transport error from `chat`, malformed
-    JSON, empty list, wrong shape) logs [warn] and returns []. The downstream
-    pipeline continues with `events_hint(settlement)` collapsing to "" — same
-    behavior as a no-events Settlement.
-    """
     biome_block = ""
     hint = biome_hint(settlement.biome)
     if hint:
@@ -171,20 +154,6 @@ def generate_shared_events(
 
 
 def events_hint(settlement: "Settlement") -> str:
-    """Return a compact shared-history block for prompt injection, or "" if empty.
-
-    Skips entirely when `settlement.shared_events` is None or empty, so
-    hand-constructed or pre-pre-pass Settlements add zero prompt noise.
-    Same defensive contract as `biome_context.biome_hint` and
-    `identity_axes.axes_hint`.
-
-    Example output:
-
-      Shared history:
-        - the long rain of '12
-        - the downstream expedition that never returned
-        - the mill fire
-    """
     events = getattr(settlement, "shared_events", None)
     if not events:
         return ""

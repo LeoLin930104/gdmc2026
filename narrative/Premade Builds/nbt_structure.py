@@ -5,12 +5,6 @@ from pathlib import Path
 
 
 def _require_nbtlib():
-    """Lazy-import nbtlib so this module (and its dataclasses) import without it.
-
-    Only parsing actually needs nbtlib; keeping the import lazy lets the rest of
-    the placement code — and the pure geometry helpers in premade_placer — load
-    in environments where nbtlib isn't installed.
-    """
     try:
         import nbtlib
         from nbtlib import serialize_tag
@@ -53,13 +47,6 @@ class Structure:
 
 
 def _serialize_block_entity(nbt_tag) -> str | None:
-    """Serialize a block-entity compound to SNBT for gdpc's `data=`, or None.
-
-    Strips positional/identity keys (id/x/y/z) that the structure carries but
-    that don't belong in a place-time data payload. Returns None if nothing
-    meaningful is left, or if serialization fails (warn-and-recover — a missing
-    data blob is never fatal; the block still places without it).
-    """
     try:
         nbtlib, serialize_tag = _require_nbtlib()
         compound = nbtlib.Compound(nbt_tag)
@@ -74,7 +61,6 @@ def _serialize_block_entity(nbt_tag) -> str | None:
 
 
 def _resolve_palette(root):
-    """Return the active palette list, handling single + variant layouts."""
     if "palette" in root:
         return root["palette"]
     if "palettes" in root and len(root["palettes"]) > 0:
@@ -83,11 +69,6 @@ def _resolve_palette(root):
 
 
 def parse_structure(path: str | Path) -> Structure:
-    """Load a structure `.nbt` from disk into a `Structure`.
-
-    Raises FileNotFoundError if the path is missing; ValueError if the file
-    has no `blocks`/`palette` (i.e. isn't a structure-block export).
-    """
     path = Path(path)
     if not path.exists():
         raise FileNotFoundError(f"No such .nbt file: {path}")

@@ -4,7 +4,34 @@ import json
 import os
 from typing import Iterable
 
-_JSON_PATH = os.path.join(os.path.dirname(__file__), "fallback_content.json")
+_HERE = os.path.dirname(__file__)
+
+# Make sure the repo-root .env is loaded so LLM_FALLBACK_STORY is honored even
+# when this module is imported without lm_client (idempotent; real env wins).
+try:
+    from lm_client import _load_dotenv as _ensure_env
+    _ensure_env()
+except Exception:  # lm_client optional here -- fall back to os.environ as-is
+    pass
+
+# Three interchangeable offline stories, picked by the LLM_FALLBACK_STORY env
+# var (set it in the repo-root .env). "1" is the default; anything unrecognized
+# falls back to "1" with a warning.
+_STORY_FILES = {
+    "1": "fallback_content.json",
+    "2": "fallback_content_2.json",
+    "3": "fallback_content_3.json",
+}
+
+
+def _story_path() -> str:
+    choice = (os.environ.get("LLM_FALLBACK_STORY") or "1").strip() or "1"
+    filename = _STORY_FILES.get(choice)
+    if filename is None:
+        print(f"[warn] fallback_content: LLM_FALLBACK_STORY={choice!r} is not "
+              f"1/2/3; using story 1.")
+        filename = _STORY_FILES["1"]
+    return os.path.join(_HERE, filename)
 
 # Last-ditch content if fallback_content.json is missing or unparsable. Keeps
 # every builder non-raising even when its data source is gone.
@@ -49,15 +76,15 @@ _cache: dict | None = None
 
 
 def _load() -> dict:
-    """Return the authored fallback content, cached. Never raises."""
     global _cache
     if _cache is not None:
         return _cache
+    path = _story_path()
     try:
-        with open(_JSON_PATH, "r", encoding="utf-8") as fh:
+        with open(path, "r", encoding="utf-8") as fh:
             _cache = json.load(fh)
     except Exception as exc:  # missing file, bad JSON, permissions...
-        print(f"[warn] fallback_content: could not load {_JSON_PATH} ({exc}); "
+        print(f"[warn] fallback_content: could not load {path} ({exc}); "
               f"using minimal built-in content.")
         _cache = _MINIMAL
     return _cache
@@ -68,12 +95,6 @@ def _load() -> dict:
 # ---------------------------------------------------------------------------
 
 def _pick_by_preset(pool: list[dict], preset: str | None, used: set[int]) -> dict:
-    """Pick a pool entry for a zone, preferring one tagged with `preset`.
-
-    Greedy + uniqueness-aware: tries an unused preset match first, then any
-    unused entry, then cycles. This keeps distinct zones getting distinct
-    authors/items even when several zones share a preset.
-    """
     want = (preset or "").strip().lower()
     for i, entry in enumerate(pool):
         if i not in used and str(entry.get("preset", "")).strip().lower() == want:
@@ -94,7 +115,6 @@ def _pick_by_preset(pool: list[dict], preset: str | None, used: set[int]) -> dic
 # ---------------------------------------------------------------------------
 
 def fallback_settlement(theme: str, biome: str | None = None):
-    """Return the authored Settlement, tagged with the caller's theme/biome."""
     from settlement_generator import Settlement  # lazy: avoids circular import
 
     s = _load()["settlement"]
@@ -116,7 +136,6 @@ def fallback_settlement(theme: str, biome: str | None = None):
 
 
 def fallback_goal(settlement):
-    """Return the authored SettlementGoal."""
     from settlement_goal import SettlementGoal  # lazy: avoids circular import
 
     g = _load()["goal"]
@@ -124,7 +143,6 @@ def fallback_goal(settlement):
 
 
 def fallback_shared_events(settlement, count: int = 4) -> list[str]:
-    """Return up to `count` authored event phrases (cycling if asked for more)."""
     events = list(_load()["shared_events"])
     if not events:
         return []
@@ -137,12 +155,10 @@ def fallback_shared_events(settlement, count: int = 4) -> list[str]:
 
 
 def fallback_mood_tier(settlement) -> str:
-    """Return the authored mood tier (a valid VALID_TIERS string)."""
     return _load().get("mood_tier", "strained")
 
 
 def fallback_subtitle(zone_type: str, settlement, biome: str | None = None) -> str:
-    """Return an authored subtitle for the zone type, or the default line."""
     subs = _load().get("subtitles", {})
     key = (zone_type or "").strip().lower()
     return subs.get(key) or subs.get("default", "")
@@ -150,7 +166,6 @@ def fallback_subtitle(zone_type: str, settlement, biome: str | None = None) -> s
 
 def fallback_districts(settlement, descriptors: list[dict],
                        biome: str | None = None) -> list[dict]:
-    """Name each descriptor from the authored pool, one entry per district."""
     pool = list(_load().get("district_names", []))
     if not pool:
         # Mirror district_namer's own generic fallback shape.
@@ -169,7 +184,6 @@ def fallback_districts(settlement, descriptors: list[dict],
 
 def fallback_relics(theme: str, count: int = 3, settlement=None,
                     biome: str | None = None) -> list[dict]:
-    """Return up to `count` authored relic dicts (cycling if asked for more)."""
     pool = _load().get("relics", [])
     if not pool:
         return []
@@ -184,7 +198,6 @@ def fallback_relics(theme: str, count: int = 3, settlement=None,
 
 def fallback_tools(settlement, zone_specs: Iterable[tuple],
                    biome: str | None = None) -> list:
-    """Return one authored Tool per zone spec, themed to the zone's preset."""
     from tool_generator import Tool  # lazy: avoids circular import
 
     specs = [(z[0], z[1], z[2]) for z in zone_specs]
@@ -209,7 +222,6 @@ def fallback_tools(settlement, zone_specs: Iterable[tuple],
 
 def fallback_diaries(settlement, zone_specs: Iterable[tuple],
                      biome: str | None = None) -> list:
-    """Return one authored Diary per zone spec, themed to the zone's preset."""
     from diary_generator import Diary  # lazy: avoids circular import
 
     specs = [(z[0], z[1], z[2]) for z in zone_specs]

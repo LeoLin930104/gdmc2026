@@ -1,0 +1,303 @@
+{
+  "_comment": "Offline fallback story 3 of 3. Selected when LLM_FALLBACK_STORY=3. One coherent settlement -- Thornhallow -- matching every generator's schema, so the offline pipeline reads as a single place. theme/biome from the caller override the settlement's theme/biome fields; the authored fiction stays otherwise.",
+
+  "settlement": {
+    "name": "Thornhallow",
+    "era": "the third winter since the Ashen Cough",
+    "founding_story": "Thornhallow was dug into a cold pine highland by miners chasing an emerald vein, and grew into a warren of stone halls lit against the long dark. Then the Ashen Cough came up out of the deep workings and emptied half the holds in a single winter, and now the survivors gather thornbloom for the apothecary and hang a lantern at every door, so no one in Thornhallow ever coughs alone in the dark.",
+    "primary_industry": "deep mining and herb-gathering",
+    "central_virtue": "mercy",
+    "collective_fear": "the Ashen Cough rising from the deep workings again",
+    "historical_wound": "the Cough that emptied half the holds",
+    "motif": "dried thornbloom and lantern-light",
+    "worldview": "the mountain keeps its own accounts",
+    "social_structure": "a circle of hall-elders around the apothecary",
+    "outsider_reputation": "quiet, careful, and quick to quarantine"
+  },
+
+  "goal": {
+    "summary": "seal the deep workings and lay in thornbloom before the long dark",
+    "stakes": "if the Cough rises again with the holds already half-empty, Thornhallow may not last another winter."
+  },
+
+  "shared_events": [
+    "the winter of the Ashen Cough",
+    "the night the quarantine bell rang the empty holds",
+    "the finding of the great emerald vein",
+    "the elder's daughter who walked out of the deep and lived",
+    "the season the thornbloom would not flower"
+  ],
+
+  "mood_tier": "struggling",
+
+  "subtitles": {
+    "town": "where a lantern burns at every door against the dark",
+    "nature": "the thornbloom slopes, gathered before the frost",
+    "ruins": "the empty holds the Cough hollowed out",
+    "landmark": "the sealed mouth of the deep workings",
+    "dungeon": "the deep veins, where the Cough was born",
+    "default": "a lantern waits at every door"
+  },
+
+  "district_names": [
+    { "name": "Lanternrow",       "preset": "town" },
+    { "name": "Thornbloom Slope", "preset": "nature" },
+    { "name": "The Empty Holds",  "preset": "ruins" },
+    { "name": "The Sealed Mouth", "preset": "landmark" },
+    { "name": "Elderhall",        "preset": "town" },
+    { "name": "The Deep Veins",   "preset": "dungeon" },
+    { "name": "Watch-Elder's Rise", "preset": "landmark" }
+  ],
+
+  "relics": [
+    {
+      "name": "The Last Thornbloom",
+      "item_type": "minecraft:poppy",
+      "description": "The single flower kept from the season none would bloom.",
+      "lore": "Pressed in the apothecary's book as proof the slopes could still be barren.",
+      "color": "red",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "Apothecary Vell's Physick Book",
+      "item_type": "minecraft:book",
+      "description": "Every remedy tried against the Cough, and which ones held.",
+      "lore": "Begun the winter of the Ashen Cough and never once set down since.",
+      "color": "yellow",
+      "rarity": "Common"
+    },
+    {
+      "name": "The Deephold Emerald",
+      "item_type": "minecraft:emerald",
+      "description": "The first stone from the vein that founded the town.",
+      "lore": "It bought the halls their lanterns; the miners say it also woke the deep.",
+      "color": "green",
+      "rarity": "Rare"
+    },
+    {
+      "name": "The Cough-Winter Reliquary",
+      "item_type": "minecraft:bone",
+      "description": "A remembrance carried for the holds that emptied.",
+      "lore": "One notch on it for each hall the Ashen Cough took, and no room left for more.",
+      "color": "white",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Frostlantern of the Long Dark",
+      "item_type": "minecraft:lantern",
+      "description": "Lit at the first hall and never let go out.",
+      "lore": "While it burns, the elders say, no one in Thornhallow coughs alone in the dark.",
+      "color": "gold",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Elder Marn's Amethyst Ward",
+      "item_type": "minecraft:amethyst_shard",
+      "description": "Set at the sealed mouth against what stirs below.",
+      "lore": "Cut from the deep the night the quarantine bell rang the empty holds.",
+      "color": "light_purple",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Glowcap Draught",
+      "item_type": "minecraft:glow_berries",
+      "description": "Brewed to ease the ash from a miner's chest.",
+      "lore": "It will not cure the Cough, but it lets a body sleep, and that is mercy enough.",
+      "color": "gold",
+      "rarity": "Common"
+    },
+    {
+      "name": "The Quarantine Bell",
+      "item_type": "minecraft:bell",
+      "description": "Rung to mark a hold shut against the Cough.",
+      "lore": "Its toll is dreaded above all others, for it is only ever struck too late.",
+      "color": "gold",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Vein-Finder's Redstone",
+      "item_type": "minecraft:redstone",
+      "description": "The dust that led the first diggers to the emerald.",
+      "lore": "Kept in a pouch by every prospector, though fewer go deep now than once did.",
+      "color": "red",
+      "rarity": "Common"
+    },
+    {
+      "name": "Coalheart Ember",
+      "item_type": "minecraft:coal",
+      "description": "From the last cart hauled up before the deep was sealed.",
+      "lore": "It warms the elders' hall still, a little of the mountain kept above ground.",
+      "color": "gray",
+      "rarity": "Common"
+    },
+    {
+      "name": "The Spyglass of Watch-Elder Ro",
+      "item_type": "minecraft:spyglass",
+      "description": "Trained on the sealed mouth through the long nights.",
+      "lore": "Ro watched it until she died, in case the seal should ever stir; now her daughter watches.",
+      "color": "aqua",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Frozen Tear of the Hollow",
+      "item_type": "minecraft:diamond",
+      "description": "Found in the deepest vein, clear as meltwater.",
+      "lore": "The girl who walked out of the deep and lived carried it up in her fist.",
+      "color": "aqua",
+      "rarity": "Legendary"
+    }
+  ],
+
+  "tools": [
+    {
+      "preset": "town",
+      "name": "Smith Corr's Sturdy Pick",
+      "item_type": "minecraft:iron_pickaxe",
+      "description": "Kept sharp for the shallow, safer workings.",
+      "lore": "Corr will not take it deep past the seal, and no elder asks him to.",
+      "color": "green",
+      "rarity": "Uncommon"
+    },
+    {
+      "preset": "nature",
+      "name": "Herb-Warden's Cutting Hoe",
+      "item_type": "minecraft:iron_hoe",
+      "description": "Works the thornbloom slopes before the frost.",
+      "lore": "Every stem it cuts is one more draught against the long dark.",
+      "color": "yellow",
+      "rarity": "Common"
+    },
+    {
+      "preset": "ruins",
+      "name": "Empty-Hold Salvage Axe",
+      "item_type": "minecraft:stone_axe",
+      "description": "Reclaims timber and iron from the shut halls.",
+      "lore": "Grim work, stripping the holds the Cough emptied, but the living need the wood.",
+      "color": "yellow",
+      "rarity": "Old"
+    },
+    {
+      "preset": "landmark",
+      "name": "The Elders' Blessing-Staff",
+      "item_type": "minecraft:golden_hoe",
+      "description": "Raised at the sealed mouth each turning of the season.",
+      "lore": "Gilded in better years, kept now as a promise the seal will hold.",
+      "color": "light_purple",
+      "rarity": "Rare"
+    },
+    {
+      "preset": "dungeon",
+      "name": "Deepvein Iron Pick",
+      "item_type": "minecraft:iron_pickaxe",
+      "description": "For the few who still dig below the seal.",
+      "lore": "It comes up rimed with the deep's cold breath, and its bearer coughs for a week.",
+      "color": "green",
+      "rarity": "Uncommon"
+    },
+    {
+      "preset": "town",
+      "name": "Apothecary's Fine Shears",
+      "item_type": "minecraft:shears",
+      "description": "Trims and bundles the drying thornbloom.",
+      "lore": "Vell keeps them oiled so as never to bruise a healing flower.",
+      "color": "yellow",
+      "rarity": "Common"
+    },
+    {
+      "preset": "nature",
+      "name": "Frost-Ground Fishing Rod",
+      "item_type": "minecraft:fishing_rod",
+      "description": "Worked through the ice on the high tarn.",
+      "lore": "Cold fish is still fish, and the holds are hungry this deep in the dark.",
+      "color": "aqua",
+      "rarity": "Common"
+    }
+  ],
+
+  "diaries": [
+    {
+      "preset": "town",
+      "author_name": "Elder Marn",
+      "author_role": "hall-elder",
+      "book_title": "The Lantern Register",
+      "page": "Lit the last dark doorway in Lanternrow tonight, so every hall shows a flame again. We are fewer than we were, but no one coughs alone while a lantern burns. Vell says the thornbloom is coming in thin; we must gather twice as hard before the frost."
+    },
+    {
+      "preset": "nature",
+      "author_name": "Herb-Warden Sib",
+      "author_role": "herbalist",
+      "book_title": "Slope Ledger",
+      "page": "Up the thornbloom slopes at first grey light, cutting what the frost has not yet found. The flowers are fewer than the season the great vein was struck, but more than the year none would bloom. Every stem is a night's easier breathing for someone below."
+    },
+    {
+      "preset": "ruins",
+      "author_name": "Corr",
+      "author_role": "salvager",
+      "book_title": "Empty-Hold Notes",
+      "page": "Stripped good beams from a hold the Cough shut two winters back. It is heavy work to unbuild a home, but the living need the timber and the dead do not. I hang a lantern in each hall before I leave it, out of respect, and dig no deeper than the seal."
+    },
+    {
+      "preset": "landmark",
+      "author_name": "Watch-Elder Ro",
+      "author_role": "watch-elder",
+      "book_title": "At the Sealed Mouth",
+      "page": "Kept the night-watch on the sealed mouth, spyglass to my eye, listening for the deep to stir. It did not, thank the mountain. My mother watched this seal until she died; I will watch it until the workings are drowned or the town is."
+    },
+    {
+      "preset": "dungeon",
+      "author_name": "Deepvein Tamsin",
+      "author_role": "miner",
+      "book_title": "Below the Seal",
+      "page": "Went below the seal for iron the shallow veins will not give, though the elders like it not. The air bites and the ash gets in your chest and you cough for a week after. But the halls need metal to mend, so a few of us still go down, and come back up, and hope."
+    },
+    {
+      "preset": "town",
+      "author_name": "Apothecary Vell",
+      "author_role": "apothecary",
+      "book_title": "The Physick Book",
+      "page": "Brewed the glowcap draughts against the winter's coughing and counted my thornbloom short again. It will not cure the Ashen Cough -- nothing yet does -- but it lets the sick sleep, and sleep is half of mercy. I keep every remedy I try, that the next apothecary need not begin from nothing."
+    },
+    {
+      "preset": "nature",
+      "author_name": "Joss",
+      "author_role": "forager",
+      "book_title": "High-Slope Log",
+      "page": "Gathered glow-berries and what late roots the frost had spared. The mountain keeps its own accounts, my father said, and gives what it gives. I take only what we need and leave the rest to seed, so the slopes are not stripped bare before spring."
+    },
+    {
+      "preset": "ruins",
+      "author_name": "Widow Hesk",
+      "author_role": "settler",
+      "book_title": "The Shut Door",
+      "page": "They rang the quarantine bell on our hold the night my Bren went to the deep and did not come back well. I keep his lantern burning in the empty room, though the elders say I should move up to Lanternrow. The Cough took the hall but it will not take his light."
+    },
+    {
+      "preset": "landmark",
+      "author_name": "Bell-Keeper Ned",
+      "author_role": "bell-keeper",
+      "book_title": "The Quarantine Watch",
+      "page": "Oiled the quarantine bell and prayed, as I do each night, that I never have cause to ring it. Its toll is the most dreaded sound in Thornhallow, for it is only struck when a hold is already lost. May it hang silent through this long dark, and the next."
+    },
+    {
+      "preset": "dungeon",
+      "author_name": "Pell",
+      "author_role": "deep miner",
+      "book_title": "Cold Vein Book",
+      "page": "Shored the last open drift below and helped set the stones to seal it deeper. The deep breathes cold up the shafts, and every miner swears he hears it. We wall it off course by course, and lay in thornbloom above, and tell ourselves the mountain will keep its accounts and leave us be."
+    },
+    {
+      "preset": "town",
+      "author_name": "Ista",
+      "author_role": "apprentice",
+      "book_title": "Learning the Physick",
+      "page": "Vell is teaching me the thornbloom -- when to cut it, how to dry it, which fever it answers. My fingers are stained green and I am glad of it. She says a healer is only attention that does not look away, even from the Cough, even in the dark."
+    },
+    {
+      "preset": "nature",
+      "author_name": "Bram",
+      "author_role": "gatherer",
+      "book_title": "Frost-Slope Log",
+      "page": "Beat the frost to the highest slopes and came back with a full basket for once. Watch-Elder Ro says the girl who walked out of the deep and lived was found on this very ridge, half-frozen and clutching a clear stone. I gather where she lay, and leave a lantern there each dusk."
+    }
+  ]
+}

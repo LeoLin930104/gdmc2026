@@ -213,29 +213,15 @@ def _short(block_id: str) -> str:
 
 
 def is_fixed_functional(block_id: str) -> bool:
-    """True if this block carries function and must not be remapped."""
     s = _short(block_id)
     return any(tok in s for tok in FIXED_FUNCTIONAL)
 
 
 def is_liquid(block_id: str) -> bool:
-    """True if this block needs special (source-block) placement."""
     return block_id in LIQUIDS
 
 
 def resolve_block(block_id: str, tier: Tier) -> str | None:
-    """Resolve a baseline block id to its mood-tier target.
-
-    Returns the target block id, or None if the block should be DROPPED
-    (placed as air) at this tier. Block-state properties are the caller's
-    responsibility — only the `Name` is resolved here.
-
-    Resolution order:
-      1. air            -> unchanged
-      2. drop-on-struggling at struggling tier -> None
-      3. in a family    -> the tier's target
-      4. otherwise      -> unchanged (graceful fallback; covers fixed-functional)
-    """
     if block_id in _AIR:
         return block_id
     if tier == "struggling" and block_id in DROP_ON_STRUGGLING:

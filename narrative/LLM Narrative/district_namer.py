@@ -44,11 +44,6 @@ Rules:
 
 
 def _extract_json_array(text: str) -> list:
-    """Parse the first JSON array in `text`, tolerating surrounding junk.
-
-    Same shape as the extractor the other generators carry — copied here to
-    keep this module self-contained.
-    """
     text = text.strip()
     text = re.sub(r"^```(?:json)?\s*", "", text)
     text = re.sub(r"\s*```$", "", text)
@@ -64,7 +59,6 @@ def _extract_json_array(text: str) -> list:
 
 
 def _fallback_name(descriptor: dict) -> str:
-    """Generic, never-empty district name from a descriptor's position."""
     position = str(descriptor.get("position", "")).strip().lower()
     if position and position != "central":
         return f"{position.title()} District"
@@ -88,18 +82,6 @@ def generate_districts(
     biome: str | None = None,
     max_tokens: int = 400,
 ) -> list[dict]:
-    """Name each district in `descriptors`, grounded in `settlement`.
-
-    `descriptors` comes from `gdmc_bridge.zone_descriptors_from_zone_map` — one
-    dict per zone with keys "zone_index", "cell_count", "position".
-
-    Returns one dict per descriptor: {"zone_index", "name", "preset"}, in the
-    same order. `preset` is always one of VALID_PRESETS (defaulting to "town").
-
-    Warn-and-recover: on any failure (transport error, malformed JSON, missing
-    entries) the affected districts fall back to a position-based generic name
-    so the caller always gets a complete, usable list.
-    """
     if not descriptors:
         return []
 

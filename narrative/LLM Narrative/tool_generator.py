@@ -35,7 +35,6 @@ _TOOL_STANDALONE = {
 
 
 def _is_tool_or_gear(item_type: str) -> bool:
-    """True if `item_type` is a functional tool/weapon or wearable gear piece."""
     bare = item_type.split(":", 1)[1] if ":" in item_type else item_type
     if bare in _TOOL_STANDALONE:
         return True
@@ -197,7 +196,6 @@ class Tool:
 # ---------------------------------------------------------------------------
 
 def _extract_json_array(text: str) -> list:
-    """Parse the first JSON array in `text`, tolerating surrounding junk."""
     text = text.strip()
     text = re.sub(r"^```(?:json)?\s*", "", text)
     text = re.sub(r"\s*```$", "", text)
@@ -213,14 +211,6 @@ def _extract_json_array(text: str) -> list:
 
 
 def _salvage_json_objects(text: str) -> list[dict]:
-    """Best-effort fallback: pull out each top-level {...} object and parse it
-    individually, skipping any that fail.
-
-    Used when strict array parsing fails on a stochastic LLM glitch (a trailing
-    comma, a dropped value, an unescaped char in ONE entry). Brace-matching that
-    respects strings/escapes lets us recover the well-formed siblings instead of
-    throwing the whole batch away. Returns [] if nothing parses.
-    """
     objs: list[dict] = []
     depth = 0
     obj_start = -1
@@ -255,7 +245,6 @@ def _salvage_json_objects(text: str) -> list[dict]:
 
 
 def _normalize_tool(raw: dict) -> dict:
-    """Coerce common LLM drift back into the schema shape (in-place)."""
     # Defensive net for the prompt's name-shape guidance: small models sometimes
     # echo a placeholder token literally ("<Steward>'s Old Hoe"). Strip the angle
     # brackets so the inner word survives ("Steward's Old Hoe") rather than
@@ -322,20 +311,6 @@ def generate_tools(
     biome: str | None = None,
     max_tokens: int = 1000,
 ) -> list[Tool]:
-    """Generate one Tool per entry in `zone_specs`.
-
-    `zone_specs` is the same shape used by `example_settlement_demo.py`:
-    each entry is `(zone_id, display_name, preset, *rest)`. Only the first
-    three fields are sent to the LLM; any AABB tuple at position 3 is ignored.
-
-    Settlement identity + biome are threaded in so tools share narrative
-    context with zones, diaries, and relics. Each Tool carries a `zone_id`
-    used by `match_tools_to_zones` to pair it with the right zone for chest
-    placement.
-
-    Temperature is held lower than `generate_diaries` (0.7 vs 0.9) — for
-    tools we want consistent material/rarity choices, not flowery prose.
-    """
     specs = [(z[0], z[1], z[2]) for z in zone_specs]
     if not specs:
         raise ValueError("zone_specs is empty - no tools to generate")

@@ -51,7 +51,6 @@ RELIC_COUNT = 3
 
 
 def _find_datapack_dir(world_name: str = "New World") -> Path:
-    """Resolve <saves>/<world_name>/datapacks/area_discovery (same logic as example_usage.py)."""
     import platform
     home = Path.home()
     if platform.system() == "Darwin":

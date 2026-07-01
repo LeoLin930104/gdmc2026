@@ -84,7 +84,6 @@ class Diary:
 # ---------------------------------------------------------------------------
 
 def _extract_json_array(text: str) -> list:
-    """Parse the first JSON array in `text`, tolerating surrounding junk."""
     text = text.strip()
     text = re.sub(r"^```(?:json)?\s*", "", text)
     text = re.sub(r"\s*```$", "", text)
@@ -100,14 +99,6 @@ def _extract_json_array(text: str) -> list:
 
 
 def _salvage_json_objects(text: str) -> list[dict]:
-    """Best-effort fallback: pull out each top-level {...} object and parse it
-    individually, skipping any that fail.
-
-    Used when strict array parsing fails on a stochastic LLM glitch (a trailing
-    comma, a dropped value, an unescaped char in ONE entry). Brace-matching that
-    respects strings/escapes lets us recover the well-formed siblings instead of
-    throwing the whole batch away. Returns [] if nothing parses.
-    """
     objs: list[dict] = []
     depth = 0
     obj_start = -1
@@ -145,10 +136,6 @@ _SENTENCE_ENDS = (". ", "! ", "? ", "… ", "; ")
 
 
 def _find_split(text: str, max_chars: int) -> int:
-    """Return the index at which to split `text` so the first chunk is <= max_chars.
-
-    Prefers sentence boundaries, falls back to whitespace, then to a hard cut.
-    """
     window = text[: max_chars + 1]
     best = -1
     for ending in _SENTENCE_ENDS:
@@ -164,13 +151,6 @@ def _find_split(text: str, max_chars: int) -> int:
 
 
 def _split_to_pages(text: str, max_chars: int, max_pages: int) -> list[str]:
-    """Split `text` into <= max_pages chunks, each <= max_chars.
-
-    If the LLM wrote so much that even max_pages can't hold it, drop the
-    trailing remainder at a sentence boundary (the last page is already cut
-    cleanly) and warn. A clean cut reads better than a half-finished thought,
-    and crashing the pipeline over LLM verbosity is worse than a short entry.
-    """
     pages: list[str] = []
     remaining = text.strip()
     while remaining and len(pages) < max_pages:
@@ -190,7 +170,6 @@ def _split_to_pages(text: str, max_chars: int, max_pages: int) -> list[str]:
 
 
 def _normalize_pages(value) -> list[str]:
-    """Coerce LLM `pages` output into a list of <= MAX_PAGES strings, each <= PAGE_CHAR_CAP."""
     if isinstance(value, str):
         chunks = [value]
     elif isinstance(value, list):
@@ -253,16 +232,6 @@ def generate_diaries(
     biome: str | None = None,
     max_tokens: int = 1200,
 ) -> list[Diary]:
-    """Generate one Diary per entry in `zone_specs`.
-
-    `zone_specs` is the same shape used by `example_settlement_demo.py`:
-    each entry is `(zone_id, display_name, preset, *rest)`. Only the first
-    three fields are sent to the LLM; any AABB tuple at position 3 is ignored.
-
-    Settlement identity + biome are threaded in so the diaries share narrative
-    context with zones and relics. Returns Diary objects validated and
-    normalized to <= 2 pages of <= 256 chars each.
-    """
     specs = [(z[0], z[1], z[2]) for z in zone_specs]
     if not specs:
         raise ValueError("zone_specs is empty - no diaries to generate")

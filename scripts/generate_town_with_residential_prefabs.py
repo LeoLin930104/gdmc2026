@@ -4,9 +4,11 @@ from __future__ import annotations
 
 import argparse
 import contextlib
+import hashlib
 import json
 import math
 import os
+import random
 import re
 import sys
 from collections import Counter, defaultdict
@@ -98,6 +100,28 @@ PAD_REPLACEABLE_BLOCKS = {
     "minecraft:fern",
     "minecraft:large_fern",
 }
+
+# Struggling-mood prefab decay (worst tier only): punch a few holes and string
+# cobwebs into each placed house so a run-down town reads as run-down. Mirrors
+# the narrative premade decay pass (narrative/Premade Builds/decay.py).
+DECAY_MOOD = "struggling"
+DECAY_MIN_HOLES, DECAY_MAX_HOLES = 5, 7
+DECAY_MIN_COBWEBS, DECAY_MAX_COBWEBS = 3, 5
+COBWEB_BLOCK = "minecraft:cobweb"
+_DECAY_AIR = {"minecraft:air", "minecraft:cave_air", "minecraft:void_air"}
+# Never punch these out — half a door/bed/container reads as a bug, not decay,
+# and knocking out a light source both darkens the build and looks broken.
+# (Substring match: "lantern" covers sea/soul/jack_o_lantern; "torch" covers
+# wall/soul torches; "lamp" covers redstone_lamp.)
+_DECAY_PROTECT = (
+    "door", "bed", "ladder", "chest", "barrel", "furnace", "sign", "banner",
+    "lectern", "bell", "campfire", "item_frame", "flower_pot",
+    "lantern", "torch", "glowstone", "shroomlight", "froglight", "end_rod",
+    "glow_lichen", "beacon", "conduit", "lamp",
+)
+_DECAY_NEIGHBORS6 = (
+    (1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1),
+)
 
 
 @contextlib.contextmanager
@@ -385,6 +409,17 @@ def _parse_args() -> argparse.Namespace:
         action=argparse.BooleanOptionalAction,
         default=True,
         help="Clear each placed prefab bounding box before writing prefab blocks.",
+    )
+    parser.add_argument(
+        "--prefab-decay",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help=(
+            f"At the worst mood tier ('{DECAY_MOOD}'), punch "
+            f"{DECAY_MIN_HOLES}-{DECAY_MAX_HOLES} holes and string "
+            f"{DECAY_MIN_COBWEBS}-{DECAY_MAX_COBWEBS} cobwebs into each placed "
+            "prefab so run-down towns read as run-down. No effect at other moods."
+        ),
     )
     parser.add_argument("--prefab-clear-extra-y", type=int, default=2)
     parser.add_argument(
@@ -2060,6 +2095,101 @@ def _clear_bbox(
     return count
 
 
+def _resolve_identity_mood(args: argparse.Namespace) -> str | None:
+    """Read the settlement mood tier the narrative persisted, if any."""
+    identity_path = args.upstream_dir.resolve() / "data" / "settlement_identity.json"
+    if not identity_path.exists():
+        return None
+    try:
+        return json.loads(identity_path.read_text(encoding="utf-8")).get("mood_tier")
+    except Exception as exc:  # noqa: BLE001 - a bad identity file must not abort placement
+        print(f"[prefab-decay] could not read mood from {identity_path} ({exc}).")
+        return None
+
+
+def _decay_rng(seed: str) -> random.Random:
+    digest = hashlib.sha256(seed.encode("utf-8")).hexdigest()
+    return random.Random(int(digest, 16))
+
+
+def _plan_prefab_decay(
+    blocks: Sequence[BlueprintBlock],
+    bbox: tuple[int, int, int, int, int, int],
+    seed: str,
+) -> tuple[set[tuple[int, int, int]], set[tuple[int, int, int]]]:
+    """Struggling-tier decay for one prefab, in local (dx, dy, dz) coords.
+
+    Returns (remove, cobwebs): block cells to skip (leaving cleared air -> a
+    hole) and air cells to fill with a cobweb. Mirrors decay.plan_decay: only
+    exposed, non-floor, non-functional blocks are removable, and cobwebs prefer
+    enclosed corners scored against the post-removal shell.
+    """
+    rng = _decay_rng(seed)
+
+    def bid(block: BlueprintBlock) -> str:
+        return str(block["id"]).split("[")[0]
+
+    solid: dict[tuple[int, int, int], str] = {
+        (int(b["dx"]), int(b["dy"]), int(b["dz"])): bid(b)
+        for b in blocks
+        if bid(b) not in _DECAY_AIR
+    }
+    if not solid:
+        return set(), set()
+    floor_y = min(y for _, y, _ in solid)
+
+    def removable(name: str) -> bool:
+        return not any(tok in name for tok in _DECAY_PROTECT)
+
+    candidates = [
+        pos for pos, name in solid.items()
+        if pos[1] > floor_y and removable(name)
+        and any((pos[0] + dx, pos[1] + dy, pos[2] + dz) not in solid
+                for dx, dy, dz in _DECAY_NEIGHBORS6)
+    ]
+    remove: set[tuple[int, int, int]] = set()
+    if candidates:
+        n = rng.randint(DECAY_MIN_HOLES, DECAY_MAX_HOLES)
+        remove = set(rng.sample(candidates, min(n, len(candidates))))
+
+    min_x, min_y, min_z, max_x, max_y, max_z = bbox
+    solid_after = {p for p in solid if p not in remove}
+
+    def in_bbox(p: tuple[int, int, int]) -> bool:
+        return (min_x <= p[0] <= max_x and min_y <= p[1] <= max_y
+                and min_z <= p[2] <= max_z)
+
+    # Cobweb candidates: interior air adjacent to remaining solids, plus the new
+    # holes. Restrict to the (already-cleared) prefab bbox so no web sticks out
+    # into untouched terrain outside the wall.
+    web_candidates: set[tuple[int, int, int]] = {p for p in remove if in_bbox(p)}
+    for (x, y, z) in solid_after:
+        for dx, dy, dz in _DECAY_NEIGHBORS6:
+            p = (x + dx, y + dy, z + dz)
+            if p[1] > floor_y and p not in solid and in_bbox(p):
+                web_candidates.add(p)
+
+    def solid_neighbours(p: tuple[int, int, int]) -> int:
+        x, y, z = p
+        return sum((x + dx, y + dy, z + dz) in solid_after
+                   for dx, dy, dz in _DECAY_NEIGHBORS6)
+
+    cobwebs: set[tuple[int, int, int]] = set()
+    want = rng.randint(DECAY_MIN_COBWEBS, DECAY_MAX_COBWEBS)
+    for threshold in (3, 2, 1):                    # enclosed corners first
+        pool = [p for p in web_candidates
+                if p not in cobwebs and solid_neighbours(p) >= threshold]
+        rng.shuffle(pool)
+        for p in pool:
+            if len(cobwebs) >= want:
+                break
+            cobwebs.add(p)
+        if len(cobwebs) >= want:
+            break
+
+    return remove, cobwebs
+
+
 def _place_blocks(
     *,
     editor: Any,
@@ -2067,9 +2197,14 @@ def _place_blocks(
     origin: np.ndarray,
     blocks: Sequence[BlueprintBlock],
     flush_every: int,
+    skip: set[tuple[int, int, int]] | None = None,
+    cobwebs: set[tuple[int, int, int]] | None = None,
 ) -> int:
+    skip = skip or set()
     count = 0
     for block in blocks:
+        if (int(block["dx"]), int(block["dy"]), int(block["dz"])) in skip:
+            continue  # leave the cleared air -> a visible hole (struggling decay)
         editor.placeBlock(
             _world_pos(origin, block),
             block_cls(str(block["id"]), dict(block.get("props", {}))),
@@ -2077,6 +2212,11 @@ def _place_blocks(
         count += 1
         if flush_every > 0 and count % flush_every == 0:
             editor.flushBuffer()
+    if cobwebs:
+        web = block_cls(COBWEB_BLOCK)
+        for (dx, dy, dz) in cobwebs:
+            editor.placeBlock((int(origin[0]) + dx, dy, int(origin[2]) + dz), web)
+            count += 1
     return count
 
 
@@ -2090,6 +2230,14 @@ def _place_prefabs_live(
     editor = Editor(buffering=True, host=_normalise_host(args.host))
     placed = 0
     cleared = 0
+    holes = 0
+    webs = 0
+    mood = _resolve_identity_mood(args)
+    decay_on = bool(args.prefab_decay) and mood == DECAY_MOOD
+    if args.prefab_decay and mood is not None and not decay_on:
+        print(f"[prefab-decay] mood={mood!r} is not {DECAY_MOOD!r}; prefabs left intact.")
+    elif decay_on:
+        print(f"[prefab-decay] mood={mood!r}: punching holes + stringing cobwebs into prefabs.")
     try:
         for index, placement in enumerate(plan.placements, start=1):
             if args.clear_prefab_volume:
@@ -2101,25 +2249,37 @@ def _place_prefabs_live(
                     extra_y=args.prefab_clear_extra_y,
                 )
                 editor.flushBuffer()
+            skip = webs_set = None
+            if decay_on:
+                skip, webs_set = _plan_prefab_decay(
+                    placement.blocks,
+                    placement.bbox,
+                    seed=f"{placement.state.seed}:{placement.slot.cell_id}:{placement.bbox}",
+                )
+                holes += len(skip)
+                webs += len(webs_set)
             placed += _place_blocks(
                 editor=editor,
                 block_cls=Block,
                 origin=origin,
                 blocks=placement.blocks,
                 flush_every=args.flush_every,
+                skip=skip,
+                cobwebs=webs_set,
             )
             editor.flushBuffer()
+            decay_note = f" decay=[{len(skip)} holes, {len(webs_set)} webs]" if decay_on else ""
             print(
                 "[prefab] "
                 f"{index}/{len(plan.placements)} cell={placement.slot.cell_id} "
                 f"type={placement.slot.building_type} seed={placement.state.seed} "
                 f"level={placement.level} world_bbox={_world_bbox(origin, placement.bbox)} "
-                f"blocks={len(placement.blocks)}"
+                f"blocks={len(placement.blocks)}{decay_note}"
             )
     finally:
         editor.flushBuffer()
         editor.buffering = False
-    return {"placed": placed, "cleared": cleared}
+    return {"placed": placed, "cleared": cleared, "decay_holes": holes, "decay_cobwebs": webs}
 
 
 def _summarise_plan(plan: ResidentialSettlementPlacementPlan) -> dict[str, Any]:
@@ -2253,9 +2413,13 @@ def main() -> int:
             )
         live_stats = _place_prefabs_live(args, origin=origin, plan=plan)
         summary["live"] = live_stats
+        decay_summary = (
+            f" decay_holes={live_stats['decay_holes']} decay_cobwebs={live_stats['decay_cobwebs']}"
+            if live_stats.get("decay_holes") or live_stats.get("decay_cobwebs") else ""
+        )
         print(
             "[prefab] live placement complete: "
-            f"placed={live_stats['placed']} cleared={live_stats['cleared']}"
+            f"placed={live_stats['placed']} cleared={live_stats['cleared']}{decay_summary}"
         )
         if args.town_lighting:
             summary["lighting"] = _deploy_town_lighting_live(

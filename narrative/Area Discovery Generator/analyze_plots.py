@@ -27,8 +27,6 @@ def _find_plots_npz() -> Path:
 
 
 def _items_to_dict(arr) -> dict:
-    """`np.array(list(d.items()), dtype=object)` round-trips to a list of
-    [key, value] pairs — turn it back into a dict. Tolerates an empty array."""
     out = {}
     for pair in arr:
         if len(pair) != 2:
@@ -38,11 +36,6 @@ def _items_to_dict(arr) -> dict:
 
 
 def _largest_rect_from_points(points) -> tuple[int, int]:
-    """Largest axis-aligned (width, depth) rectangle covering only cells present
-    in `points` (a list of (x, z)). Standard max-rectangle-in-histogram over a
-    boolean mask built from the points; handles holes/irregular shapes. Returns
-    (0, 0) if empty. Self-contained — no scipy/Voronoi needed, since farm_plots
-    already holds the setback-respecting painted farm cells."""
     pts = [(int(x), int(z)) for x, z in points]
     if not pts:
         return (0, 0)

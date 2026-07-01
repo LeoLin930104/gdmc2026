@@ -9,7 +9,6 @@ VALID_ROLES = (TOWN_SQUARE, *NON_CENTRAL_ROLES)
 
 
 def _seed_from_name(name: str) -> int:
-    """Stable 32-bit seed from a name (hashlib, not built-in hash which is salted)."""
     digest = hashlib.sha256((name or "").encode("utf-8")).hexdigest()
     return int(digest, 16) % (2 ** 32)
 
@@ -26,17 +25,6 @@ def assign_district_roles(
     settlement_name: str,
     centroid: tuple[float, float] | None = None,
 ) -> dict[int, str]:
-    """Map each zone index -> role.
-
-    `zone_seed_points[i]` is the local (x, z) center of district i. The most
-    central district (nearest `centroid`, default = mean of the seed points)
-    becomes "town_square"; the rest are assigned farm/residential/barracks from
-    a name-seeded shuffle. Guarantees a "farm" district exists whenever there is
-    at least one non-central zone, so the field-bearing district is always
-    defined.
-
-    Returns {} for an empty input. Deterministic for a given (points, name).
-    """
     points = [(float(p[0]), float(p[1])) for p in zone_seed_points]
     n = len(points)
     if n == 0:
@@ -68,12 +56,10 @@ def assign_district_roles(
 
 
 def role_keeps_fields(role: str) -> bool:
-    """True for the one role whose farm cells stay crop fields (the farm district)."""
     return role == "farm"
 
 
 def farm_zone(roles: dict[int, str]) -> int | None:
-    """Return the zone index assigned the farm role, or None if there isn't one."""
     for zone_index, role in sorted(roles.items()):
         if role == "farm":
             return zone_index

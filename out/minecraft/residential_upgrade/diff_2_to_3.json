@@ -4,8 +4,8 @@
     "upgrade_policy": "append_only_residential_cell_schedule",
     "from_level": 2,
     "to_level": 3,
-    "wall_face_preset": "narrative_strained_birch_050.wallface",
-    "wall_face_design_path": "C:\\Users\\haeka\\repos\\gdmc2026\\narrative_wallfaces\\narrative_strained_birch_050.wallface",
+    "wall_face_preset": "narrative_strained_temperate_050.wallface",
+    "wall_face_design_path": "C:\\Users\\haeka\\repos\\gdmc2026\\narrative_wallfaces\\narrative_strained_temperate_050.wallface",
     "entrance_face": "west",
     "interior_style_id": "modern_minimalist+room_variants",
     "layout_variant_id": "wfc_mcts_append_seed_50",
@@ -23,63 +23,63 @@
       "dx": 10,
       "dy": 0,
       "dz": 22,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 10,
       "dy": 0,
       "dz": 23,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 10,
       "dy": 0,
       "dz": 24,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 10,
       "dy": 0,
       "dz": 25,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 10,
       "dy": 0,
       "dz": 26,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 10,
       "dy": 0,
       "dz": 27,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 10,
       "dy": 0,
       "dz": 28,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 10,
       "dy": 0,
       "dz": 29,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 10,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -93,77 +93,77 @@
       "dx": 11,
       "dy": 0,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 0,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 0,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 0,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 0,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 0,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 0,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 0,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 0,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 0,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -240,14 +240,14 @@
       "dx": 12,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 12,
       "dy": 0,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -324,14 +324,14 @@
       "dx": 13,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 13,
       "dy": 0,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -408,14 +408,14 @@
       "dx": 14,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 14,
       "dy": 0,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -492,14 +492,14 @@
       "dx": 15,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 15,
       "dy": 0,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -576,14 +576,14 @@
       "dx": 16,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 16,
       "dy": 0,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -660,14 +660,14 @@
       "dx": 17,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 17,
       "dy": 0,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -744,14 +744,14 @@
       "dx": 18,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 18,
       "dy": 0,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -828,14 +828,14 @@
       "dx": 19,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 19,
       "dy": 0,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -912,14 +912,14 @@
       "dx": 20,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 0,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -996,14 +996,14 @@
       "dx": 21,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 0,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -1080,14 +1080,14 @@
       "dx": 22,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 22,
       "dy": 0,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -1164,14 +1164,14 @@
       "dx": 23,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 23,
       "dy": 0,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -1248,14 +1248,14 @@
       "dx": 24,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 24,
       "dy": 0,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -1332,14 +1332,14 @@
       "dx": 25,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 25,
       "dy": 0,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -1416,14 +1416,14 @@
       "dx": 26,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 26,
       "dy": 0,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -1500,14 +1500,14 @@
       "dx": 27,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 27,
       "dy": 0,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -1584,14 +1584,14 @@
       "dx": 28,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 28,
       "dy": 0,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -1668,161 +1668,161 @@
       "dx": 29,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 29,
       "dy": 0,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 0,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 0,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 0,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 0,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 0,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 0,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 0,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 0,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 0,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 0,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 0,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 0,
       "dz": 22,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 0,
       "dz": 23,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 0,
       "dz": 24,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 0,
       "dz": 25,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 0,
       "dz": 26,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 0,
       "dz": 27,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 0,
       "dz": 28,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 0,
       "dz": 29,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 0,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -1871,7 +1871,7 @@
       "dx": 10,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -1885,77 +1885,77 @@
       "dx": 11,
       "dy": 1,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 1,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 1,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 1,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 1,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 1,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 1,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 1,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 1,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 1,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -1985,7 +1985,7 @@
       "dx": 12,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -2015,7 +2015,7 @@
       "dx": 13,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -2036,7 +2036,7 @@
       "dx": 14,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -2089,7 +2089,7 @@
       "dx": 15,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -2131,7 +2131,7 @@
       "dx": 16,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -2152,7 +2152,7 @@
       "dx": 17,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -2173,7 +2173,7 @@
       "dx": 18,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -2201,7 +2201,7 @@
       "dx": 19,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -2236,14 +2236,14 @@
       "dx": 20,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 1,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -2278,14 +2278,14 @@
       "dx": 21,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 1,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -2306,28 +2306,28 @@
       "dx": 22,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 23,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 24,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 25,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -2345,21 +2345,21 @@
       "dx": 26,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 27,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 28,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -2380,98 +2380,98 @@
       "dx": 29,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 1,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 1,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 1,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 1,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 1,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 1,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 1,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 1,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 1,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 1,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 1,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 1,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -2560,7 +2560,7 @@
       "dx": 10,
       "dy": 2,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -2574,14 +2574,14 @@
       "dx": 11,
       "dy": 2,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 2,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -2630,21 +2630,21 @@
       "dx": 11,
       "dy": 2,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 2,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 2,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -2684,7 +2684,7 @@
       "dx": 12,
       "dy": 2,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -2873,7 +2873,7 @@
       "dx": 19,
       "dy": 2,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -2908,14 +2908,14 @@
       "dx": 20,
       "dy": 2,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 2,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -2950,14 +2950,14 @@
       "dx": 21,
       "dy": 2,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 2,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -2978,7 +2978,7 @@
       "dx": 22,
       "dy": 2,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -3068,21 +3068,21 @@
       "dx": 29,
       "dy": 2,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 2,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 2,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -3131,35 +3131,35 @@
       "dx": 30,
       "dy": 2,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 2,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 2,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 2,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 2,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -3208,7 +3208,7 @@
       "dx": 10,
       "dy": 3,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -3222,14 +3222,14 @@
       "dx": 11,
       "dy": 3,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 3,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -3278,21 +3278,21 @@
       "dx": 11,
       "dy": 3,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 3,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 3,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -3320,7 +3320,7 @@
       "dx": 12,
       "dy": 3,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -3481,7 +3481,7 @@
       "dx": 19,
       "dy": 3,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -3516,14 +3516,14 @@
       "dx": 20,
       "dy": 3,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 3,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -3558,14 +3558,14 @@
       "dx": 21,
       "dy": 3,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 3,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -3586,7 +3586,7 @@
       "dx": 22,
       "dy": 3,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -3660,21 +3660,21 @@
       "dx": 29,
       "dy": 3,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 3,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 3,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -3723,42 +3723,42 @@
       "dx": 30,
       "dy": 3,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 3,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 3,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 3,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 3,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 10,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -3772,77 +3772,77 @@
       "dx": 11,
       "dy": 4,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 4,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 4,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 4,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 4,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 4,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 4,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 4,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 4,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 4,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -3863,7 +3863,7 @@
       "dx": 12,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -3884,7 +3884,7 @@
       "dx": 13,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -3905,7 +3905,7 @@
       "dx": 14,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -3933,7 +3933,7 @@
       "dx": 15,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -3954,7 +3954,7 @@
       "dx": 16,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -3975,7 +3975,7 @@
       "dx": 17,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -3996,7 +3996,7 @@
       "dx": 18,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -4017,7 +4017,7 @@
       "dx": 19,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -4094,14 +4094,14 @@
       "dx": 20,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 4,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -4178,14 +4178,14 @@
       "dx": 21,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 4,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -4206,7 +4206,7 @@
       "dx": 22,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -4227,7 +4227,7 @@
       "dx": 23,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -4266,7 +4266,7 @@
       "dx": 24,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -4296,7 +4296,7 @@
       "dx": 25,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -4317,7 +4317,7 @@
       "dx": 26,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -4338,7 +4338,7 @@
       "dx": 27,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -4359,7 +4359,7 @@
       "dx": 28,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -4380,161 +4380,161 @@
       "dx": 29,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 4,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 4,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 4,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 4,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 4,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 4,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 4,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 4,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 4,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 4,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 4,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 4,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 10,
       "dy": 5,
       "dz": 22,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 10,
       "dy": 5,
       "dz": 23,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 10,
       "dy": 5,
       "dz": 24,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 10,
       "dy": 5,
       "dz": 25,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 10,
       "dy": 5,
       "dz": 26,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 10,
       "dy": 5,
       "dz": 27,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 10,
       "dy": 5,
       "dz": 28,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 10,
       "dy": 5,
       "dz": 29,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 10,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -4548,77 +4548,77 @@
       "dx": 11,
       "dy": 5,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 5,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 5,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 5,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 5,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 5,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 5,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 5,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 5,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 11,
       "dy": 5,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -4695,14 +4695,14 @@
       "dx": 12,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 12,
       "dy": 5,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -4779,14 +4779,14 @@
       "dx": 13,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 13,
       "dy": 5,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -4863,14 +4863,14 @@
       "dx": 14,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 14,
       "dy": 5,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -4947,14 +4947,14 @@
       "dx": 15,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 15,
       "dy": 5,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -5031,14 +5031,14 @@
       "dx": 16,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 16,
       "dy": 5,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -5115,14 +5115,14 @@
       "dx": 17,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 17,
       "dy": 5,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -5199,14 +5199,14 @@
       "dx": 18,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 18,
       "dy": 5,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -5283,14 +5283,14 @@
       "dx": 19,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 19,
       "dy": 5,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -5367,14 +5367,14 @@
       "dx": 20,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 5,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -5451,14 +5451,14 @@
       "dx": 21,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 5,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -5535,14 +5535,14 @@
       "dx": 22,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 22,
       "dy": 5,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -5619,14 +5619,14 @@
       "dx": 23,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 23,
       "dy": 5,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -5675,14 +5675,14 @@
       "dx": 24,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 24,
       "dy": 5,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -5742,14 +5742,14 @@
       "dx": 25,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 25,
       "dy": 5,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -5798,14 +5798,14 @@
       "dx": 26,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 26,
       "dy": 5,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -5854,14 +5854,14 @@
       "dx": 27,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 27,
       "dy": 5,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -5938,14 +5938,14 @@
       "dx": 28,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 28,
       "dy": 5,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -6022,161 +6022,161 @@
       "dx": 29,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 29,
       "dy": 5,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 5,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 5,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 5,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 5,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 5,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 5,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 5,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 5,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 5,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 5,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 5,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 5,
       "dz": 22,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 5,
       "dz": 23,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 5,
       "dz": 24,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 5,
       "dz": 25,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 5,
       "dz": 26,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 5,
       "dz": 27,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 5,
       "dz": 28,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 5,
       "dz": 29,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 5,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -6883,147 +6883,147 @@
       "dx": 21,
       "dy": 6,
       "dz": 11,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 6,
       "dz": 12,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 6,
       "dz": 13,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 6,
       "dz": 14,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 6,
       "dz": 15,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 6,
       "dz": 16,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 6,
       "dz": 17,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 6,
       "dz": 18,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 6,
       "dz": 19,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 6,
       "dz": 20,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 6,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 6,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 6,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 6,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 6,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 6,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 6,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 6,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 6,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 6,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 6,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -7170,14 +7170,14 @@
       "dx": 22,
       "dy": 6,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 22,
       "dy": 6,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -7324,14 +7324,14 @@
       "dx": 23,
       "dy": 6,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 23,
       "dy": 6,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -7450,14 +7450,14 @@
       "dx": 24,
       "dy": 6,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 24,
       "dy": 6,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -7576,14 +7576,14 @@
       "dx": 25,
       "dy": 6,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 25,
       "dy": 6,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -7709,14 +7709,14 @@
       "dx": 26,
       "dy": 6,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 26,
       "dy": 6,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -7842,14 +7842,14 @@
       "dx": 27,
       "dy": 6,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 27,
       "dy": 6,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -7996,14 +7996,14 @@
       "dx": 28,
       "dy": 6,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 28,
       "dy": 6,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -8150,301 +8150,301 @@
       "dx": 29,
       "dy": 6,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 29,
       "dy": 6,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 11,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 12,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 13,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 14,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 15,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 16,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 17,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 18,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 19,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 20,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 6,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 6,
       "dz": 11,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 6,
       "dz": 12,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 6,
       "dz": 13,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 6,
       "dz": 14,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 6,
       "dz": 15,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 6,
       "dz": 16,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 6,
       "dz": 17,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 6,
       "dz": 18,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 6,
       "dz": 19,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 6,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 6,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 6,
       "dz": 22,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 6,
       "dz": 23,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 6,
       "dz": 24,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 6,
       "dz": 25,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 6,
       "dz": 26,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 6,
       "dz": 27,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 6,
       "dz": 28,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 6,
       "dz": 29,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 6,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -8493,175 +8493,175 @@
       "dx": 20,
       "dy": 7,
       "dz": 11,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 7,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 7,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 7,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 11,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 12,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 13,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 14,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 15,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 16,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 17,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 18,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 19,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 20,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 7,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -8710,21 +8710,21 @@
       "dx": 22,
       "dy": 7,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 23,
       "dy": 7,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 24,
       "dy": 7,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -8745,7 +8745,7 @@
       "dx": 25,
       "dy": 7,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -8766,7 +8766,7 @@
       "dx": 26,
       "dy": 7,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -8804,7 +8804,7 @@
       "dx": 27,
       "dy": 7,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -8818,7 +8818,7 @@
       "dx": 28,
       "dy": 7,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -8860,182 +8860,182 @@
       "dx": 29,
       "dy": 7,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 11,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 12,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 13,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 14,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 15,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 16,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 17,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 18,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 19,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 20,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 7,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 7,
       "dz": 11,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 7,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 7,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 7,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -9124,42 +9124,42 @@
       "dx": 20,
       "dy": 8,
       "dz": 11,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 8,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 8,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 8,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 8,
       "dz": 11,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 8,
       "dz": 12,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -9208,28 +9208,28 @@
       "dx": 21,
       "dy": 8,
       "dz": 19,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 8,
       "dz": 20,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 8,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 8,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -9278,21 +9278,21 @@
       "dx": 21,
       "dy": 8,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 8,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 8,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -9341,7 +9341,7 @@
       "dx": 22,
       "dy": 8,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -9492,21 +9492,21 @@
       "dx": 29,
       "dy": 8,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 8,
       "dz": 11,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 8,
       "dz": 12,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -9555,28 +9555,28 @@
       "dx": 30,
       "dy": 8,
       "dz": 19,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 8,
       "dz": 20,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 8,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 8,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -9625,49 +9625,49 @@
       "dx": 30,
       "dy": 8,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 8,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 8,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 8,
       "dz": 11,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 8,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 8,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 8,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -9716,42 +9716,42 @@
       "dx": 20,
       "dy": 9,
       "dz": 11,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 9,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 9,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 9,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 9,
       "dz": 11,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 9,
       "dz": 12,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -9800,28 +9800,28 @@
       "dx": 21,
       "dy": 9,
       "dz": 19,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 9,
       "dz": 20,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 9,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 9,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -9870,21 +9870,21 @@
       "dx": 21,
       "dy": 9,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 9,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 9,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -9935,7 +9935,7 @@
       "dx": 22,
       "dy": 9,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -10032,21 +10032,21 @@
       "dx": 29,
       "dy": 9,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 9,
       "dz": 11,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 9,
       "dz": 12,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -10095,28 +10095,28 @@
       "dx": 30,
       "dy": 9,
       "dz": 19,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 9,
       "dz": 20,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 9,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 9,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -10165,224 +10165,224 @@
       "dx": 30,
       "dy": 9,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 9,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 9,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 9,
       "dz": 11,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 9,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 9,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 9,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 10,
       "dz": 11,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 10,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 10,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 10,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 11,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 12,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 13,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 14,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 15,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 16,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 17,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 18,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 19,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 20,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 10,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -10417,7 +10417,7 @@
       "dx": 22,
       "dy": 10,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -10452,7 +10452,7 @@
       "dx": 23,
       "dy": 10,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -10503,7 +10503,7 @@
       "dx": 24,
       "dy": 10,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -10558,7 +10558,7 @@
       "dx": 25,
       "dy": 10,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -10593,7 +10593,7 @@
       "dx": 26,
       "dy": 10,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -10628,7 +10628,7 @@
       "dx": 27,
       "dy": 10,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -10663,7 +10663,7 @@
       "dx": 28,
       "dy": 10,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -10698,469 +10698,469 @@
       "dx": 29,
       "dy": 10,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 11,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 12,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 13,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 14,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 15,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 16,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 17,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 18,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 19,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 20,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 10,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 10,
       "dz": 11,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 10,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 10,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 10,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 11,
       "dz": 11,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 11,
       "dz": 12,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 11,
       "dz": 13,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 11,
       "dz": 14,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 11,
       "dz": 15,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 11,
       "dz": 16,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 11,
       "dz": 17,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 11,
       "dz": 18,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 11,
       "dz": 19,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 11,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 11,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 11,
       "dz": 22,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 11,
       "dz": 23,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 11,
       "dz": 24,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 11,
       "dz": 25,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 11,
       "dz": 26,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 11,
       "dz": 27,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 11,
       "dz": 28,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 11,
       "dz": 29,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 11,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 11,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 12,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 13,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 14,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 15,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 16,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 17,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 18,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 19,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 20,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 11,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -11307,14 +11307,14 @@
       "dx": 22,
       "dy": 11,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 22,
       "dy": 11,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -11461,14 +11461,14 @@
       "dx": 23,
       "dy": 11,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 23,
       "dy": 11,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -11598,14 +11598,14 @@
       "dx": 24,
       "dy": 11,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 24,
       "dy": 11,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -11724,14 +11724,14 @@
       "dx": 25,
       "dy": 11,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 25,
       "dy": 11,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -11850,14 +11850,14 @@
       "dx": 26,
       "dy": 11,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 26,
       "dy": 11,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -11976,14 +11976,14 @@
       "dx": 27,
       "dy": 11,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 27,
       "dy": 11,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -12130,14 +12130,14 @@
       "dx": 28,
       "dy": 11,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 28,
       "dy": 11,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -12284,371 +12284,371 @@
       "dx": 29,
       "dy": 11,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 29,
       "dy": 11,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 11,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 12,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 13,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 14,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 15,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 16,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 17,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 18,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 19,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 20,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 11,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 11,
       "dz": 11,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 11,
       "dz": 12,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 11,
       "dz": 13,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 11,
       "dz": 14,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 11,
       "dz": 15,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 11,
       "dz": 16,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 11,
       "dz": 17,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 11,
       "dz": 18,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 11,
       "dz": 19,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 11,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 11,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 11,
       "dz": 22,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 11,
       "dz": 23,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 11,
       "dz": 24,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 11,
       "dz": 25,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 11,
       "dz": 26,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 11,
       "dz": 27,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 11,
       "dz": 28,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 11,
       "dz": 29,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 11,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 12,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 12,
       "dz": 22,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 12,
       "dz": 23,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 12,
       "dz": 24,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 12,
       "dz": 25,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 12,
       "dz": 26,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 12,
       "dz": 27,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 12,
       "dz": 28,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 12,
       "dz": 29,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 12,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -12795,77 +12795,77 @@
       "dx": 21,
       "dy": 12,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 12,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 12,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 12,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 12,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 12,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 12,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 12,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 12,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 12,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 12,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -12956,7 +12956,7 @@
       "dx": 22,
       "dy": 12,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -13019,14 +13019,14 @@
       "dx": 22,
       "dy": 12,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 22,
       "dy": 12,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -13117,7 +13117,7 @@
       "dx": 23,
       "dy": 12,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -13180,14 +13180,14 @@
       "dx": 23,
       "dy": 12,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 23,
       "dy": 12,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -13278,7 +13278,7 @@
       "dx": 24,
       "dy": 12,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -13320,14 +13320,14 @@
       "dx": 24,
       "dy": 12,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 24,
       "dy": 12,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -13418,7 +13418,7 @@
       "dx": 25,
       "dy": 12,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -13453,14 +13453,14 @@
       "dx": 25,
       "dy": 12,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 25,
       "dy": 12,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -13551,7 +13551,7 @@
       "dx": 26,
       "dy": 12,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -13586,14 +13586,14 @@
       "dx": 26,
       "dy": 12,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 26,
       "dy": 12,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -13684,7 +13684,7 @@
       "dx": 27,
       "dy": 12,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -13719,14 +13719,14 @@
       "dx": 27,
       "dy": 12,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 27,
       "dy": 12,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -13817,7 +13817,7 @@
       "dx": 28,
       "dy": 12,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -13880,14 +13880,14 @@
       "dx": 28,
       "dy": 12,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 28,
       "dy": 12,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -13978,7 +13978,7 @@
       "dx": 29,
       "dy": 12,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -14041,14 +14041,14 @@
       "dx": 29,
       "dy": 12,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 29,
       "dy": 12,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -14195,147 +14195,147 @@
       "dx": 30,
       "dy": 12,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 12,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 12,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 12,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 12,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 12,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 12,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 12,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 12,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 12,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 12,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 12,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 12,
       "dz": 22,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 12,
       "dz": 23,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 12,
       "dz": 24,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 12,
       "dz": 25,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 12,
       "dz": 26,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 12,
       "dz": 27,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 12,
       "dz": 28,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 12,
       "dz": 29,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 12,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -14790,133 +14790,133 @@
       "dx": 20,
       "dy": 13,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 13,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 13,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 13,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 13,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 13,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 13,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 13,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 13,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 13,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 13,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 13,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 13,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 13,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 22,
       "dy": 13,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 22,
       "dy": 13,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 23,
       "dy": 13,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 23,
       "dy": 13,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 24,
       "dy": 13,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -14932,175 +14932,175 @@
       "dx": 24,
       "dy": 13,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 25,
       "dy": 13,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 25,
       "dy": 13,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 26,
       "dy": 13,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 26,
       "dy": 13,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 27,
       "dy": 13,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 27,
       "dy": 13,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 28,
       "dy": 13,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 28,
       "dy": 13,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 29,
       "dy": 13,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 29,
       "dy": 13,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 13,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 13,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 13,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 13,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 13,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 13,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 13,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 13,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 13,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 13,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 13,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 13,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 13,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 13,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
@@ -15359,35 +15359,35 @@
       "dx": 20,
       "dy": 14,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 14,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 14,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 14,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 14,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -15436,35 +15436,35 @@
       "dx": 21,
       "dy": 14,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 14,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 14,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 22,
       "dy": 14,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 22,
       "dy": 14,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -15555,35 +15555,35 @@
       "dx": 29,
       "dy": 14,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 29,
       "dy": 14,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 14,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 14,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 14,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -15632,70 +15632,70 @@
       "dx": 30,
       "dy": 14,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 14,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 14,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 14,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 14,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 15,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 15,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 15,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 15,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 15,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -15744,35 +15744,35 @@
       "dx": 21,
       "dy": 15,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 15,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 15,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 22,
       "dy": 15,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 22,
       "dy": 15,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -15863,35 +15863,35 @@
       "dx": 29,
       "dy": 15,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 29,
       "dy": 15,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 15,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 15,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 15,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -15940,511 +15940,511 @@
       "dx": 30,
       "dy": 15,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 15,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 15,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 15,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 15,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 16,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 16,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 16,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 16,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 16,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 16,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 16,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 16,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 16,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 16,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 16,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 16,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 16,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 16,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 22,
       "dy": 16,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 22,
       "dy": 16,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 23,
       "dy": 16,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 23,
       "dy": 16,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 24,
       "dy": 16,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 24,
       "dy": 16,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 25,
       "dy": 16,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 25,
       "dy": 16,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 26,
       "dy": 16,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 26,
       "dy": 16,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 27,
       "dy": 16,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 27,
       "dy": 16,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 28,
       "dy": 16,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 28,
       "dy": 16,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 29,
       "dy": 16,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 29,
       "dy": 16,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 16,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 16,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 16,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 16,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 16,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 16,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 16,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 16,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 16,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 16,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 16,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 16,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 16,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 16,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 17,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 17,
       "dz": 22,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 17,
       "dz": 23,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 17,
       "dz": 24,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 17,
       "dz": 25,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 17,
       "dz": 26,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 17,
       "dz": 27,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 17,
       "dz": 28,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 17,
       "dz": 29,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 20,
       "dy": 17,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 17,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 17,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 17,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 17,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 17,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 17,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 17,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 17,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 17,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 17,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 17,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 21,
       "dy": 17,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 22,
       "dy": 17,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 22,
       "dy": 17,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -16507,28 +16507,28 @@
       "dx": 22,
       "dy": 17,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 22,
       "dy": 17,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 23,
       "dy": 17,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 23,
       "dy": 17,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -16591,28 +16591,28 @@
       "dx": 23,
       "dy": 17,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 23,
       "dy": 17,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 24,
       "dy": 17,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 24,
       "dy": 17,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -16675,28 +16675,28 @@
       "dx": 24,
       "dy": 17,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 24,
       "dy": 17,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 25,
       "dy": 17,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 25,
       "dy": 17,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -16759,28 +16759,28 @@
       "dx": 25,
       "dy": 17,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 25,
       "dy": 17,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 26,
       "dy": 17,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 26,
       "dy": 17,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -16843,28 +16843,28 @@
       "dx": 26,
       "dy": 17,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 26,
       "dy": 17,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 27,
       "dy": 17,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 27,
       "dy": 17,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -16927,28 +16927,28 @@
       "dx": 27,
       "dy": 17,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 27,
       "dy": 17,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 28,
       "dy": 17,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 28,
       "dy": 17,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -17011,28 +17011,28 @@
       "dx": 28,
       "dy": 17,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 28,
       "dy": 17,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 29,
       "dy": 17,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 29,
       "dy": 17,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
@@ -17095,168 +17095,168 @@
       "dx": 29,
       "dy": 17,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 29,
       "dy": 17,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 17,
       "dz": 20,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 17,
       "dz": 21,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 17,
       "dz": 22,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 17,
       "dz": 23,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 17,
       "dz": 24,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 17,
       "dz": 25,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 17,
       "dz": 26,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 17,
       "dz": 27,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 17,
       "dz": 28,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 17,
       "dz": 29,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 17,
       "dz": 30,
-      "id": "minecraft:birch_planks",
+      "id": "minecraft:oak_planks",
       "props": {}
     },
     {
       "dx": 30,
       "dy": 17,
       "dz": 31,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 17,
       "dz": 21,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 17,
       "dz": 22,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 17,
       "dz": 23,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 17,
       "dz": 24,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 17,
       "dz": 25,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 17,
       "dz": 26,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 17,
       "dz": 27,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 17,
       "dz": 28,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 17,
       "dz": 29,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {
       "dx": 31,
       "dy": 17,
       "dz": 30,
-      "id": "minecraft:spruce_log",
+      "id": "minecraft:dark_oak_log",
       "props": {}
     },
     {

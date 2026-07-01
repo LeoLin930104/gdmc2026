@@ -29,12 +29,6 @@ def generate_zone_subtitle(
     biome: str | None = None,
     max_tokens: int = 60,
 ) -> str:
-    """Return a one-line subtitle for the given zone type + settlement context.
-
-    `biome` falls back to `settlement.biome` when not passed; when truthy,
-    its trait hint is injected into the prompt so the subtitle references
-    biome-appropriate imagery.
-    """
     effective_biome = biome or settlement.biome
     hint = biome_hint(effective_biome)
     biome_line = f"Biome: {hint}.\n" if hint else ""

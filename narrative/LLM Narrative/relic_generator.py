@@ -96,7 +96,6 @@ the wolf-watch)."""
 
 
 def _extract_json_array(text: str) -> list:
-    """Parse the first JSON array in `text`, tolerating surrounding junk."""
     text = text.strip()
     text = re.sub(r"^```(?:json)?\s*", "", text)
     text = re.sub(r"\s*```$", "", text)
@@ -112,14 +111,6 @@ def _extract_json_array(text: str) -> list:
 
 
 def _salvage_json_objects(text: str) -> list[dict]:
-    """Best-effort fallback: pull out each top-level {...} object and parse it
-    individually, skipping any that fail.
-
-    Used when strict array parsing fails on a stochastic LLM glitch (a trailing
-    comma, a dropped value, an unescaped char in ONE entry). Brace-matching that
-    respects strings/escapes lets us recover the well-formed siblings instead of
-    throwing the whole batch away. Returns [] if nothing parses.
-    """
     objs: list[dict] = []
     depth = 0
     obj_start = -1
@@ -154,7 +145,6 @@ def _salvage_json_objects(text: str) -> list[dict]:
 
 
 def _normalize(relic: dict) -> None:
-    """Coerce common LLM drift back into the schema shape."""
     for field in ("lore", "description"):
         value = relic.get(field)
         if isinstance(value, list):
@@ -185,19 +175,6 @@ def generate_relics(
     settlement: Settlement | None = None,
     biome: str | None = None,
 ) -> list[dict]:
-    """Generate `count` relic objects themed around `theme`.
-
-    If `settlement` is provided, its name/era/founding story are prepended to
-    the user prompt so relic lore coheres with the rest of the settlement's
-    narrative (see CLAUDE.md — "Consistency constraint").
-
-    If `biome` is provided (or inherited from `settlement.biome`), its trait
-    hint is prepended to ground relic materials/imagery in the Minecraft
-    world location.
-
-    Returns a list of dicts matching the relics.json schema
-    (ready to drop into {"relics": [...]} and load via place_relic_chest.load_relics).
-    """
     effective_biome = biome or (settlement.biome if settlement is not None else None)
     hint = biome_hint(effective_biome)
     biome_block = f"Biome: {hint}\n\n" if hint else ""

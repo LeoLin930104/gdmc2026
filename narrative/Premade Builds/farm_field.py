@@ -48,12 +48,6 @@ _EMPTY_FILL = {
 
 
 def farm_layout(cells):
-    """Split a farm cell into (cell_set, border, water, crop_land).
-
-    Byte-for-byte the same partition builder.py used, so the narrative field
-    occupies exactly the footprint the generator would have: a 1-cell border
-    ring, a single central water channel along the longer axis, crops elsewhere.
-    """
     cell_set = {(int(x), int(z)) for x, z in cells}
     if not cell_set:
         return cell_set, set(), set(), set()
@@ -100,7 +94,6 @@ def _weighted_choice(pool, rng: random.Random):
 
 
 def _crop_state(crop: str, ripe_age: int, mood: str, rng: random.Random) -> dict:
-    """Block-state for a crop, age scaled by mood (struggling = stunted)."""
     if mood == "struggling":
         age = rng.randint(1, max(1, ripe_age // 2))
     elif mood == "strained":
@@ -119,14 +112,6 @@ def place_farm_field(
     seed_name: str,
     clear_height: int = 5,
 ) -> dict:
-    """Render one farm cell as a mood-scaled crop field via gdpc.
-
-    `cells` are the cell's local (x, z) positions; `origin` is the npz [ox,_,oz].
-    For each cell we lay its surface block at the heightmap grade, clear the
-    column above (wiping any leftover generator grass/terrain), and place the
-    border log / water / crop on top — each gated by the mood tables above.
-    Returns a stats dict.
-    """
     from gdpc import Block  # lazy
 
     ox, oz = int(origin[0]), int(origin[2])

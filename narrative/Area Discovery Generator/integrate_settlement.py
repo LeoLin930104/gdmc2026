@@ -40,7 +40,6 @@ _DEFAULT_NPZ = (
 
 
 def _find_settlement_npz() -> Path:
-    """Locate settlement_data.npz, with a clear error if the generator hasn't run."""
     if _DEFAULT_NPZ.exists():
         return _DEFAULT_NPZ
     # Fall back to a recursive search in case the folder layout differs.
@@ -56,7 +55,6 @@ def _find_settlement_npz() -> Path:
 
 
 def _find_datapack_dir(world_name: str = "New World") -> Path:
-    """Resolve <saves>/<world_name>/datapacks/area_discovery (same logic as example_usage.py)."""
     import platform
     home = Path.home()
     if platform.system() == "Darwin":
@@ -83,11 +81,6 @@ def _find_datapack_dir(world_name: str = "New World") -> Path:
 
 
 def _detect_biome() -> str | None:
-    """Best-effort: sample the player's live biome via the GDMC HTTP interface.
-
-    Returns None (settlement still generates fine) if gdpc isn't installed or no
-    server/player is available — the .npz carries no biome of its own.
-    """
     try:
         from gdpc import Editor
         from biome_context import sample_biome_at_player
@@ -105,14 +98,6 @@ def main(
     settlement=None,
     biome: str | None = None,
 ) -> None:
-    """Wire the Area Discovery datapack onto a gdmc2026 layout.
-
-    `settlement` (optional): a pre-built Settlement to reuse — pass this when an
-    orchestrator has already generated the shared identity + pre-passes, so the
-    datapack and any other narrative features share ONE instance (the core
-    architectural rule). When None, a Settlement is generated here (goal +
-    shared-events pre-passes), grounded in `biome` or the live player biome.
-    """
     npz_path = Path(npz) if npz else _find_settlement_npz()
     if npz and not npz_path.exists():
         raise FileNotFoundError(f"--npz path does not exist: {npz_path}")

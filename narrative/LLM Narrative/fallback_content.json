@@ -121,6 +121,30 @@
       "lore": "Its slow tick is the only sound on a still night, when every ear is straining for the bells.",
       "color": "yellow",
       "rarity": "Common"
+    },
+    {
+      "name": "Aldra's Bucket-Line Token",
+      "item_type": "minecraft:bucket",
+      "description": "Passed down the line at the first ring of the bells.",
+      "lore": "Whoever holds it leads the water-chain, and answers for the last bucket.",
+      "color": "white",
+      "rarity": "Common"
+    },
+    {
+      "name": "The First Recast Clapper",
+      "item_type": "minecraft:iron_ingot",
+      "description": "The tongue of the bell that rang false, reforged true.",
+      "lore": "Kept apart from the new bell, so its old lie can never sound again.",
+      "color": "white",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Spring-Blessed Copper Cup",
+      "item_type": "minecraft:copper_ingot",
+      "description": "Dipped once a year in the cold water that would not burn.",
+      "lore": "The council drinks from it at the founding feast, oldest hand first.",
+      "color": "gold",
+      "rarity": "Uncommon"
     }
   ],
 
@@ -239,6 +263,41 @@
       "author_role": "angler",
       "book_title": "Spring-Mouth Log",
       "page": "Cold work at the spring-mouth before dawn, but the cistern crews want something hot at dusk. The pool sinks lower each week, same as the long dry summer of '31. Aldra says fish while we still can. I keep my bell on the bank."
+    },
+    {
+      "preset": "town",
+      "author_name": "Smith Hedda",
+      "author_role": "smith",
+      "book_title": "The Forge Book",
+      "page": "Recast a cracked bell today and reforged two hoes for the cistern crews, though we ran short of ore again by dusk. In Emberwell even fire is rationed, and I count my coals twice each night. Every bell I hang is one more nose on the wind against the smoke."
+    },
+    {
+      "preset": "ruins",
+      "author_name": "Sael",
+      "author_role": "salvager",
+      "book_title": "Cinderrow Ledger",
+      "page": "Bryn and I worked the charred timbers again, pulling nails the Great Burn spared. Folk call Cinderrow unlucky, but we were wed by the cold spring and count ourselves blessed. The cistern pays in charcoal, so we dig, and ring the dead doorway's bell coming home."
+    },
+    {
+      "preset": "landmark",
+      "author_name": "Warden Cael",
+      "author_role": "hearth-warden",
+      "book_title": "Wardens' Rise Notes",
+      "page": "Took the high watch on Wardens' Rise, where you can see every roof in Emberwell at once. It is a fine, terrible thing, to hold a whole town under your eye and know one spark could take it. I sound the horn only for true smoke, so no warden ever cries wolf again."
+    },
+    {
+      "preset": "dungeon",
+      "author_name": "Wren",
+      "author_role": "pit-hand",
+      "book_title": "The Sunk Pits",
+      "page": "Down the old pits with Tomas, shoring beams the collapse left groaning. We haul out what ore we can for Hedda's forge and the cistern's iron. It is dark and the air bites, but the spring remembers what the fire forgets, and I mean to be here to see it filled."
+    },
+    {
+      "preset": "town",
+      "author_name": "Eda's Daughter",
+      "author_role": "apprentice",
+      "book_title": "Learning the Tally",
+      "page": "Mother is teaching me the cistern tally -- so many hands a day, so much water held against the dry months. My fingers are stained with ink and ash and I am proud of it. She says a good warden is only counting that never lets its attention wander from the wind."
     }
   ]
 }

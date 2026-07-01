@@ -1,0 +1,303 @@
+{
+  "_comment": "Offline fallback story 2 of 3. Selected when LLM_FALLBACK_STORY=2. One coherent settlement -- Saltmarrow -- matching every generator's schema, so the offline pipeline reads as a single place. theme/biome from the caller override the settlement's theme/biome fields; the authored fiction stays otherwise.",
+
+  "settlement": {
+    "name": "Saltmarrow",
+    "era": "the third generation since the north levee was raised",
+    "founding_story": "Saltmarrow spread its white salt-pans across the tidal flats where a river met the sea, and grew rich drying brine under the wind. When the spring tides broke the old dyke and drowned the low fields, the survivors raised a greater levee of stone and packed earth, and hung a tide-bell at every jetty to be rung when the water climbs too fast.",
+    "primary_industry": "salt-panning and tidal fishing",
+    "central_virtue": "patience",
+    "collective_fear": "the equinox tides breaking the levee again",
+    "historical_wound": "the Drowning that took the low fields",
+    "motif": "white salt and tide-bells",
+    "worldview": "the sea gives and the sea takes back",
+    "social_structure": "a guild of pan-masters under the levee-warden",
+    "outsider_reputation": "weathered, hospitable, and quietly superstitious"
+  },
+
+  "goal": {
+    "summary": "raise the north levee a course higher before the equinox tides",
+    "stakes": "one more Drowning and the salt-pans would be lost to the sea for good."
+  },
+
+  "shared_events": [
+    "the night the tide-bells all rang at once",
+    "the Drowning of the low fields",
+    "the ferryman's last crossing in the storm",
+    "the summer the pans yielded double salt",
+    "the equinox the levee held by a handspan"
+  ],
+
+  "mood_tier": "thriving",
+
+  "subtitles": {
+    "town": "where the salt-pans whiten under a steady wind",
+    "nature": "the tidal flats, counted by the moon",
+    "ruins": "the drowned low fields, still marked at low water",
+    "landmark": "the great north levee that turned the sea",
+    "dungeon": "the cistern-tunnels beneath the dyke",
+    "default": "a tide-bell waits at every jetty"
+  },
+
+  "district_names": [
+    { "name": "The Panyards",     "preset": "town" },
+    { "name": "Tideflat",         "preset": "nature" },
+    { "name": "The Drowned Acre", "preset": "ruins" },
+    { "name": "North Levee",      "preset": "landmark" },
+    { "name": "Brinegate",        "preset": "town" },
+    { "name": "The Cistern-Deep", "preset": "dungeon" },
+    { "name": "Ferryman's Rest",  "preset": "landmark" }
+  ],
+
+  "relics": [
+    {
+      "name": "The Levee-Warden's Tide Charm",
+      "item_type": "minecraft:heart_of_the_sea",
+      "description": "Worn by whoever answers for the north dyke.",
+      "lore": "It has hung at the levee gate since the night the tide-bells all rang at once.",
+      "color": "aqua",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "Old Marsh's Nautilus Horn",
+      "item_type": "minecraft:nautilus_shell",
+      "description": "Sounded to call the pan-hands off the flats.",
+      "lore": "Its low note carries further than any voice when the water starts to climb.",
+      "color": "aqua",
+      "rarity": "Rare"
+    },
+    {
+      "name": "The Drowning Tally",
+      "item_type": "minecraft:book",
+      "description": "Every field lost, every soul the sea gave back.",
+      "lore": "Kept since the Drowning so no name from the low fields is ever forgotten.",
+      "color": "yellow",
+      "rarity": "Common"
+    },
+    {
+      "name": "Pan-Master's Seal of Saltmarrow",
+      "item_type": "minecraft:prismarine_shard",
+      "description": "Pressed into every sealed sack of guild salt.",
+      "lore": "Only a master of the panyards may carry it, and only one lives at a time.",
+      "color": "aqua",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Widow Sella's Tide-Bell",
+      "item_type": "minecraft:bell",
+      "description": "The first bell recast after the Drowning.",
+      "lore": "She rang it until her arms failed the night the levee held by a handspan.",
+      "color": "gold",
+      "rarity": "Rare"
+    },
+    {
+      "name": "The First Salt-Brick",
+      "item_type": "minecraft:prismarine_crystals",
+      "description": "Pressed from the very first pan to dry clean.",
+      "lore": "White as bone and hard as stone, it is passed hand to hand at the salt-blessing.",
+      "color": "white",
+      "rarity": "Common"
+    },
+    {
+      "name": "Tern-Feather of the North Levee",
+      "item_type": "minecraft:feather",
+      "description": "Dropped where the terns nest on the new dyke.",
+      "lore": "The pan-hands say a tern on the levee means the tide will be kind.",
+      "color": "white",
+      "rarity": "Common"
+    },
+    {
+      "name": "The Ferryman's Lantern",
+      "item_type": "minecraft:lantern",
+      "description": "Carried on the last crossing before the storm.",
+      "lore": "It was found still burning, wedged in the reeds, three days after he was lost.",
+      "color": "gold",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Brined Compass of Old Marsh",
+      "item_type": "minecraft:compass",
+      "description": "Salt-fogged but never once wrong on the flats.",
+      "lore": "Old Marsh reads the tide by it when the fog swallows the jetties whole.",
+      "color": "aqua",
+      "rarity": "Rare"
+    },
+    {
+      "name": "The Equinox Trident",
+      "item_type": "minecraft:trident",
+      "description": "Set above the levee gate each equinox.",
+      "lore": "Raised to the climbing sea as a promise that Saltmarrow will not drown twice.",
+      "color": "aqua",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "Scrimshaw Scute",
+      "item_type": "minecraft:turtle_scute",
+      "description": "Scrimmed with the map of the old low fields.",
+      "lore": "The lines mark acres now under water at every high tide.",
+      "color": "green",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Pickled Marsh-Light",
+      "item_type": "minecraft:glow_ink_sac",
+      "description": "Kept in brine to light the cistern-tunnels.",
+      "lore": "It glows the pale green of the flats at dusk, when the salt goes blue.",
+      "color": "aqua",
+      "rarity": "Common"
+    }
+  ],
+
+  "tools": [
+    {
+      "preset": "town",
+      "name": "Pan-Master Sella's Salt-Rake",
+      "item_type": "minecraft:iron_hoe",
+      "description": "Draws the drying salt into ridges across the pan.",
+      "lore": "Worn thin at the edge from forty seasons of the same slow stroke.",
+      "color": "green",
+      "rarity": "Uncommon"
+    },
+    {
+      "preset": "nature",
+      "name": "Old Marsh's Patient Rod",
+      "item_type": "minecraft:fishing_rod",
+      "description": "Worked the tide-channels between the flats.",
+      "lore": "He fishes the ebb so the panyards have something hot at the turn of the tide.",
+      "color": "yellow",
+      "rarity": "Common"
+    },
+    {
+      "preset": "ruins",
+      "name": "Drowned-Field Salvage Shovel",
+      "item_type": "minecraft:iron_shovel",
+      "description": "Digs the old fields at the lowest water.",
+      "lore": "There is good black earth down there still, for those who read the tide right.",
+      "color": "yellow",
+      "rarity": "Old"
+    },
+    {
+      "preset": "landmark",
+      "name": "The Levee Blessing-Oar",
+      "item_type": "minecraft:golden_hoe",
+      "description": "Dipped in the sea at the yearly levee-blessing.",
+      "lore": "Gilded by the guild the season the pans yielded double salt.",
+      "color": "aqua",
+      "rarity": "Rare"
+    },
+    {
+      "preset": "dungeon",
+      "name": "Cistern-Diver's Pick",
+      "item_type": "minecraft:iron_pickaxe",
+      "description": "For clearing the tunnels beneath the dyke.",
+      "lore": "The only tool trusted below when the tide is pressing at the stone.",
+      "color": "green",
+      "rarity": "Uncommon"
+    },
+    {
+      "preset": "town",
+      "name": "Netmaker Doon's Shears",
+      "item_type": "minecraft:shears",
+      "description": "Cuts and mends the drying-nets on the jetties.",
+      "lore": "Doon has re-hung every net in Brinegate at least twice.",
+      "color": "yellow",
+      "rarity": "Common"
+    },
+    {
+      "preset": "nature",
+      "name": "Saltern Tide-Hook",
+      "item_type": "minecraft:fishing_rod",
+      "description": "Lifts the sluice-gates on the turning tide.",
+      "lore": "Timed wrong, it floods a week's salt; the pan-hands time it right.",
+      "color": "aqua",
+      "rarity": "Common"
+    }
+  ],
+
+  "diaries": [
+    {
+      "preset": "town",
+      "author_name": "Pan-Master Sella",
+      "author_role": "pan-master",
+      "book_title": "The Salt Ledger",
+      "page": "Good wind three days running and the pans came up white and clean. If it holds to the equinox we will have salt enough to trade for the levee-stone. The sea gives, this week; I do not forget that it takes back."
+    },
+    {
+      "preset": "nature",
+      "author_name": "Old Marsh",
+      "author_role": "fisher",
+      "book_title": "Tide-Channel Log",
+      "page": "Fished the ebb before dawn while the flats went blue with salt. The terns are nesting on the new levee, which the old hands call a kindly sign. I read the water by my brined compass when the fog will not lift."
+    },
+    {
+      "preset": "ruins",
+      "author_name": "Doon",
+      "author_role": "salvager",
+      "book_title": "Drowned-Acre Notes",
+      "page": "Went out at the lowest water to dig the old low fields. There is black earth down there yet, and now and then a doorstep the Drowning did not carry off. I mend nets by day and salvage by moon, and ring my jetty-bell coming home."
+    },
+    {
+      "preset": "landmark",
+      "author_name": "Levee-Warden Kael",
+      "author_role": "levee-warden",
+      "book_title": "By the North Dyke",
+      "page": "Walked the whole north levee at first light, sounding the stone for soft courses. We must raise it a full course before the equinox tides -- the guild grumbles at the labour, but they were here the night it held by a handspan. The tide gives no second warning."
+    },
+    {
+      "preset": "dungeon",
+      "author_name": "Bry",
+      "author_role": "cistern-diver",
+      "book_title": "Below the Dyke",
+      "page": "Down clearing the cistern-tunnels again, where the sea presses at the joints. Cold, black work, and you learn to trust your marsh-light over your own eyes. We shore what we can so the levee has dry footing when the water climbs."
+    },
+    {
+      "preset": "town",
+      "author_name": "Wren",
+      "author_role": "settler",
+      "book_title": "Brinegate Days",
+      "page": "Another day at the pans, raking salt with everyone who can stand. I keep a tide-bell by our door as my grandmother did, and count the moon like she taught me. We were drowned out once; we will not be caught sleeping twice."
+    },
+    {
+      "preset": "nature",
+      "author_name": "Halla",
+      "author_role": "netmaker",
+      "book_title": "Jetty Log",
+      "page": "Re-hung the drying-nets after the high wind took two down. The cord costs dear now that the low fields are gone to salt water, so I splice more than I cut. Doon says a mended net still catches fish, and he is right, as usual."
+    },
+    {
+      "preset": "ruins",
+      "author_name": "Ott",
+      "author_role": "salt-panner",
+      "book_title": "Low-Field Book",
+      "page": "Worked a pan out on the very edge of the Drowned Acre today. Uncle Marl farmed that ground before the sea took it; now I dry salt where his barley stood. It is not a sad thing, only a turning. The sea gives and the sea takes back."
+    },
+    {
+      "preset": "landmark",
+      "author_name": "Sister Vane",
+      "author_role": "bell-keeper",
+      "book_title": "The Tide-Watch",
+      "page": "Kept the levee-gate bell through the spring tides, ringing the count as the water rose. It held, thank the old dyke and the new. I oil the clapper nightly so it will never fail on the night it is most needed."
+    },
+    {
+      "preset": "dungeon",
+      "author_name": "Grim",
+      "author_role": "tunnel-warden",
+      "book_title": "The Cistern-Deep",
+      "page": "The levee-tunnels take on more water each equinox, and we bail and shore and bail again. It is thankless below, but a wet foundation is a drowned town. I mark the high-water line on the stone each season and pray it does not climb."
+    },
+    {
+      "preset": "town",
+      "author_name": "Nessa",
+      "author_role": "apprentice",
+      "book_title": "Learning the Pans",
+      "page": "Sella is teaching me to read the salt -- when it is ready, when the wind will spoil it, when to draw it in. My hands are cracked white with brine and I am proud of it. She says a good pan-master is only patience with a rake."
+    },
+    {
+      "preset": "nature",
+      "author_name": "Tam",
+      "author_role": "tern-watcher",
+      "book_title": "Flat-Country Log",
+      "page": "The terns came back to the levee earlier than last year, which Old Marsh calls a fair omen for the tides. I count their nests each morning and mark them so the salvagers keep clear. Where the birds trust the dyke, so may we."
+    }
+  ]
+}

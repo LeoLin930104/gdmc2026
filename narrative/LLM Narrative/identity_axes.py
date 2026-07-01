@@ -47,24 +47,6 @@ _AXIS_LABELS: tuple[tuple[str, str], ...] = (
 
 
 def axes_hint(settlement: "Settlement") -> str:
-    """Return a compact identity block for prompt injection, or "" if empty.
-
-    Skips any axis whose value is None or empty. Returns "" when no axis is
-    populated, so hand-constructed Settlements add zero prompt noise — same
-    defensive contract as `biome_context.biome_hint`.
-
-    Example output (with trailing newline omitted):
-
-      Identity:
-        Industry: mining
-        Virtue: discipline
-        Fear: collapse
-        Wound: the deep shaft cave-in of '47
-        Motif: spiral carvings
-        Worldview: "the mountain remembers"
-        Social: clan-based
-        Reputation: stubborn
-    """
     lines: list[str] = []
     for attr, label in _AXIS_LABELS:
         value = getattr(settlement, attr, None)

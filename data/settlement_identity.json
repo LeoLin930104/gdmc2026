@@ -1,7 +1,7 @@
 {
   "theme": "Fantasy",
-  "biome": "minecraft:old_growth_birch_forest",
-  "biome_family": "birch",
+  "biome": "minecraft:temperate",
+  "biome_family": "temperate",
   "mood_tier": "strained",
   "name": "Emberwell",
   "era": "two generations after the Great Burn"

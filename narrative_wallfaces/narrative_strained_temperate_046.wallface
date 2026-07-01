@@ -1,7 +1,8 @@
 wallface-v1
 size 10 6
-symbol A minecraft:glass_pane
-symbol B minecraft:white_concrete
+symbol A minecraft:dark_oak_log
+symbol B minecraft:glass_pane
+symbol C minecraft:oak_planks
 
 layer -2
 ..........
@@ -20,20 +21,20 @@ layer -1
 ..........
 
 layer 0
-BBBBBBBBBB
-BBBBBBBBBB
-BBAAAAAABB
-BBAAAAAABB
-BBBBBBBBBB
-BBBBBBBBBB
+CCCCCCCCCC
+CCCCCCCCCC
+CCBBBBBBCC
+CCBBBBBBCC
+CCCCCCCCCC
+CCCCCCCCCC
 
 layer 1
-..........
-..........
-..........
-..........
-..........
-..........
+AAAAAAAAAA
+A........A
+A........A
+A........A
+A........A
+AAAAAAAAAA
 
 layer 2
 ..........

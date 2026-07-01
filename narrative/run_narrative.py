@@ -58,12 +58,6 @@ def load_identity() -> dict | None:
 # steps
 
 def run_generator() -> None:
-    """Run the gdmc2026 generator (its own main.py) as a subprocess.
-
-    The generator uses relative 'data/' paths, so it MUST run with its own folder
-    as the working directory. Uses this interpreter (sys.executable) so it shares
-    the gdmc_env. Raises CalledProcessError if the generator fails.
-    """
     main_py = _GEN_DIR / "main.py"
     if not main_py.exists():
         raise FileNotFoundError(f"Generator entrypoint not found: {main_py}")
@@ -75,7 +69,6 @@ def run_generator() -> None:
 
 
 def _detect_biome() -> str | None:
-    """Best-effort live biome via the GDMC HTTP interface; None if unavailable."""
     try:
         from biome_context import sample_biome_at_player
         from gdpc import Editor
@@ -87,12 +80,6 @@ def _detect_biome() -> str | None:
 
 
 def build_settlement(theme: str, biome: str | None):
-    """Generate ONE Settlement + all 3 pre-passes (goal -> events -> mood_tier).
-
-    This is the single shared identity every downstream feature consumes. On any
-    LLM failure it warn-and-recovers to a neutral Settlement (mood_tier None ->
-    placement falls back to the 'strained' baseline), so the geometry still runs.
-    """
     from settlement_generator import Settlement, generate_settlement
     from settlement_goal import generate_settlement_goal
     from shared_events import generate_shared_events

@@ -14,19 +14,6 @@ sys.path.insert(0, str(Path(__file__).parent))
 # ---------------------------------------------------------------------------
 
 def _find_datapack_dir(world_name: str = "New World") -> Path:
-    """
-    Return  <saves>/<world_name>/datapacks/area_discovery
-
-    Checks in order (Windows):
-      1. Modrinth App — AppData/Roaming/ModrinthApp/profiles/GDMC/saves/
-      2. Vanilla launcher — AppData/Roaming/.minecraft/saves/
-
-    Checks in order (macOS):
-      1. Modrinth App — ~/Library/Application Support/ModrinthApp/profiles/GDMC/saves/
-      2. Vanilla launcher — ~/Library/Application Support/minecraft/saves/
-
-    Falls back to ./generated_datapack if neither is found.
-    """
     import platform
     home = Path.home()
     if platform.system() == "Darwin":  # macOS

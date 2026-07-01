@@ -76,15 +76,6 @@ class AABB:
         x1: int, y1: int, z1: int,
         x2: int, y2: int, z2: int,
     ) -> "AABB":
-        """
-        Build an AABB from two opposite corners (order doesn't matter).
-        This is often more natural when working with GDMC world coordinates.
-
-        Example
-        -------
-        >>> AABB.from_corners(0, 60, 0, 99, 99, 99)
-        AABB(x=0, y=60, z=0, dx=99, dy=39, dz=99)
-        """
         min_x, max_x = min(x1, x2), max(x1, x2)
         min_y, max_y = min(y1, y2), max(y1, y2)
         min_z, max_z = min(z1, z2), max(z1, z2)
@@ -101,15 +92,6 @@ class AABB:
         cx: int, cy: int, cz: int,
         half_x: int, half_y: int, half_z: int,
     ) -> "AABB":
-        """
-        Build an AABB from a center point and half-extents.
-        Useful when a GDMC algorithm reports centroids rather than corners.
-
-        Example
-        -------
-        >>> AABB.from_center(0, 70, 0, 50, 20, 50)
-        # 100×40×100 block volume centered on (0, 70, 0)
-        """
         return cls.from_corners(
             cx - half_x, cy - half_y, cz - half_z,
             cx + half_x, cy + half_y, cz + half_z,
@@ -125,7 +107,6 @@ class AABB:
     def volume(self) -> int: return self.width * self.height * self.depth
 
     def selector_args(self) -> str:
-        """Return the coordinate portion of an entity selector string."""
         return f"x={self.x},y={self.y},z={self.z},dx={self.dx},dy={self.dy},dz={self.dz}"
 
     def __repr__(self) -> str:
@@ -245,7 +226,6 @@ class SoundConfig:
 
     @classmethod
     def silent(cls) -> "SoundConfig":
-        """No sound — use this to explicitly suppress the playsound line."""
         return cls("", SoundSource.MASTER)
 
     @property
@@ -296,5 +276,4 @@ class Zone:
 
     @property
     def tag_name(self) -> str:
-        """The entity tag used for in/out state tracking."""
         return f"ad_in_{self.zone_id}"

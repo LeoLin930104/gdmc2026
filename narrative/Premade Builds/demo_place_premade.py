@@ -13,7 +13,6 @@ from premade_placer import TIERS, build_premade
 
 
 def _player_xz(editor):
-    """Best-effort player (x, z) via the LLM Narrative helper; None on failure."""
     llm = _HERE.parent / "LLM Narrative"
     if str(llm) not in sys.path:
         sys.path.insert(0, str(llm))

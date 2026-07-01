@@ -38,7 +38,6 @@ class DecayPlan:
 
 
 def _seed_rng(seed: str) -> random.Random:
-    """Stable RNG from an arbitrary string (hashlib, not built-in hash())."""
     digest = hashlib.sha256(seed.encode("utf-8")).hexdigest()
     return random.Random(int(digest, 16))
 
@@ -62,15 +61,6 @@ def plan_decay(
     min_cobwebs: int = MIN_COBWEBS,
     max_cobwebs: int = MAX_COBWEBS,
 ) -> DecayPlan:
-    """Plan the struggling-tier decay for one parsed `structure`.
-
-    Removal candidates are EXPOSED (a face open to air/outside), ABOVE the floor
-    layer, and non-functional, so each hole is visible and the build keeps
-    standing. Cobwebs prefer air cells tucked into corners (>=3 solid neighbours
-    after removal), relaxing the threshold only if too few corners exist; the
-    fresh holes are seeded in as web candidates too. Returns empty sets if the
-    structure has nothing safe to touch (warn-free; never raises).
-    """
     rng = _seed_rng(seed)
 
     solid: set[tuple[int, int, int]] = {b.pos for b in structure.blocks if b.name not in _AIR}

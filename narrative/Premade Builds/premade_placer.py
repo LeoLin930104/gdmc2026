@@ -17,12 +17,6 @@ TIERS = families.TIERS
 
 
 def chest_local_pos(structure: Structure) -> tuple[int, int, int] | None:
-    """Local position of a fillable container in `structure`, or None.
-
-    Prefers a `chest` over a `barrel` (both store an `Items` list the same way).
-    Used by the narrative layer to drop a district's diary + tool into the build
-    that already stands at its center, instead of spawning a separate chest.
-    """
     chest = barrel = None
     for b in structure.blocks:
         short = b.name.split(":")[-1]
@@ -34,15 +28,6 @@ def chest_local_pos(structure: Structure) -> tuple[int, int, int] | None:
 
 
 def mood_tier_for(settlement) -> str:
-    """Read the settlement's mood tier (one of `TIERS`), defaulting to baseline.
-
-    The tier is decided by the `mood_tier.generate_mood_tier()` pre-pass in
-    LLM Narrative (from settlement.goal + historical_wound / collective_fear,
-    etc.) and stored on `settlement.mood_tier`. This reader keeps the placer
-    decoupled from the LLM layer — it only consumes the attribute. Falls back to
-    "strained" (the authored baseline) when the pre-pass wasn't run or left an
-    unrecognized value, so a hand-built Settlement still places correctly.
-    """
     tier = getattr(settlement, "mood_tier", None)
     if isinstance(tier, str) and tier in TIERS:
         return tier
@@ -60,28 +45,6 @@ def place_premade(
     decay_seed: str | None = None,
     chest_payloads: dict[tuple[int, int, int], str] | None = None,
 ) -> dict:
-    """Place a parsed `structure` at world `anchor`, swapping blocks for `tier`.
-
-    `anchor` is the world position the structure's local (0,0,0) maps to.
-    `rotation` is in 90° steps about the Y axis (gdpc convention). NOTE: rotation
-    rotates about the anchor, so for rotation != 0 the caller must offset `anchor`
-    to keep the footprint where intended — that footprint/road-edge anchoring is
-    a later step; rotation=0 places exactly at `anchor`.
-
-    `decay` (struggling tier only): on top of the families material swap, knock a
-    few exposed blocks out of the walls/roof and string cobwebs in the corners
-    (decay.plan_decay). Seeded by `decay_seed` (defaults to the anchor) so a
-    settlement decays each build the same way. No-op at thriving/strained.
-
-    `chest_payloads`: {local_pos: block-entity SNBT} — overrides the `data=` of
-    the block at each local position (used to fill a build's existing chest with
-    narrative items). The block keeps its id + properties (so a chest stays a
-    chest, facing intact); only its contents change. Placement happens under the
-    gdpc Transform, so the caller supplies LOCAL positions and gdpc maps them.
-
-    Returns a stats dict: {placed, dropped, liquids, skipped_air, removed,
-    cobwebs, chests_filled}.
-    """
     if tier not in TIERS:
         raise ValueError(f"tier must be one of {TIERS}, got {tier!r}")
 
@@ -151,7 +114,6 @@ def place_premade_file(
     decay: bool = True,
     decay_seed: str | None = None,
 ) -> dict:
-    """Convenience: parse a `.nbt` then place it. See place_premade for args."""
     structure = parse_structure(nbt_path)
     return place_premade(editor, structure, anchor, tier=tier, rotation=rotation,
                          place_air=place_air, decay=decay, decay_seed=decay_seed)
@@ -170,7 +132,6 @@ def place_premade_file(
 
 
 def _aggregate(values, mode: str) -> int:
-    """Reduce a list of ground heights to one pad level (median/min/max)."""
     vals = sorted(int(v) for v in values)
     if not vals:
         return 0
@@ -182,14 +143,6 @@ def _aggregate(values, mode: str) -> int:
 
 
 def _rotation_offset(rotation: int, sx: int, sz: int) -> tuple[int, int]:
-    """Translation (dx, dz) that keeps a rotated structure's footprint anchored
-    at the same corner, so the build lands on the pad we carved.
-
-    Assumes gdpc's rotation is clockwise about +Y (Minecraft CLOCKWISE_90),
-    i.e. local (x,z) -> (-z, x) for one step. Footprint dims swap on odd steps.
-    NOTE: handedness is unverified in-world — if a rotated build lands mirrored,
-    swap the r==1 and r==3 cases.
-    """
     r = rotation % 4
     if r == 0:
         return (0, 0)
@@ -201,13 +154,6 @@ def _rotation_offset(rotation: int, sx: int, sz: int) -> tuple[int, int]:
 
 
 def heightmap_ground_y(heightmap, origin):
-    """Build a ground_y(world_x, world_z) -> int callable from a gdmc2026 npz.
-
-    `heightmap` is the generator's [z, x] surface array (top SOLID block y);
-    `origin` is [ox, _, oz]. The generator lays farm-cell grass exactly at this
-    height, so it's the right grade truth. Out-of-range columns clamp to the
-    edge. No numpy import needed — plain indexing works on the passed array.
-    """
     ox, oz = int(origin[0]), int(origin[2])
     depth = len(heightmap)
     width = len(heightmap[0])
@@ -231,21 +177,6 @@ def level_pad(
     surface_block: str = "minecraft:grass_block",
     clearance: int = 4,
 ) -> dict:
-    """Carve a flat pad and fill its foundation under one build's footprint.
-
-    `anchor_xz` is the world (x, z) of the footprint's min corner; `footprint`
-    is (fw, fd) AFTER any rotation. For each column:
-      - clear from `floor_y + 1` up through the build volume + `clearance`
-        (removes terrain bumps and leaves the build's interior air empty) — but
-        NOT the floor level itself;
-      - fill `foundation_block` from grade up to just below `floor_y` (the skirt
-        that keeps slope edges from floating; empty on flat ground);
-      - cap the floor level with `surface_block` so footprint cells the build
-        doesn't fill read as ground, not air pits.
-    The build is placed afterward and overwrites the cap wherever it has a floor;
-    gaps keep the cap. This is what fixes the "ground turned to air / build
-    floats" artifact: we never leave the floor level as air.
-    """
     from gdpc import Block  # lazy
 
     ax, az = anchor_xz
@@ -288,21 +219,6 @@ def build_premade(
     decay_seed: str | None = None,
     chest_payload: str | None = None,
 ) -> dict:
-    """Full place-time pipeline for one premade: level a pad, then place it.
-
-    Steps: sample grade over the (rotation-aware) footprint -> pick one pad
-    level -> floor_y = pad - `sink` (use sink=1 for builds whose floor sits one
-    block below grade) -> carve + foundation + ground cap (`surface_block`) ->
-    place the build with the rotation anchor offset so it lands on the pad. The
-    build overwrites the cap where it has a floor; gaps stay ground. Returns
-    merged place + pad stats plus base_y/floor_y.
-
-    `decay`/`decay_seed` forward to place_premade (struggling-tier holes +
-    cobwebs); see place_premade. The default seed is the build's world anchor.
-
-    `chest_payload` (optional): block-entity SNBT to drop into THIS build's chest
-    (located via chest_local_pos). No-op if the structure has no chest.
-    """
     sx, sy, sz = structure.size
     fw, fd = (sz, sx) if rotation % 2 == 1 else (sx, sz)
     ax, az = anchor_xz

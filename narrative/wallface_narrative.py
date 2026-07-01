@@ -63,9 +63,9 @@ _BIOME_FAMILIES = {
         "trim": "minecraft:cut_sandstone",
     },
     "badlands": {
-        "base": "minecraft:smooth_red_sandstone",
-        "accent": "minecraft:chiseled_red_sandstone",
-        "trim": "minecraft:cut_red_sandstone",
+        "base": "minecraft:terracotta",
+        "accent": "minecraft:brown_terracotta",
+        "trim": "minecraft:orange_terracotta",
     },
     "dark_forest": {
         "base": "minecraft:dark_oak_planks",
@@ -203,7 +203,6 @@ def generate(mood: str, biome: str | None, seed: int = 0) -> str:
 
 
 def design_signature(mood: str, biome: str | None, seed: int = 0) -> str:
-    """Stable short hash of a design, so bakers can detect palette changes."""
     import hashlib
 
     return hashlib.sha256(generate(mood, biome, seed).encode("utf-8")).hexdigest()[:16]

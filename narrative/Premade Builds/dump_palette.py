@@ -42,10 +42,6 @@ def _is_air(block_id: str) -> bool:
 
 
 def _load_structure(path: Path):
-    """Return (size, palette, blocks) from a structure .nbt.
-
-    Handles the single-`palette` and multi-`palettes` (variant) layouts.
-    """
     nbt = nbtlib.load(str(path))
     root = nbt  # structure files are an unnamed root compound
     size = [int(v) for v in root.get("size", [0, 0, 0])]

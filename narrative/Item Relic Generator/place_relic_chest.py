@@ -32,12 +32,6 @@ DESCRIPTION_WRAP_WIDTH = 38
 # ---------------------------------------------------------------------------
 
 def wrap_lore_text(text: str, width: int = DESCRIPTION_WRAP_WIDTH) -> list[str]:
-    """Word-wrap `text` into lines of at most `width` chars (no word-breaking).
-
-    Minecraft renders each lore list entry as ONE line and does not wrap, so a
-    long description has to be pre-split into several lore lines to stay on
-    screen. Returns at least one line for non-empty input ([] for empty).
-    """
     text = text.strip()
     if not text:
         return []
@@ -45,12 +39,6 @@ def wrap_lore_text(text: str, width: int = DESCRIPTION_WRAP_WIDTH) -> list[str]:
 
 
 def snbt_string(json_dict: dict) -> str:
-    """Convert a Python dict to a single-quoted SNBT string.
-
-    json.dumps produces a double-quoted JSON string.  We wrap it in single
-    quotes for SNBT so that no inner escaping is needed for the double quotes.
-    Any literal single quotes inside the JSON string are escaped to \\'.
-    """
     raw_json = json.dumps(json_dict, ensure_ascii=False, separators=(",", ":"))
     escaped = raw_json.replace("'", "\\'")
     return f"'{escaped}'"
@@ -61,7 +49,6 @@ def snbt_string(json_dict: dict) -> str:
 # ---------------------------------------------------------------------------
 
 def validate_relic(index: int, raw) -> "dict | None":
-    """Return a cleaned relic dict or None if the entry should be skipped."""
     if not isinstance(raw, dict):
         print(f"[warn] Entry {index} is not an object — skipping.")
         return None
@@ -89,7 +76,6 @@ def validate_relic(index: int, raw) -> "dict | None":
 
 
 def _finalize(raw_list: list, source_label: str) -> list:
-    """Run raw relic dicts through validate_relic and enforce chest size limit."""
     if not isinstance(raw_list, list):
         sys.exit(f"[error] Expected a list of relics from {source_label}.")
 
@@ -110,7 +96,6 @@ def _finalize(raw_list: list, source_label: str) -> list:
 
 
 def load_relics(path: Path) -> list:
-    """Parse relics.json and return a validated, truncated list of relics."""
     try:
         with path.open("r", encoding="utf-8") as f:
             data = json.load(f)
@@ -129,13 +114,6 @@ def _ensure_llm_on_path() -> None:
 
 
 def load_relics_from_llm(theme: str, count: int, settlement=None, biome: str | None = None) -> list:
-    """Generate relics via the LM Studio client and run them through validate_relic.
-
-    If `settlement` is provided, its identity is threaded into the relic prompt
-    so relic lore coheres with the rest of the settlement's narrative. `biome`
-    (when passed or inherited via settlement.biome) further grounds relic
-    materials/imagery in the in-world location.
-    """
     _ensure_llm_on_path()
     from relic_generator import generate_relics  # lazy import — only needed on --llm
 
@@ -144,14 +122,12 @@ def load_relics_from_llm(theme: str, count: int, settlement=None, biome: str | N
 
 
 def generate_settlement_from_theme(settlement_theme: str, biome: str | None = None):
-    """Generate a Settlement object from a theme string (lazy-loads the module)."""
     _ensure_llm_on_path()
     from settlement_generator import generate_settlement
     return generate_settlement(settlement_theme, biome=biome)
 
 
 def sample_biome_at(editor, pos) -> str:
-    """Query biome at `pos` via GDPC (lazy-loads biome_context for its wrapper)."""
     _ensure_llm_on_path()
     from biome_context import sample_biome
     return sample_biome(editor, pos)
@@ -162,12 +138,6 @@ def sample_biome_at(editor, pos) -> str:
 # ---------------------------------------------------------------------------
 
 def build_item_nbt(relic: dict, slot: int, glint: bool = True) -> str:
-    """Build the SNBT string for a single chest item entry.
-
-    `glint=False` suppresses the enchantment shimmer — used by the per-zone
-    tool placer for low-rarity items (e.g. an "Old" wooden hoe shouldn't
-    glow). Default True preserves the original relic-chest behavior.
-    """
     name_snbt = snbt_string({
         "text":   relic["name"],
         "color":  relic["color"],
@@ -209,7 +179,6 @@ def build_item_nbt(relic: dict, slot: int, glint: bool = True) -> str:
 
 
 def build_chest_snbt(relics: list, glint: bool = True) -> str:
-    """Assemble the full block-entity SNBT string for the chest."""
     items_nbt = [build_item_nbt(relic, slot, glint=glint) for slot, relic in enumerate(relics)]
     return "{Items:[" + ",".join(items_nbt) + "]}"
 
@@ -219,7 +188,6 @@ def build_chest_snbt(relics: list, glint: bool = True) -> str:
 # ---------------------------------------------------------------------------
 
 def place_chest(editor: Editor, pos: tuple, snbt: str) -> None:
-    """Place a chest block at pos with the given block-entity SNBT data."""
     block = Block("minecraft:chest", data=snbt)
     editor.placeBlock(pos, block)
 

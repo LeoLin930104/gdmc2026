@@ -49,10 +49,6 @@ thriving or struggling when the context clearly points that way."""
 
 
 def _extract_json_object(text: str) -> dict:
-    """Parse the first JSON object in `text`, tolerating surrounding junk.
-
-    Self-contained copy, matching the other pre-pass/generator modules.
-    """
     text = text.strip()
     text = re.sub(r"^```(?:json)?\s*", "", text)
     text = re.sub(r"\s*```$", "", text)
@@ -71,17 +67,6 @@ def generate_mood_tier(
     settlement: "Settlement",
     max_tokens: int = 150,
 ) -> str:
-    """Return the settlement's mood tier — one of `VALID_TIERS`.
-
-    Grounds the judgment in the settlement's biome + axes + shared events +
-    ongoing goal, exactly like the other generators (all four hints injected in
-    the canonical order). Runs as the LAST pre-pass so the goal and events are
-    available to weigh.
-
-    Warn-and-recover: on any failure (transport error, malformed JSON, an
-    unrecognized tier) logs [warn] and returns DEFAULT_TIER ("strained"). Never
-    returns None and never raises — placement always needs a valid tier.
-    """
     biome_block = ""
     hint = biome_hint(settlement.biome)
     if hint:

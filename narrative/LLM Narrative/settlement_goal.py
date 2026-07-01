@@ -44,12 +44,6 @@ Rules:
 
 
 def _extract_json_object(text: str) -> dict:
-    """Parse the first JSON object in `text`, tolerating surrounding junk.
-
-    Same shape as the extractor `settlement_generator` carries — copied here
-    rather than imported to keep this module self-contained (matches how the
-    relic/diary/tool/shared-events modules each keep their own copy).
-    """
     text = text.strip()
     text = re.sub(r"^```(?:json)?\s*", "", text)
     text = re.sub(r"\s*```$", "", text)
@@ -74,17 +68,6 @@ def generate_settlement_goal(
     settlement: "Settlement",
     max_tokens: int = 300,
 ) -> SettlementGoal | None:
-    """Generate one ongoing goal/struggle grounded in `settlement`'s identity.
-
-    The call grounds the goal in the settlement's biome + identity axes + core
-    context so it reads as a natural consequence of who the place is. Runs
-    before the shared-events pre-pass so events can reference it.
-
-    Warn-and-recover: on any failure (transport error from `chat`, malformed
-    JSON, missing `summary`) logs [warn] and returns None. The downstream
-    pipeline continues with `goal_hint(settlement)` collapsing to "" — same
-    behavior as a no-goal Settlement. `stakes` is soft (defaults to "").
-    """
     biome_block = ""
     hint = biome_hint(settlement.biome)
     if hint:
@@ -150,19 +133,6 @@ def generate_settlement_goal(
 
 
 def goal_hint(settlement: "Settlement") -> str:
-    """Return a compact current-struggle block for prompt injection, or "" if empty.
-
-    Skips entirely when `settlement.goal` is None, so hand-constructed or
-    pre-pre-pass Settlements add zero prompt noise. Same defensive contract as
-    `biome_context.biome_hint`, `identity_axes.axes_hint`, and
-    `shared_events.events_hint`. The stakes line is skipped when empty.
-
-    Example output:
-
-      Current struggle:
-        Working toward: rebuild the river-mill before flood season.
-        What's at stake: without it the grain stores won't last the winter.
-    """
     goal = getattr(settlement, "goal", None)
     if goal is None:
         return ""

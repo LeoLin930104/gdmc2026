@@ -20,7 +20,8 @@ PROMPTS = [
 
 
 def main() -> None:
-    print("Connecting to LM Studio at http://localhost:1234/v1 ...\n")
+    from lm_client import API_BASE_URL, API_MODEL
+    print(f"Connecting to LLM API at {API_BASE_URL} (model: {API_MODEL}) ...\n")
     for label, prompt in PROMPTS:
         start = time.perf_counter()
         reply = chat(prompt)

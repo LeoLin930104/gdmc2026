@@ -18,7 +18,7 @@ from nbt_structure import Structure, parse_structure
 from premade_placer import (
     TIERS, build_premade, chest_local_pos, heightmap_ground_y, mood_tier_for,
 )
-from yard import place_yard
+from yard import biome_ground, place_yard
 
 # role -> premade file prefix in ./nbt
 ROLE_PREFIX = {
@@ -53,7 +53,6 @@ _DEFAULT_PLOTS_NPZ = _GEN_DATA / "settlement_plots.npz"
 # ---------------------------------------------------------------------------
 
 def _items_to_dict(arr) -> dict:
-    """Round-trip np.array(list(d.items()), dtype=object) back to a dict."""
     out = {}
     for pair in arr:
         if len(pair) == 2:
@@ -62,13 +61,6 @@ def _items_to_dict(arr) -> dict:
 
 
 def largest_rect_with_origin(points) -> tuple[int, int, int, int]:
-    """Largest axis-aligned rectangle covering only `points` (list of (x, z)).
-
-    Returns (x0, z0, w, d) in the SAME local coords as the points — like
-    analyze_plots._largest_rect_from_points but also reporting the rectangle's
-    min corner so we can anchor a build inside it. (0,0,0,0) if empty.
-    Max-rectangle-in-histogram over the cell's boolean mask.
-    """
     pts = [(int(x), int(z)) for x, z in points]
     if not pts:
         return (0, 0, 0, 0)
@@ -102,7 +94,6 @@ def largest_rect_with_origin(points) -> tuple[int, int, int, int]:
 
 
 def _zone_of_cell(cells, zone_map) -> int | None:
-    """The district id a farm cell belongs to (mode of zone_map over its cells)."""
     D, W = zone_map.shape
     counts: Counter[int] = Counter()
     for x, z in cells:
@@ -121,13 +112,6 @@ def _zone_of_cell(cells, zone_map) -> int | None:
 # ---------------------------------------------------------------------------
 
 def _variants_for(role: str, size: int, cache: dict) -> list[Structure]:
-    """All authored builds for (role, size): base + numbered variants, parsed.
-
-    The base file is `{prefix}_{size}.nbt`; alternates carry a digit before the
-    `_{size}` (e.g. `barrack2_7.nbt`, `town_center2_7.nbt`) so the placer can vary
-    appearance and avoid repetitive-looking builds. Returns an empty list if no
-    file exists for the (role, size). Parsed structures are cached per key.
-    """
     key = (role, size)
     if key not in cache:
         prefix = ROLE_PREFIX[role]
@@ -142,11 +126,6 @@ def _variants_for(role: str, size: int, cache: dict) -> list[Structure]:
 
 
 def _pick_variant(structs: list[Structure], seed_name: str, cell_key) -> Structure:
-    """Deterministically choose one variant for a build, seeded by (settlement, cell).
-
-    Independent of `_rotation_for` (separate seed namespace) so variant and
-    rotation vary independently while staying reproducible for a given settlement.
-    """
     if len(structs) == 1:
         return structs[0]
     digest = hashlib.sha256(f"{seed_name}:variant:{cell_key}".encode("utf-8")).hexdigest()
@@ -154,7 +133,6 @@ def _pick_variant(structs: list[Structure], seed_name: str, cell_key) -> Structu
 
 
 def _pick_size(fit_square: int, role: str, cache: dict) -> int | None:
-    """Largest authored size that fits the cell's fit-square, or None if too small."""
     for size in SIZES:                       # 11 then 7
         if fit_square >= size and _variants_for(role, size, cache):
             return size
@@ -166,7 +144,6 @@ def _pick_size(fit_square: int, role: str, cache: dict) -> int | None:
 # ---------------------------------------------------------------------------
 
 def _make_settlement(theme: str, biome: str | None):
-    """Generate the shared Settlement + 3 pre-passes; fall back to neutral identity."""
     try:
         from mood_tier import generate_mood_tier
         from settlement_generator import generate_settlement
@@ -205,14 +182,6 @@ CLUSTER_AXIS_MIN = 14     # ...only if the rect's longer axis fits two size-7 bu
 
 
 def _rotation_for(seed_name: str, cell_key) -> int:
-    """Deterministic 0..3 rotation per (settlement, cell key) — reproducible, varied.
-
-    Seeded from the settlement name + a cell key (hashlib, not built-in hash; the
-    key is the cell id, or "<cell>.<i>" for clustered sub-builds), so a given
-    settlement always orients each build the same way while builds vary. All
-    premades are square, so rotation never changes the footprint — only the
-    facing of oriented blocks (gdpc Transform handles it).
-    """
     digest = hashlib.sha256(f"{seed_name}:{cell_key}".encode("utf-8")).hexdigest()
     return int(digest, 16) % 4
 
@@ -222,7 +191,6 @@ def _footprint_cells(ax: int, az: int, size: int) -> set:
 
 
 def _road_dir(fit_rect, path_mask) -> str | None:
-    """Which side of the fit-rect borders the most path cells ('n'/'s'/'e'/'w'), or None."""
     if path_mask is None:
         return None
     x0, z0, w, d = fit_rect
@@ -243,7 +211,6 @@ def _road_dir(fit_rect, path_mask) -> str | None:
 
 
 def _anchor_to_edge(fit_rect, size: int, road: str | None) -> tuple[int, int]:
-    """Anchor a size×size build flush to the road side of the fit-rect (else center)."""
     x0, z0, w, d = fit_rect
     cx = x0 + max(0, (w - size) // 2)
     cz = z0 + max(0, (d - size) // 2)
@@ -259,7 +226,6 @@ def _anchor_to_edge(fit_rect, size: int, road: str | None) -> tuple[int, int]:
 
 
 def _cluster_anchors(fit_rect, size: int) -> list[tuple[int, int]]:
-    """Two size×size anchors at the ends of the fit-rect's longer axis."""
     x0, z0, w, d = fit_rect
     if w >= d:
         cz = z0 + max(0, (d - size) // 2)
@@ -269,14 +235,6 @@ def _cluster_anchors(fit_rect, size: int) -> list[tuple[int, int]]:
 
 
 def collect_farm_fields(zone_map, farms, roles) -> list[dict]:
-    """Farm cells belonging to the farm-ROLE district — rendered as crop fields.
-
-    The generator no longer lays farm fields (`BUILD_FARM_FIELDS = False`), so the
-    narrative layer renders the farm district's cells itself (mood-scaled, via
-    `farm_field.place_farm_field`). Non-farm districts' farm cells become premade
-    builds instead (see `plan_placements`); those are excluded here. Returns one
-    `{cell_id, zone, cells}` per farm-district cell (cells are local (x, z)).
-    """
     fields: list[dict] = []
     for cell_id, cells in sorted(farms.items(), key=lambda kv: int(kv[0])):
         zone = _zone_of_cell(cells, zone_map)
@@ -292,14 +250,6 @@ def collect_farm_fields(zone_map, farms, roles) -> list[dict]:
 
 def plan_placements(zone_map, origin, heightmap, farms, roles, path_mask=None,
                     rotation_seed: str = "", rotation_override: int | None = None):
-    """Plan premade build(s) per non-farm farm cell. Returns (placements, skipped).
-
-    Each placement is one cell carrying a list of `builds` (one normally; two for
-    a large cell -> cluster) plus the `occupied` footprint set for the yard pass.
-    A single build is anchored to the cell's road edge (from `path_mask`) when
-    one is found, else centered; clusters sit at the rect's ends. Planning is
-    tier-independent — mood is applied only at placement.
-    """
     ox, oz = int(origin[0]), int(origin[2])
     cache: dict = {}
     placements: list[dict] = []
@@ -368,14 +318,6 @@ def plan_placements(zone_map, origin, heightmap, farms, roles, path_mask=None,
 # ---------------------------------------------------------------------------
 
 def _narrative_chest_snbt(diary, tool, relic=None) -> str | None:
-    """Chest block-entity SNBT holding a diary (book) + a tool + a relic, or None.
-
-    Slots are assigned in order of what's present, so a district with only some
-    of the three still gets a valid chest. Reuses the diary book-item builder and
-    the relic/tool item builder so rendering matches the standalone diary/tool/
-    relic chests elsewhere. The relic is a dict (relics.json schema) and shimmers
-    by default, matching the standalone relic chest.
-    """
     from place_diary_lectern import build_book_item_nbt, glint_for_rarity
     from place_relic_chest import build_item_nbt
 
@@ -406,13 +348,6 @@ def _narrative_chest_snbt(diary, tool, relic=None) -> str | None:
 
 
 def _spread_indices(total: int, n: int) -> list[int]:
-    """`n` indices spread evenly across range(total), endpoints included.
-
-    Picks builds that are far apart (nearest + middle + farthest from center)
-    rather than the `n` closest, so a district's items scatter across it instead
-    of clustering. `total >= n >= 1` in the else branch guarantees distinct,
-    increasing indices.
-    """
     if n <= 1:
         return [0]
     if n >= total:
@@ -421,7 +356,6 @@ def _spread_indices(total: int, n: int) -> list[int]:
 
 
 def _plot_anchor(cells) -> tuple[int, int]:
-    """The actual cell nearest a farm plot's centroid — where its chest sits."""
     xs = [int(x) for x, _ in cells]
     zs = [int(z) for _, z in cells]
     cx = sum(xs) / len(xs)
@@ -433,27 +367,6 @@ def _plot_anchor(cells) -> tuple[int, int]:
 
 def plan_narrative_items(settlement, biome, placements, roles, zone_seed_points,
                          origin, heightmap, fields=None):
-    """Generate one diary + tool + relic per district and route them into chests.
-
-    A district whose premade builds carry chests (every non-farm district) gets
-    its three items combined into the ONE build chest nearest the district center
-    (`zone_seed_points`) — the original, working behavior.
-
-    The farm district has no premade builds (so no build chests); it instead gets
-    ONE chest per FARM PLOT, the items spread across the plots (from `fields`,
-    chosen via `_spread_indices`), each chest sitting on a plot's centroid
-    (`_plot_anchor`) on top of the rendered field. With no plots known
-    (e.g. --no-farm-fields) it falls back to one combined chest at the center.
-
-    The relics are generated as one settlement-wide collection (so the set coheres
-    as a whole) and then spread ONE-per-district rather than concentrated in a
-    single chest. Relic generation has its own warn-and-recover so a relic failure
-    still leaves each chest with its diary + tool.
-
-    Returns `(fallback_chests, summary)` where fallback_chests is a list of
-    `(world_pos, payload, zone_id)`. Warn-and-recover: any LLM failure logs and
-    returns `([], {...})` so the geometry still places.
-    """
     from diary_generator import generate_diaries
     from tool_generator import generate_tools
 
@@ -469,28 +382,38 @@ def plan_narrative_items(settlement, biome, placements, roles, zone_seed_points,
               f"placing builds without items.")
         return [], {"in_build": 0, "fallback": 0, "skipped": 0, "relics": 0}
 
-    # Relics: generate one per district as a single coherent set, then spread them
-    # across districts. Separate try so a relic failure keeps diaries + tools.
-    relic_by_zone: dict = {}
+    # Chest-bearing builds per district (none assigned yet). Precomputed so we
+    # size the relic set to the number of chests we'll actually fill: ONE relic
+    # per prefab chest, so lore scatters across every build in a district instead
+    # of piling into a single chest.
+    chest_builds_by_zone: dict[int, list] = {}
+    for p in placements:
+        for b in p["builds"]:
+            if chest_local_pos(b["structure"]) is not None:
+                chest_builds_by_zone.setdefault(p["zone"], []).append(b)
+
+    n_build_chests = sum(len(v) for v in chest_builds_by_zone.values())
+    n_buildingless = sum(1 for zid in roles if zid not in chest_builds_by_zone)
+    relic_count = max(1, n_build_chests + n_buildingless)
+
+    # Relics: one coherent set sized to every chest we'll fill (was: one per
+    # district). Separate try so a relic failure keeps diaries + tools. Consumed
+    # in district order via a shared iterator.
+    relics: list = []
     try:
         from relic_generator import generate_relics
         relic_theme = getattr(settlement, "theme", None) or settlement.name
-        relics = generate_relics(relic_theme, count=len(zone_specs),
+        relics = generate_relics(relic_theme, count=relic_count,
                                  settlement=settlement, biome=biome)
-        # zone_specs is in sorted(roles) order, so zip assigns one relic per
-        # district in that order; if generate_relics returns fewer, the trailing
-        # districts simply get no relic.
-        for zid, relic in zip(sorted(roles), relics):
-            relic_by_zone[f"district_{zid}"] = relic
     except Exception as exc:  # noqa: BLE001 - relics optional; keep diary + tool
         print(f"[warn] relic generation failed ({exc!r}); "
               f"district chests get diary + tool only.")
+    relic_iter = iter(relics)
 
     diary_by_zone = {d.zone_id: d for d in diaries}
     tool_by_zone = {t.zone_id: t for t in tools}
 
-    # Farm plots per district (for districts with no chest-bearing build), so the
-    # farm district's items can sit ONE PER PLOT instead of floating at the center.
+    # Farm plots per district (for farm districts with no chest-bearing build).
     plots_by_zone: dict[int, list] = {}
     for f in (fields or []):
         plots_by_zone.setdefault(int(f["zone"]), []).append(f)
@@ -500,45 +423,48 @@ def plan_narrative_items(settlement, biome, placements, roles, zone_seed_points,
     seeds = [(float(p[0]), float(p[1])) for p in zone_seed_points]
 
     fallback_chests: list[tuple] = []
-    summary = {"in_build": 0, "fallback": 0, "skipped": 0,
-               "relics": len(relic_by_zone)}
+    summary = {"in_build": 0, "fallback": 0, "skipped": 0, "relics": 0}
 
     for zid in sorted(roles):
         zone_id = f"district_{zid}"
         diary = diary_by_zone.get(zone_id)
         tool = tool_by_zone.get(zone_id)
-        relic = relic_by_zone.get(zone_id)
-        if diary is None and tool is None and relic is None:
-            summary["skipped"] += 1
-            continue
 
         cx, cz = seeds[zid] if zid < len(seeds) else (0.0, 0.0)
         center = (ox + cx, oz + cz)
 
-        # Builds in this district that own a chest and aren't already assigned,
-        # sorted by distance to the district center.
-        candidates = []
-        for p in placements:
-            if p["zone"] != zid:
-                continue
-            for b in p["builds"]:
-                if "chest_payload" not in b and chest_local_pos(b["structure"]) is not None:
-                    ax, az = b["anchor_world"]
-                    dist = (ax - center[0]) ** 2 + (az - center[1]) ** 2
-                    candidates.append((dist, b))
-        candidates.sort(key=lambda t: t[0])
+        # This district's chest-bearing builds, nearest the center first.
+        builds = sorted(
+            chest_builds_by_zone.get(zid, []),
+            key=lambda b: (b["anchor_world"][0] - center[0]) ** 2
+                          + (b["anchor_world"][1] - center[1]) ** 2,
+        )
 
-        if candidates:
-            # Non-farm district: its builds already carry chests — drop the diary
-            # + tool + relic into the ONE build nearest the district center.
-            candidates[0][1]["chest_payload"] = _narrative_chest_snbt(diary, tool, relic)
-            summary["in_build"] += 1
+        if builds:
+            # Scatter across the district's prefab chests: diary -> nearest build,
+            # tool -> next build (or the same one if there's only one), and ONE
+            # relic into every build's chest.
+            for i, b in enumerate(builds):
+                d = diary if i == 0 else None
+                t = tool if (i == 1 or len(builds) == 1) else None
+                r = next(relic_iter, None)
+                payload = _narrative_chest_snbt(d, t, r)
+                if payload is None:
+                    continue
+                b["chest_payload"] = payload
+                summary["in_build"] += 1
+                if r is not None:
+                    summary["relics"] += 1
         elif plots_by_zone.get(zid):
             # Farm district (no premade builds, so no build chests): ONE chest per
             # farm plot, the items spread across the plots — each chest sits on a
             # plot's centroid, on top of the just-rendered field.
+            relic = next(relic_iter, None)
             items = [(k, o) for k, o in (("diary", diary), ("tool", tool), ("relic", relic))
                      if o is not None]
+            if not items:
+                summary["skipped"] += 1
+                continue
             plots = plots_by_zone[zid]
             n_groups = min(len(plots), len(items))
             groups: list[dict] = [{} for _ in range(n_groups)]
@@ -552,13 +478,21 @@ def plan_narrative_items(settlement, biome, placements, roles, zone_seed_points,
                 wx, wz = ox + px, oz + pz
                 fallback_chests.append(((wx, ground_y(wx, wz) + 1, wz), payload, zone_id))
                 summary["fallback"] += 1
+            if relic is not None:
+                summary["relics"] += 1
         else:
             # No builds and no farm plots (e.g. --no-farm-fields): one combined
             # chest at the district center.
+            relic = next(relic_iter, None)
+            if diary is None and tool is None and relic is None:
+                summary["skipped"] += 1
+                continue
             wx, wz = int(ox + cx), int(oz + cz)
             fallback_chests.append(((wx, ground_y(wx, wz) + 1, wz),
                                     _narrative_chest_snbt(diary, tool, relic), zone_id))
             summary["fallback"] += 1
+            if relic is not None:
+                summary["relics"] += 1
 
     return fallback_chests, summary
 
@@ -581,22 +515,6 @@ def main(
     place_items: bool = True,
     farm_fields: bool = True,
 ) -> None:
-    """Place premade builds on the non-farm districts' farm cells.
-
-    `settlement` (optional): reuse a pre-built Settlement (with its mood_tier
-    pre-pass already run) instead of generating one here, so an orchestrator can
-    thread ONE shared identity through every narrative feature. When None, a
-    Settlement + the 3 pre-passes are generated here (graceful without LM Studio).
-
-    `place_items`: also generate one diary + tool + relic per district and drop
-    them into the chest of the build nearest each district center (standalone
-    chest at the center as a fallback where no build has a chest). The relics are
-    a single coherent set spread one-per-district. Skipped on `--dry-run`.
-
-    `farm_fields`: also render the farm-ROLE district's cells as mood-scaled crop
-    fields (the generator no longer places them — BUILD_FARM_FIELDS=False). Skip
-    with --no-farm-fields to leave that district as bare ground.
-    """
     data_path = Path(npz) if npz else _DEFAULT_DATA_NPZ
     plots_path = Path(plots) if plots else _DEFAULT_PLOTS_NPZ
     for label, p in (("settlement_data.npz", data_path), ("settlement_plots.npz", plots_path)):
@@ -625,6 +543,10 @@ def main(
     if settlement is None:
         biome = biome_override or _detect_biome()
         settlement = _make_settlement(theme, biome)
+    else:
+        # settlement came from the caller (run_narrative): take its biome so the
+        # yard ground + relic/diary biome hints match, only sampling as a fallback.
+        biome = biome_override or getattr(settlement, "biome", None) or _detect_biome()
     roles = assign_district_roles(zone_seed_points, settlement.name)
 
     tier = tier_override or mood_tier_for(settlement)
@@ -694,7 +616,7 @@ def main(
     if place_items:
         print("\nGenerating diaries + tools + relics and routing them into district chests...")
         fallback_chests, item_summary = plan_narrative_items(
-            settlement, biome_override, chosen, roles, zone_seed_points,
+            settlement, biome, chosen, roles, zone_seed_points,
             origin, heightmap, fields=fields,
         )
         if item_summary:
@@ -705,16 +627,18 @@ def main(
 
     decay_note = "" if (decay and tier == "struggling") else " (decay off)" if not decay else ""
     print(f"\nPlacing builds in {len(chosen)} cell(s) at mood tier '{tier}'{decay_note}...")
+    surface = biome_ground(biome)  # biome-adaptive ground cap under each build
     for p in chosen:
         # Yard first (decorates the cell around the build(s)), then the build(s).
         place_yard(editor, p["cells"], p["occupied"], origin, ground_y,
-                   role=p["role"], mood=tier, seed_name=seed_name)
+                   role=p["role"], mood=tier, seed_name=seed_name, biome=biome)
         foundation = ROLE_FOUNDATION.get(p["role"], DEFAULT_FOUNDATION)
         for b in p["builds"]:
             ax, az = b["anchor_world"]
             stats = build_premade(
                 editor, b["structure"], (ax, az), ground_y,
                 tier=tier, rotation=b["rotation"], foundation_block=foundation,
+                surface_block=surface,
                 decay=decay, decay_seed=f"{seed_name}:{p['cell_id']}:{ax},{az}",
                 chest_payload=b.get("chest_payload"),
             )
