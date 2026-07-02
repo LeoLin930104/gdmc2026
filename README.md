@@ -1,154 +1,59 @@
-# GDMC Procedural Prefab Housing
+# GDMC 2026 Procedural Settlement Pipeline
 
-A procedural pipeline that emits Minecraft-block-compatible **exterior shells**
-plus a **rich semantic-cell layer** for downstream interior generation. v1 targets
-the GDMC competition; production placement is delegated to a sibling GDPC
-adapter.
+This repository builds Minecraft-compatible GDMC settlements from generated
+terrain context, narrative identity, prefab housing packages, and final world
+decoration passes.
 
-The current planning core is request-driven and topology-first:
+The current main path is orchestration-first: derive identity, bake the matching
+wall-face packages, generate the town, add the narrative layer, then run the
+final lighting sweep.
 
-- footprint is a hard cap, not a fill target
-- height is inferred by the planner unless an explicit cap is provided
-- broad utility classes drive internal programme, scale, storey and massing stages
-- topology review and renderer galleries are first-class iteration loops
+## Modules
 
-## Workspace layout
+The project is split around three collaborator-owned workstreams plus shared
+integration tools.
 
-- `voxel-renderer/` — dev-only headless renderer (galleries + visual review)
-- `prefab-housing/` — the pipeline
-- `narrative/` — settlement identity, wallface baking, area discovery, relics, and premade narrative placement
-- `narrative_wallfaces/` — checked-in mood/biome wallface designs used by baked prefab packages
-- `builder.py`, `map_manager.py`, `plotter.py`, ... — root-level GDMC settlement generator modules
-- `docs/implementation-choices.md` — binding architectural decisions and rationale
-- `docs/implementation-history.md` — chronological change log
-- `docs/onboarding.md` — current-entry guide for contributors
+---
+- **Map and terraformation** (`map_manager.py`, `voronoi.py`, `marker.py`,
+  `terraformer.py`, `plotter.py`, `builder.py`) owns the settlement site. It
+  captures map data, derives buildable regions, marks paths and plots, reshapes
+  terrain, previews volumes, and writes final blocks to the Minecraft world.
 
-## Quick start
+---
+
+- **Narration** (`narrative/`) owns the settlement fiction layer. It generates
+  identity, biome and mood context, district content, area discovery data,
+  relics, premade placements, and wall-face package selection. It can call an
+  LLM, but has offline fallback content.
+
+---
+
+- **Housing** (`prefab-housing/`) owns procedural building generation. The
+  installable `prefab_housing` package turns housing requests into topology
+  plans, semantic cells, staged block output, interiors, wall-face skins,
+  upgrade packages, and town-lighting inputs. Housing interior is generated using MCP-backed Vision-LLM Assited Design Loop, then cached into local files for runtime use.
+- **Voxel rendering** (`voxel-renderer/`) is shared review tooling. The
+  installable `voxel_renderer` package renders neutral block arrays and exposes
+  `voxel-renderer-mcp`; This is so that design iterations are isolated from Live Minecraft Client.
+- **Orchestration and scripts** (`run_settlement.py`, `scripts/`) connect the
+  workstreams. `run_settlement.py` runs identity, wall-face bake, town
+  generation, narrative placement, and final lighting in order. `scripts/`
+  contains focused preview, sweep, package-generation, live-placement, and
+  animation commands.
+
+---
+
+## Quick Start
 
 ```bash
 uv sync --all-packages
-uv run python run_settlement.py --dry-run
 uv run python run_settlement.py
-uv run python main.py
-uv run pytest
 ```
 
-`run_settlement.py` is the integrated identity → wallface bake → town generation
-→ narrative-layer orchestrator. Live runs require Minecraft plus the GDMC HTTP
-interface; `--dry-run` validates command wiring without world writes.
+## Runtime Notes
 
-## LLM config (`.env`)
-
-The narrative layer calls a hosted LLM. Config lives in the
-repo-root `.env` (tracked, so it's easy to find - real shell env vars override
-it):
-
-```dotenv
-LLM_API_KEY=                                  # required; blank → offline fallback content
-LLM_API_BASE_URL=https://api.openai.com/v1    # optional; any OpenAI-compatible endpoint
-LLM_API_MODEL=gpt-4o-mini                      # optional
-NARRATIVE_FALLBACK_VARIANT=1                    # offline lore when no key: 1=Emberwell, 2=Saltmere, 3=Karrhold
-```
-
-Without a key the pipeline still runs, generating authored offline content
-instead of live text.
-
-## Public API
-
-```python
-from prefab_housing import build_house, Brief
-
-result = build_house(
-    Brief(
-        occupant_count=4,
-        household_type="single_family",
-        material_theme="sci_fi_modular",
-        seed=42,
-    ),
-    footprint_xz=(50, 50),
-    utility_type="residential",
-)
-# result.blocks          → list[SemanticBlockDict] (renderer/GDPC compatible)
-# result.semantic_cells  → list[SemanticCell]
-# result.block_stages    → ordered BlockGenerationStage signals
-# result.metadata        → HouseMetadata
-```
-
-The newer request-driven planning entry point is:
-
-```python
-from prefab_housing import HousingRequest, generate_housing_plan_for_request
-
-plan = generate_housing_plan_for_request(
-    HousingRequest(
-        footprint_xz=(32, 24),
-        utility_type="residential",
-        seed=42,
-    )
-)
-```
-
-Use `capacity_override` only when the outside controller truly needs an exact
-occupancy target. Otherwise let the planner infer height and capacity from
-footprint and utility type.
-
-## Review Loops
-
-```bash
-uv run python scripts/preview_pod.py
-uv run python scripts/preview_room_layout.py
-uv run python scripts/preview_stair_stack_three_storey.py
-uv run python scripts/preview_housing_plan.py --log-level INFO
-uv run python scripts/plan_profile_sweep.py --log-level INFO
-uv run python scripts/plan_profile_batch_sweep.py --log-level INFO
-uv run python scripts/preview_wallface_design.py prefab-housing/designs/modular_default.wallface
-uv run python scripts/animate_residential_upgrade_minecraft.py
-```
-
-`preview_pod.py` renders the shared exterior face builder in isolation.
-`preview_room_layout.py` renders the current per-room layout planner with
-opening annotations.
-`preview_stair_stack_three_storey.py` is the dedicated cutaway vertical-stack
-review loop for 1→2 stairs, 2→3 stairs, and top-floor aperture carry-through.
-It now emits shell-free `stairs_only_1_2` / `stairs_only_2_3` views and slices
-every scene from one shared three-storey stack plan, so cross-storey landing
-checks do not drift due to preview-only phase resets.
-`preview_housing_plan.py` remains the fast topology-only massing preview.
-`plan_profile_sweep.py` now renders the solved plans through the full exterior
-composition path and emits per-stage timings when logging is enabled.
-`plan_profile_batch_sweep.py` is the planning-only budget/tuning loop.
-`preview_wallface_design.py` and `scripts/wallface_editor.py` review swappable
-wall-face decoration without rebaking structure.
-`animate_residential_upgrade_minecraft.py` exports residential level states,
-cacheable structure-shape payloads, and diff-only upgrade payloads; rerun it
-with `--live` while GDMC-HTTP is running to animate level 1, then level 1→2 and
-level 2→3 diffs in the Minecraft client. Live playback waits 3 seconds before
-each upgrade diff by default; use `--upgrade-delay-s` to tune that pause.
-For committed production payloads, pass `--input-package` to place the compact
-cached package without regenerating:
-
-```bash
-uv run python scripts/animate_residential_upgrade_minecraft.py \
-  --input-package prefab-housing/production_cache/residential_upgrade/seed_043.pbp \
-  --live
-```
-
-Current shell review rule:
-
-- structural cells are boxed first
-- neighbour passages are drilled as the next structural stage
-- wall-face textures, foundation, trim, roof, and interiors are later swappable stages
-- exterior overlays apply only to air-exposed side faces
-- each exposed face uses one outer frame rectangle and one filled inner accent rectangle
-- the two rectangles always keep at least one air block between them on every side
-- wall-face textures are decorative skin, so they deliberately ignore the
-  structural AABB clip and may protrude beyond the construction footprint
-  by their designed depth
-
-Only `structural_shell` and `connection_openings` are marked for reusable
-structure-template baking. Decoration stages (`wall_face_textures`,
-`foundation`, `trim_bands`, `roof`) and `populate_interiors` are intentionally
-excluded so themes and furnishings can be swapped after cache lookup.
-
-See `docs/implementation-choices.md` and `docs/onboarding.md` for current design
-constraints and working practices.
+- Python 3.12+ and `uv` are expected.
+- Hosted narrative generation uses `LLM_API_KEY` when present.
+- Missing or blank LLM configuration falls back to authored offline content.
+- Generated galleries, caches, world outputs, and local scratch files should
+  stay out of source control.
