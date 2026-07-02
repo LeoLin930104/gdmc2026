@@ -1,244 +1,304 @@
 {
-  "_comment": "Offline fallback content, authored by Claude to match each generator's schema. Used by fallback_content.py when lm_client.chat() raises LLMUnavailable (LM Studio not connected). It describes ONE coherent settlement -- Emberwell -- so the offline pipeline still reads as a single place, honoring the 'one Settlement, threaded everywhere' rule. theme/biome from the caller override the settlement's theme/biome fields; the authored fiction stays otherwise.",
+  "_comment": "Offline fallback content, authored to match each generator's schema. Used by fallback_content.py when lm_client.chat() raises LLMUnavailable (no API key / endpoint unreachable). It holds THREE self-contained lore variants under 'variants', each describing one coherent settlement so the offline pipeline still reads as a single place. Judges choose which with NARRATIVE_FALLBACK_VARIANT in the repo-root .env (1=Emberwell, 2=Saltmere, 3=Karrhold). theme/biome from the caller override each settlement's theme/biome fields; the authored fiction stays otherwise. Each variant carries enough relics + tools for the per-district counts (RELICS_PER_DISTRICT / TOOLS_PER_DISTRICT); pools cycle if a settlement has more districts than entries.",
 
-  "settlement": {
-    "name": "Emberwell",
-    "era": "two generations after the Great Burn",
-    "founding_story": "Emberwell rose again around a deep cold spring that alone survived the wildfire which swept the valley, drawing back the families who had fled into the hills. Its folk smith iron and burn charcoal under careful watch, and an iron bell hangs at every door to be rung at the first scent of smoke.",
-    "primary_industry": "ironworking and charcoal-burning",
-    "central_virtue": "vigilance",
-    "collective_fear": "another wildfire",
-    "historical_wound": "the Great Burn that took the old village",
-    "motif": "iron bells",
-    "worldview": "the spring remembers what the fire forgets",
-    "social_structure": "a council of hearth-wardens",
-    "outsider_reputation": "grim, watchful, slow to trust"
-  },
+  "variants": {
 
-  "goal": {
-    "summary": "deepen the cold cistern before the dry season",
-    "stakes": "if the wells run low again, a single spark could finish what the Great Burn began."
-  },
+    "1": {
+      "_name": "Emberwell — a fire-scarred ironworking valley",
 
-  "shared_events": [
-    "the night the bells first rang false",
-    "the long dry summer of '31",
-    "the warden's daughter's wedding by the spring",
-    "the charcoal-pit collapse",
-    "the season the smiths ran short of ore"
-  ],
+      "settlement": {
+        "name": "Emberwell",
+        "era": "two generations after the Great Burn",
+        "founding_story": "Emberwell rose again around a deep cold spring that alone survived the wildfire which swept the valley, drawing back the families who had fled into the hills. Its folk smith iron and burn charcoal under careful watch, and an iron bell hangs at every door to be rung at the first scent of smoke.",
+        "primary_industry": "ironworking and charcoal-burning",
+        "central_virtue": "vigilance",
+        "collective_fear": "another wildfire",
+        "historical_wound": "the Great Burn that took the old village",
+        "motif": "iron bells",
+        "worldview": "the spring remembers what the fire forgets",
+        "social_structure": "a council of hearth-wardens",
+        "outsider_reputation": "grim, watchful, slow to trust"
+      },
 
-  "mood_tier": "strained",
+      "goal": {
+        "summary": "deepen the cold cistern before the dry season",
+        "stakes": "if the wells run low again, a single spark could finish what the Great Burn began."
+      },
 
-  "subtitles": {
-    "town": "where the anvils never fully cool",
-    "nature": "the spring's green margin, jealously watered",
-    "ruins": "charred timbers the Burn left standing",
-    "landmark": "the cold spring that outlived the fire",
-    "dungeon": "below, where the old pits caved in",
-    "default": "an iron bell waits at every door"
-  },
+      "shared_events": [
+        "the night the bells first rang false",
+        "the long dry summer of '31",
+        "the warden's daughter's wedding by the spring",
+        "the charcoal-pit collapse",
+        "the season the smiths ran short of ore"
+      ],
 
-  "district_names": [
-    { "name": "The Bellyard",   "preset": "town" },
-    { "name": "Springside",     "preset": "nature" },
-    { "name": "Cinderrow",      "preset": "ruins" },
-    { "name": "The Coldwell",   "preset": "landmark" },
-    { "name": "Old Forgeworks", "preset": "town" },
-    { "name": "The Sunk Pits",  "preset": "dungeon" },
-    { "name": "Wardens' Rise",  "preset": "landmark" }
-  ],
+      "mood_tier": "strained",
 
-  "relics": [
-    {
-      "name": "The Coldspring Draught",
-      "item_type": "minecraft:heart_of_the_sea",
-      "description": "Water from the spring that would not burn.",
-      "lore": "Drawn the morning after the Great Burn, it has never once gone warm.",
-      "color": "aqua",
-      "rarity": "Legendary"
+      "subtitles": {
+        "town": "where the anvils never fully cool",
+        "nature": "the spring's green margin, jealously watered",
+        "ruins": "charred timbers the Burn left standing",
+        "landmark": "the cold spring that outlived the fire",
+        "dungeon": "below, where the old pits caved in",
+        "default": "an iron bell waits at every door"
+      },
+
+      "district_names": [
+        { "name": "The Bellyard",   "preset": "town" },
+        { "name": "Springside",     "preset": "nature" },
+        { "name": "Cinderrow",      "preset": "ruins" },
+        { "name": "The Coldwell",   "preset": "landmark" },
+        { "name": "Old Forgeworks", "preset": "town" },
+        { "name": "The Sunk Pits",  "preset": "dungeon" },
+        { "name": "Wardens' Rise",  "preset": "landmark" }
+      ],
+
+      "relics": [
+        { "name": "The Coldspring Draught",        "item_type": "minecraft:heart_of_the_sea", "description": "Water from the spring that would not burn.",          "lore": "Drawn the morning after the Great Burn, it has never once gone warm.",                      "color": "aqua",         "rarity": "Legendary" },
+        { "name": "Warden Aldra's Warning Horn",   "item_type": "minecraft:goat_horn",         "description": "Sounded to muster the bucket-line.",                  "lore": "Its note still scatters the crows from the charcoal pits at dawn.",                         "color": "gold",         "rarity": "Rare" },
+        { "name": "The Emberwell Charcoal Tally",  "item_type": "minecraft:book",              "description": "Every cord burned, every bell recast.",              "lore": "Kept since the night the bells first rang false, in case they ever should again.",          "color": "yellow",       "rarity": "Common" },
+        { "name": "Bell-Iron Nugget",              "item_type": "minecraft:iron_nugget",       "description": "Filed from the first bell recast after the Burn.",    "lore": "Carried for luck by every smith who returned to the cold spring.",                          "color": "white",        "rarity": "Uncommon" },
+        { "name": "The Unburnt Feather",           "item_type": "minecraft:feather",           "description": "Found whole in the ashes of the old village.",        "lore": "The children say the spring's grey bird dropped it where the fire could not reach.",        "color": "white",        "rarity": "Common" },
+        { "name": "Forge-Master's Ember Pouch",    "item_type": "minecraft:blaze_powder",      "description": "Kept to relight the great forge, and never more than that.", "lore": "In Emberwell even fire is rationed; this pouch is counted twice each night.",         "color": "gold",         "rarity": "Rare" },
+        { "name": "The Watch-Bell of Emberwell",   "item_type": "minecraft:bell",              "description": "Recast after the old one rang false.",                "lore": "It is struck only when smoke is truly on the wind, so no warden may ever cry wolf again.",  "color": "gold",         "rarity": "Rare" },
+        { "name": "Ember-Glass Shard",             "item_type": "minecraft:amethyst_shard",    "description": "Fused in the heat of the Great Burn.",                "lore": "Kept on the council table as proof the whole valley once came within a night of dying.",    "color": "light_purple", "rarity": "Uncommon" },
+        { "name": "The Smoke-Watch Timepiece",     "item_type": "minecraft:clock",             "description": "Marks the warden's shifts on the wall.",              "lore": "Its slow tick is the only sound on a still night, when every ear strains for the bells.",   "color": "yellow",       "rarity": "Common" },
+        { "name": "Sister Eda's Meltwater Vial",   "item_type": "minecraft:glass_bottle",      "description": "Filled with the first meltwater of each spring.",     "lore": "Eda swears the spring speaks through it, if you hold it to the last light.",                 "color": "aqua",         "rarity": "Uncommon" },
+        { "name": "The Founders' Char-Map",        "item_type": "minecraft:map",               "description": "Charts every house the Burn took.",                   "lore": "The unburnt lines are inked in charcoal from the pit that killed the founders' street.",    "color": "yellow",       "rarity": "Uncommon" },
+        { "name": "Warden's Tallow Lantern",       "item_type": "minecraft:lantern",           "description": "Lit only on the stillest nights of the smoke-watch.", "lore": "By its light Aldra counts the bells before she trusts herself to sleep.",                   "color": "gold",         "rarity": "Rare" },
+        { "name": "The Recast Bell-Clapper",       "item_type": "minecraft:iron_ingot",        "description": "Iron drawn off the bell that once rang false.",       "lore": "Melted down and struck new, so the old lie could ring true again.",                         "color": "white",        "rarity": "Common" },
+        { "name": "The Deepwell Pearl",            "item_type": "minecraft:nautilus_shell",    "description": "Brought up from the cold spring's dark bottom.",      "lore": "No fish live in the Coldwell; no one can say what grew this, or how long it waited.",       "color": "aqua",         "rarity": "Rare" }
+      ],
+
+      "tools": [
+        { "preset": "town",     "name": "Warden Aldra's Trusty Sword",     "item_type": "minecraft:iron_sword",        "description": "The hearth-warden's blade, kept for the long smoke-watches.", "lore": "Carried on every wall since the night the bells first rang false.",                    "color": "green",  "rarity": "Uncommon" },
+        { "preset": "town",     "name": "Smith Hedda's Sturdy Axe",        "item_type": "minecraft:iron_axe",          "description": "Splits cordwood for the charcoal mounds.",                    "lore": "Reforged twice for the cistern work, when the smiths ran short of ore.",               "color": "green",  "rarity": "Uncommon" },
+        { "preset": "town",     "name": "Warden Kel's Watch-Helm",         "item_type": "minecraft:iron_helmet",       "description": "Dented iron worn on the night wall.",                         "lore": "Kel wore it the season the pit-beams gave way, and has not set it down since.",        "color": "green",  "rarity": "Uncommon" },
+        { "preset": "town",     "name": "Steward Hollis's Gilded Plate",   "item_type": "minecraft:golden_chestplate", "description": "Worn only when the council receives outland folk.",           "lore": "Gilded from the bell-fund, to look richer than a valley of ash has any right to.",     "color": "aqua",   "rarity": "Rare" },
+        { "preset": "town",     "name": "Old Tann's Battered Pickaxe",     "item_type": "minecraft:stone_pickaxe",     "description": "The stonemason's tool for the cistern walls.",                "lore": "Tann has cut every course of the new cistern by hand, one careful block a day.",       "color": "yellow", "rarity": "Old" },
+        { "preset": "nature",   "name": "Old Pell's Worn Hoe",             "item_type": "minecraft:wooden_hoe",        "description": "Tends the jealously-watered gardens by the spring.",          "lore": "Pell has turned the green margin with it every dry season since the summer of '31.",   "color": "yellow", "rarity": "Old" },
+        { "preset": "nature",   "name": "Joss's Patient Rod",              "item_type": "minecraft:fishing_rod",       "description": "Worked at the cold spring's outflow at dawn.",                "lore": "Joss fishes the spring-pool so the cistern crews have something hot waiting at dusk.", "color": "yellow", "rarity": "Common" },
+        { "preset": "nature",   "name": "Shepherd Rowe's Shears",          "item_type": "minecraft:shears",            "description": "Clips wool for the smoke-watch cloaks.",                      "lore": "Rowe keeps the small flock that grazes the spring's green margin, and no other.",      "color": "yellow", "rarity": "Common" },
+        { "preset": "nature",   "name": "Ranger Sela's Leather Boots",     "item_type": "minecraft:leather_boots",     "description": "For walking the fire-lines above the valley.",                "lore": "Sela treads the hill margins each dry month, watching the treeline for smoke.",        "color": "yellow", "rarity": "Common" },
+        { "preset": "dungeon",  "name": "Tomas's Pit Pickaxe",             "item_type": "minecraft:iron_pickaxe",      "description": "For the collapsed charcoal pits below.",                      "lore": "The only tool that came back up the season the pit-beams gave way.",                   "color": "green",  "rarity": "Uncommon" },
+        { "preset": "dungeon",  "name": "Pit-Warden's Iron Chestplate",    "item_type": "minecraft:iron_chestplate",   "description": "Worn down into the sunk pits after the collapse.",            "lore": "Scored along one side where a beam pinned its last wearer against the coal.",           "color": "green",  "rarity": "Uncommon" },
+        { "preset": "dungeon",  "name": "Deepwatch Crossbow",              "item_type": "minecraft:crossbow",          "description": "Kept loaded at the mouth of the sunk pits.",                  "lore": "Against what, no warden will say; but it is checked at every shift-change.",           "color": "green",  "rarity": "Uncommon" },
+        { "preset": "ruins",    "name": "Bryn's Salvage Axe",              "item_type": "minecraft:stone_axe",         "description": "Pulled from a house the Burn left standing.",                 "lore": "Its haft is scorched black but the head still bites clean.",                           "color": "yellow", "rarity": "Old" },
+        { "preset": "ruins",    "name": "The Cinderrow Bow",               "item_type": "minecraft:bow",               "description": "Strung with gut, kept for the ash-crows.",                    "lore": "Left in a dead doorway with an iron bell, as if its owner meant to come back.",        "color": "yellow", "rarity": "Old" },
+        { "preset": "landmark", "name": "The Coldwell Blessing-Blade",     "item_type": "minecraft:golden_sword",      "description": "Drawn only at the spring's yearly blessing.",                 "lore": "Gilded by the first smiths who dared return to the cold water.",                       "color": "aqua",   "rarity": "Rare" },
+        { "preset": "landmark", "name": "The Coldwell Warden-Helm",        "item_type": "minecraft:golden_helmet",     "description": "Worn on Wardens' Rise when a fire-watch is named.",           "lore": "Its crest is beaten from bell-iron, so the wardens never forget what they guard.",     "color": "aqua",   "rarity": "Rare" }
+      ],
+
+      "diaries": [
+        { "preset": "town",     "author_name": "Hearth-Warden Aldra", "author_role": "warden",        "book_title": "The Smoke-Watch",  "page": "Third night on the wall, and still I count the bells before I sleep. We must have the cistern deep before the dry months -- Sister Eda says the spring is already low. The night the bells rang false, I learned to trust my own nose over iron." },
+        { "preset": "town",     "author_name": "Smith Hedda",         "author_role": "smith",         "book_title": "Forge Ledger",     "page": "The ore ran short again this week, so I reforged Aldra's blade rather than cast new. The cistern eats iron as fast as the forge can pour it. I keep my bell on the anvil and strike it twice at dusk out of habit now, not fear." },
+        { "preset": "town",     "author_name": "Merin",               "author_role": "settler",       "book_title": "Hearth Notes",     "page": "Another day for the cistern. Everyone digs who can. I keep an iron bell by the door as my mother did, and listen for smoke on the wind. We lost a whole village once; we will not lose this cold spring too." },
+        { "preset": "nature",   "author_name": "Old Pell",            "author_role": "gardener",      "book_title": "Spring Ledger",    "page": "Turned the green margin again. It drinks more than the spring can spare this year, same as the long dry summer of '31. Aldra wants every bucket for the cistern now. I water at dusk so the warden won't see, and beg the spring's pardon." },
+        { "preset": "nature",   "author_name": "Joss",                "author_role": "angler",        "book_title": "Spring-Mouth Log", "page": "Cold work at the spring-mouth before dawn, but the cistern crews want something hot at dusk. The pool sinks lower each week, same as the long dry summer of '31. Aldra says fish while we still can. I keep my bell on the bank." },
+        { "preset": "ruins",    "author_name": "Bryn",                "author_role": "salvager",      "book_title": "Cinderrow Notes",  "page": "Pulled good nails from a house the Burn left standing. Folk say Cinderrow is unlucky, but I married Sael by that same spring and we were glad. The cistern work pays in charcoal, so I dig. An iron bell still hangs in the dead doorway." },
+        { "preset": "landmark", "author_name": "Sister Eda",          "author_role": "spring-keeper", "book_title": "By the Coldwell",  "page": "The Coldwell has not gone warm in two generations, but it sinks. I keep the tally for Aldra -- so many hands a day on the cistern, so much water held. The spring remembers what the fire forgets, and I mean to help it remember longer." },
+        { "preset": "dungeon",  "author_name": "Tomas",               "author_role": "pit-warden",    "book_title": "Below the Pits",   "page": "Back down the charcoal pits since the collapse. We shore the old beams and haul out what ore the smiths ran short of. It is dark work and the air bites, but the cistern needs stone and the forges need fuel. I ring my bell at every shift." }
+      ]
     },
-    {
-      "name": "Warden Aldra's Warning Horn",
-      "item_type": "minecraft:goat_horn",
-      "description": "Sounded to muster the bucket-line.",
-      "lore": "Its note still scatters the crows from the charcoal pits at dawn.",
-      "color": "gold",
-      "rarity": "Rare"
+
+    "2": {
+      "_name": "Saltmere — a tidal-marsh salt and eel town",
+
+      "settlement": {
+        "name": "Saltmere",
+        "era": "in the years since the Sundering Tide",
+        "founding_story": "Saltmere stands on stilts above a brackish marsh, its folk living by salt-pans and eel-weirs since the first keepers drove their piles into the mud. When the Sundering Tide rose without warning and drowned the low quarter, the survivors lashed a small boat to every rafter and swore the sea would never again catch them ashore.",
+        "primary_industry": "salt-panning and eel-fishing",
+        "central_virtue": "endurance",
+        "collective_fear": "a tide that does not turn back",
+        "historical_wound": "the Sundering Tide that drowned the low quarter",
+        "motif": "a small boat lashed above every door",
+        "worldview": "the sea gives and the sea takes; keep a boat ready",
+        "social_structure": "a moot of weir-keepers",
+        "outsider_reputation": "quiet, salt-cured, generous with fish and slow with trust"
+      },
+
+      "goal": {
+        "summary": "raise the new sea-wall before the spring tides",
+        "stakes": "another Sundering would take the whole town, not just the low quarter."
+      },
+
+      "shared_events": [
+        "the Sundering Tide",
+        "the year the eels would not run",
+        "the drowning of the old chapel bell",
+        "the salt-blight summer",
+        "the night the bar took the netmender's twin sons"
+      ],
+
+      "mood_tier": "thriving",
+
+      "subtitles": {
+        "town": "boardwalks that creak with every tide",
+        "nature": "the salt-pans, white and patient under the sun",
+        "ruins": "the low quarter the Sundering never gave back",
+        "landmark": "the sea-wall the whole town raised by hand",
+        "dungeon": "the flooded cellars beneath the old chapel",
+        "default": "a boat waits lashed above every door"
+      },
+
+      "district_names": [
+        { "name": "The Stiltways",     "preset": "town" },
+        { "name": "The Salt-Pans",     "preset": "nature" },
+        { "name": "The Drowned Quarter", "preset": "ruins" },
+        { "name": "The Sea-Wall",      "preset": "landmark" },
+        { "name": "Netmender's Row",   "preset": "town" },
+        { "name": "The Sunk Chapel",   "preset": "dungeon" },
+        { "name": "Tidewatch Rise",    "preset": "landmark" }
+      ],
+
+      "relics": [
+        { "name": "The Weir-Keeper's Tide-Pearl",  "item_type": "minecraft:nautilus_shell",   "description": "Prised from the last eel-trap before the Sundering.",  "lore": "They say it grows warm an hour before any dangerous tide.",                                 "color": "aqua",         "rarity": "Rare" },
+        { "name": "The Drowned Chapel's Bell",     "item_type": "minecraft:bell",             "description": "Raised from the mud where the old chapel sank.",       "lore": "Its clapper is lost; Saltmere rings it only with a knuckle, once, for the low quarter.",    "color": "gold",         "rarity": "Legendary" },
+        { "name": "Salt-Blessed Heart",            "item_type": "minecraft:heart_of_the_sea", "description": "Kept in brine on the moot-table.",                     "lore": "The keepers swear on it, for the sea can hear a lie told over salt water.",                 "color": "aqua",         "rarity": "Epic" },
+        { "name": "Netmender's Knot-Cord",         "item_type": "minecraft:string",           "description": "Tied with the twin sons' last knot.",                  "lore": "No one in Netmender's Row will cut it, though it has hung frayed for years.",               "color": "white",        "rarity": "Common" },
+        { "name": "The Eel-Runner's Tally",        "item_type": "minecraft:book",             "description": "Every season's catch, back to the founding.",          "lore": "The year the eels would not run has a single blank page, left so on purpose.",              "color": "yellow",       "rarity": "Common" },
+        { "name": "The Marsh-Lantern",             "item_type": "minecraft:lantern",          "description": "Hung at the bar to warn the eel-boats home.",          "lore": "It has burned every night since the bar took the netmender's twins.",                       "color": "gold",         "rarity": "Uncommon" },
+        { "name": "Tide-Charter Map",              "item_type": "minecraft:map",              "description": "Marks every house the Sundering took.",                "lore": "The drowned streets are drawn in blue, and never crossed out.",                             "color": "yellow",       "rarity": "Uncommon" },
+        { "name": "Weir-Iron Cap",                 "item_type": "minecraft:iron_nugget",      "description": "Filed from the great weir's first pile-cap.",          "lore": "Carried for luck by every keeper who mends the weir alone at low water.",                   "color": "white",        "rarity": "Uncommon" },
+        { "name": "Brine-Amber Bead",              "item_type": "minecraft:amethyst_shard",   "description": "Cut from salt-glass fused in the pan-fires.",          "lore": "Strung on a child's wrist against the marsh-fever that follows a flood.",                   "color": "light_purple", "rarity": "Uncommon" },
+        { "name": "The Sundering Driftwood",       "item_type": "minecraft:stick",            "description": "A rafter from the low quarter, come back on the tide.", "lore": "Whoever finds their own house's wood keeps it, lashed above the door.",                    "color": "yellow",       "rarity": "Common" },
+        { "name": "Ferryman's Cold Coin",          "item_type": "minecraft:gold_nugget",      "description": "Left on the sea-wall for the drowned.",                "lore": "The moot replaces it each spring tide; it is never found taken, only gone.",               "color": "gold",         "rarity": "Uncommon" },
+        { "name": "The Deep-Weir Pearl",           "item_type": "minecraft:prismarine_shard", "description": "Grown on the oldest pile, far down in the dark water.", "lore": "Only the eldest keeper dives for it, and only in the year a new wall is begun.",           "color": "aqua",         "rarity": "Rare" },
+        { "name": "Salt-Keeper's Draught",         "item_type": "minecraft:glass_bottle",     "description": "Marsh-water boiled thrice to test the pans.",          "lore": "If it clouds, the salt will blight; the whole town watches the keeper hold it up.",         "color": "aqua",         "rarity": "Common" },
+        { "name": "The Chapel Sea-Glass",          "item_type": "minecraft:heart_of_the_sea", "description": "Found in the silt where the chapel window drowned.",   "lore": "Held to the eye, folk say, it shows the low quarter as it stood before the Sundering.",     "color": "aqua",         "rarity": "Rare" }
+      ],
+
+      "tools": [
+        { "preset": "town",     "name": "Weir-Keeper Mared's Trusty Blade",  "item_type": "minecraft:iron_sword",        "description": "The moot-keeper's blade, worn on the boardwalks each tide.", "lore": "Carried on watch since the night the bar took the netmender's twins.",                "color": "green",  "rarity": "Uncommon" },
+        { "preset": "town",     "name": "Harbor-Steward Ossic's Gilded Plate", "item_type": "minecraft:golden_chestplate", "description": "Worn only when the moot receives outland traders.",         "lore": "Salt made Saltmere rich enough for gilt, and cautious enough to hide it most days.",  "color": "aqua",   "rarity": "Rare" },
+        { "preset": "town",     "name": "Boardwright Tam's Worn Hatchet",    "item_type": "minecraft:stone_axe",         "description": "Trims the stilts that hold the Stiltways up.",              "lore": "Tam has replaced every rotten pile under Netmender's Row twice over.",                 "color": "yellow", "rarity": "Old" },
+        { "preset": "town",     "name": "Old Corran's Sturdy Axe",           "item_type": "minecraft:iron_axe",          "description": "Splits pile-timber for the sea-wall.",                      "lore": "Corran swears the wall will outlast him; he cuts as though to be sure of it.",         "color": "green",  "rarity": "Uncommon" },
+        { "preset": "town",     "name": "Watch-Helm of the Stiltways",       "item_type": "minecraft:iron_helmet",       "description": "Dented by a hundred storms, passed down the tide-watch.",   "lore": "Worn by whoever holds the dawn watch when the spring tides are running.",              "color": "green",  "rarity": "Uncommon" },
+        { "preset": "nature",   "name": "Angler Sella's Patient Rod",        "item_type": "minecraft:fishing_rod",       "description": "Worked the eel-weirs before dawn.",                         "lore": "Sella fishes the near weir so the pan-crews eat hot at dusk, and keeps clear of the bar.", "color": "yellow", "rarity": "Common" },
+        { "preset": "nature",   "name": "Pan-Warden Bly's Worn Hoe",         "item_type": "minecraft:wooden_hoe",        "description": "Rakes the salt-pans white each morning.",                   "lore": "Bly holds a share of every harvest back against the next year the eels won't run.",    "color": "yellow", "rarity": "Old" },
+        { "preset": "nature",   "name": "Marsh-Ranger's Leather Boots",      "item_type": "minecraft:leather_boots",     "description": "Cross the mud-flats where the planks won't hold.",          "lore": "Waxed with eel-oil so the marsh gives them up again at the end of a day.",             "color": "yellow", "rarity": "Common" },
+        { "preset": "nature",   "name": "Eel-Spear of the Deep Weir",        "item_type": "minecraft:trident",           "description": "Set against the great eels that came after the Sundering.", "lore": "Only two folk in Saltmere will wade for them; this is the elder's.",                   "color": "aqua",   "rarity": "Rare" },
+        { "preset": "dungeon",  "name": "Cellar-Warden's Iron Chestplate",   "item_type": "minecraft:iron_chestplate",   "description": "Worn down into the flooded chapel cellars.",                "lore": "Rust-pitted along the hem from years of standing in the dark water.",                  "color": "green",  "rarity": "Uncommon" },
+        { "preset": "dungeon",  "name": "The Sunk-Chapel Pick",              "item_type": "minecraft:iron_pickaxe",      "description": "Breaks the silt-crust off the drowned crypt stair.",        "lore": "The only tool the cellar-wardens will lend, and only for the chapel work.",            "color": "green",  "rarity": "Uncommon" },
+        { "preset": "dungeon",  "name": "Deepwater Crossbow",                "item_type": "minecraft:crossbow",          "description": "Kept dry against whatever the tide leaves in the dark.",     "lore": "Strung with weir-cord that will not rot in the salt air.",                             "color": "green",  "rarity": "Uncommon" },
+        { "preset": "ruins",    "name": "Salvager Wend's Old Bow",           "item_type": "minecraft:bow",               "description": "Strung with weir-cord, pulled from the drowned quarter.",   "lore": "Wend keeps it though the string is green; it was her grandmother's, born in the low quarter.", "color": "yellow", "rarity": "Old" },
+        { "preset": "ruins",    "name": "The Low-Quarter Shovel",            "item_type": "minecraft:wooden_shovel",     "description": "Digs the silt from houses the Sundering took.",             "lore": "Its blade is worn to a half-moon from years of turning marsh-mud.",                    "color": "yellow", "rarity": "Old" },
+        { "preset": "landmark", "name": "The Sea-Wall Warden-Blade",         "item_type": "minecraft:golden_sword",      "description": "Drawn at the yearly blessing of the wall.",                 "lore": "Laid along the topmost stone while the moot names the spring tides aloud.",            "color": "aqua",   "rarity": "Rare" },
+        { "preset": "landmark", "name": "Tidewatch Herald-Helm",             "item_type": "minecraft:golden_helmet",     "description": "Worn on the rise when the tides are named.",                "lore": "Its crest is a small gilt boat, for the one lashed above every door.",                 "color": "aqua",   "rarity": "Rare" }
+      ],
+
+      "diaries": [
+        { "preset": "town",     "author_name": "Weir-Keeper Mared",   "author_role": "moot-keeper",   "book_title": "The Tide-Moot Book",  "page": "Third moot on the sea-wall this month. We raise it a hand's breadth before the spring tides or not at all. I keep the boat lashed above my door as my father did after the Sundering. The marsh gives, but I do not turn my back on it." },
+        { "preset": "town",     "author_name": "Harbor-Steward Ossic","author_role": "steward",       "book_title": "Trade Ledger",        "page": "Outland boats came for salt and stayed for eel. I wore the moot's plate and spoke soft, and counted every barrel twice. The year the eels would not run taught us to sell slow and keep back more than we think we need." },
+        { "preset": "town",     "author_name": "Boardwright Tam",     "author_role": "boardwright",   "book_title": "Stilt Notes",         "page": "Two piles rotten under Netmender's Row, replaced before the tide found them. The whole town creaks at the turn now, but she stands. I trimmed the new stilts from wall-timber and rang the chapel bell once, out of habit, for the low quarter." },
+        { "preset": "nature",   "author_name": "Angler Sella",        "author_role": "angler",        "book_title": "Weir-Mouth Log",      "page": "Cold work at the bar before light, but the pan-crews want hot food at dusk. The eels run thin, thinner than the salt-blight summer. Bly says fish while we still can. I keep to the near weir; the bar took the twins and I have not forgotten." },
+        { "preset": "nature",   "author_name": "Pan-Warden Bly",      "author_role": "pan-warden",    "book_title": "Salt Ledger",         "page": "Raked the pans white again. The sun is kinder this season than it has been since the founding, and the salt comes clean. Ossic wants it all barreled for trade. I hold a share back against the next year the eels won't run." },
+        { "preset": "ruins",    "author_name": "Salvager Wend",       "author_role": "salvager",      "book_title": "Drowned-Quarter Notes","page": "Pulled good cord and a whole door from a house the Sundering took. Folk call the low quarter unlucky, but my grandmother was born there and lived to bury us all. I found our own rafter on the tide and lashed it above my door where it belongs." },
+        { "preset": "landmark", "author_name": "Warden Isa",          "author_role": "wall-warden",   "book_title": "By the Sea-Wall",     "page": "The wall stands higher than my head now, every stone carried by hand. I keep the tally for the moot: so many hands a day, so much marsh held back. The sea gives and the sea takes, but this year we mean to take a little back." },
+        { "preset": "dungeon",  "author_name": "Cellar-Warden Dross", "author_role": "cellar-warden", "book_title": "Below the Chapel",    "page": "Down in the flooded cellars again, pumping what the tide leaves. The old crypt bell lies in the mud where it drowned; we ring it with a knuckle, once, and climb back to the light. The dark water carries sound strange. I do not linger." }
+      ]
     },
-    {
-      "name": "The Emberwell Charcoal Tally",
-      "item_type": "minecraft:book",
-      "description": "Every cord burned, every bell recast.",
-      "lore": "Kept since the night the bells first rang false, in case they ever should again.",
-      "color": "yellow",
-      "rarity": "Common"
-    },
-    {
-      "name": "Bell-Iron Nugget",
-      "item_type": "minecraft:iron_nugget",
-      "description": "Filed from the first bell recast after the Burn.",
-      "lore": "Carried for luck by every smith who returned to the cold spring.",
-      "color": "white",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "The Unburnt Feather",
-      "item_type": "minecraft:feather",
-      "description": "Found whole in the ashes of the old village.",
-      "lore": "The children say the spring's grey bird dropped it where the fire could not reach.",
-      "color": "white",
-      "rarity": "Common"
-    },
-    {
-      "name": "Forge-Master's Ember Pouch",
-      "item_type": "minecraft:blaze_powder",
-      "description": "Kept to relight the great forge, and never more than that.",
-      "lore": "In Emberwell even fire is rationed; this pouch is counted twice each night.",
-      "color": "gold",
-      "rarity": "Rare"
-    },
-    {
-      "name": "The Watch-Bell of Emberwell",
-      "item_type": "minecraft:bell",
-      "description": "Recast after the old one rang false.",
-      "lore": "It is struck only when smoke is truly on the wind, so no warden may ever cry wolf again.",
-      "color": "gold",
-      "rarity": "Rare"
-    },
-    {
-      "name": "Ember-Glass Shard",
-      "item_type": "minecraft:amethyst_shard",
-      "description": "Fused in the heat of the Great Burn.",
-      "lore": "Kept on the council table as proof the whole valley once came within a night of dying.",
-      "color": "light_purple",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "The Smoke-Watch Timepiece",
-      "item_type": "minecraft:clock",
-      "description": "Marks the warden's shifts on the wall.",
-      "lore": "Its slow tick is the only sound on a still night, when every ear is straining for the bells.",
-      "color": "yellow",
-      "rarity": "Common"
+
+    "3": {
+      "_name": "Karrhold — a cold highland tin-mining hold",
+
+      "settlement": {
+        "name": "Karrhold",
+        "era": "long after the Deep Silence",
+        "founding_story": "Karrhold was cut into the cold granite of the Grey Fell, its folk winning tin from shallow adits and grazing hardy goats on the high grass. When the deep gallery went silent in a single night and no delver who entered came back, the elders sealed it behind a cairn and swore Karrhold would mine shallow and mind the quiet ever after.",
+        "primary_industry": "tin-mining and goat-herding",
+        "central_virtue": "caution",
+        "collective_fear": "waking whatever silenced the deep gallery",
+        "historical_wound": "the Deep Silence, when the low delve went quiet overnight",
+        "motif": "a knot of grey wool tied at every lintel",
+        "worldview": "mine shallow, mind the quiet",
+        "social_structure": "a ring of delve-elders",
+        "outsider_reputation": "taciturn, hard at the bargain, open-handed only in a storm"
+      },
+
+      "goal": {
+        "summary": "shore the upper galleries before the frost-heaves come",
+        "stakes": "if the props fail in the cold, the whole upper delve could follow the deep one into silence."
+      },
+
+      "shared_events": [
+        "the Deep Silence",
+        "the winter the passes closed for a hundred days",
+        "the herd-loss on Grey Fell",
+        "the tin-vein that ran to nothing",
+        "Elder Voss's long watch at the sealed door"
+      ],
+
+      "mood_tier": "struggling",
+
+      "subtitles": {
+        "town": "lamplit halls cut back from the cold",
+        "nature": "the high fell-grass where the goats wander",
+        "ruins": "adits the vein abandoned",
+        "landmark": "the cairn that seals the deep gallery",
+        "dungeon": "the silent delve, walled and unspoken",
+        "default": "a knot of grey wool hangs at every lintel"
+      },
+
+      "district_names": [
+        { "name": "The Delveyard",      "preset": "town" },
+        { "name": "Fellgrass",          "preset": "nature" },
+        { "name": "The Dry Adits",      "preset": "ruins" },
+        { "name": "The Cairn-Gate",     "preset": "landmark" },
+        { "name": "Lampwright's Hall",  "preset": "town" },
+        { "name": "The Sealed Gallery", "preset": "dungeon" },
+        { "name": "Wardstone Rise",     "preset": "landmark" }
+      ],
+
+      "relics": [
+        { "name": "Elder Voss's Silence-Lamp",     "item_type": "minecraft:lantern",        "description": "Carried to the sealed door, never lit within.",        "lore": "Voss watched a hundred nights by its light; it has not gone out since.",                    "color": "gold",         "rarity": "Rare" },
+        { "name": "Deep-Gallery Echo-Shard",       "item_type": "minecraft:echo_shard",     "description": "Found at the very mouth of the sealed delve.",         "lore": "Held to the ear, it gives back the last sound the deep ever made.",                         "color": "dark_purple",  "rarity": "Epic" },
+        { "name": "The First Tin Ingot",           "item_type": "minecraft:copper_ingot",   "description": "Poured from the shallow vein that saved the hold.",    "lore": "The first metal won after the deep was sealed, kept on the elders' table ever since.",      "color": "white",        "rarity": "Uncommon" },
+        { "name": "Grey-Wool Lintel Knot",         "item_type": "minecraft:string",         "description": "Tied at the founding lintel.",                         "lore": "Every door in Karrhold wears its like, against the quiet.",                                 "color": "white",        "rarity": "Common" },
+        { "name": "The Delve-Elder's Tally",       "item_type": "minecraft:book",           "description": "Every prop set, every adit closed.",                   "lore": "The page for the Deep Silence holds only a cairn, drawn in charcoal.",                      "color": "yellow",       "rarity": "Common" },
+        { "name": "Herd-Bell of Grey Fell",        "item_type": "minecraft:bell",           "description": "Rung to bring the goats off the high grass at dusk.",   "lore": "After the herd-loss it is rung twice, always, so no beast is left to the mist.",           "color": "gold",         "rarity": "Uncommon" },
+        { "name": "Frost-Watch Timepiece",         "item_type": "minecraft:clock",          "description": "Marks the shoring-shifts in the lamplit hall.",        "lore": "It runs slow in the cold, and the delvers have learned to trust it slow.",                 "color": "yellow",       "rarity": "Common" },
+        { "name": "The Hundred-Days Candle",       "item_type": "minecraft:candle",         "description": "Burned one finger's width a day the passes were shut.", "lore": "Relit each first snow, so the hold remembers the winter it nearly starved.",              "color": "yellow",       "rarity": "Common" },
+        { "name": "Cave-Ward Crystal",             "item_type": "minecraft:amethyst_shard", "description": "Set in the adit-mouths to catch the lamplight.",       "lore": "If it dims, the air has gone foul; the delvers climb before it goes dark.",                 "color": "light_purple", "rarity": "Uncommon" },
+        { "name": "The Old Vein's Last Nugget",    "item_type": "minecraft:raw_copper",     "description": "The final scrap from the vein that ran to nothing.",   "lore": "Kept as a warning: even the richest seam ends, so mine as if it already has.",              "color": "white",        "rarity": "Common" },
+        { "name": "Elder's Cairn-Charm",           "item_type": "minecraft:flint",          "description": "A chip struck from the sealing cairn.",                "lore": "Carried by delvers who must work near the quiet, and turned twice before they go down.",    "color": "white",        "rarity": "Common" },
+        { "name": "The Deep-Chill Draught",        "item_type": "minecraft:glass_bottle",   "description": "Meltwater from the highest adit-spring.",              "lore": "So cold it aches the teeth; the elders drink it to swear the year's shoring-oath.",         "color": "aqua",         "rarity": "Common" },
+        { "name": "Wardstone Ember",               "item_type": "minecraft:blaze_powder",   "description": "Kept to light the great hall-hearth, rationed hard.",   "lore": "Through the dark months the fire is counted in embers, and this pouch guards the last.",   "color": "gold",         "rarity": "Rare" },
+        { "name": "The Grey Fell Horn",            "item_type": "minecraft:goat_horn",      "description": "Sounded from Wardstone Rise when a delver fails to come up.", "lore": "It has been blown four times since the Deep Silence, and each time the hold went still to count.", "color": "gold", "rarity": "Rare" }
+      ],
+
+      "tools": [
+        { "preset": "town",     "name": "Delve-Elder Voss's Trusty Pick",  "item_type": "minecraft:iron_pickaxe",      "description": "The eldest's pick, set aside for the shoring work.",       "lore": "Voss carried it to the sealed door and back, and mines with it still.",              "color": "green",  "rarity": "Uncommon" },
+        { "preset": "town",     "name": "Lampwright Hesk's Sturdy Axe",    "item_type": "minecraft:iron_axe",          "description": "Cuts prop-timber hauled up from the low pass.",            "lore": "Hesk hangs a spare lamp at the cairn-gate from every third haft he trims.",           "color": "green",  "rarity": "Uncommon" },
+        { "preset": "town",     "name": "Warden Dolla's Iron Helm",        "item_type": "minecraft:iron_helmet",       "description": "Worn on the frost-watch when the galleries groan.",        "lore": "Dolla counts heads at every shift-change; the helm has heard her count for years.",   "color": "green",  "rarity": "Uncommon" },
+        { "preset": "town",     "name": "Steward Karn's Gilded Plate",     "item_type": "minecraft:golden_chestplate", "description": "Worn only when the ring of elders sits in full.",          "lore": "Gilt from the first tin traded down the low pass, and shown as seldom as pride allows.", "color": "aqua",   "rarity": "Rare" },
+        { "preset": "town",     "name": "Old Bern's Battered Shovel",      "item_type": "minecraft:stone_shovel",      "description": "Clears the adit-mouths after every thaw.",                 "lore": "Bern has dug out the same three mouths each spring for forty years.",                  "color": "yellow", "rarity": "Old" },
+        { "preset": "nature",   "name": "Herder Wynn's Shears",            "item_type": "minecraft:shears",            "description": "Clips the grey wool that ties every lintel.",              "lore": "Wynn has worked the Grey Fell herd since the herd-loss, and misses no beast now.",     "color": "yellow", "rarity": "Common" },
+        { "preset": "nature",   "name": "Fell-Warden's Worn Hoe",          "item_type": "minecraft:wooden_hoe",        "description": "Breaks the thin soil of the high garden-terraces.",        "lore": "The only tool that grows anything on the Grey Fell, and only in a kind summer.",       "color": "yellow", "rarity": "Old" },
+        { "preset": "nature",   "name": "Grazier's Leather Boots",         "item_type": "minecraft:leather_boots",     "description": "Climb the fell after strays before the dark.",             "lore": "Nailed with tin studs for the frost; a grazier's life often hangs on their grip.",     "color": "yellow", "rarity": "Common" },
+        { "preset": "nature",   "name": "Shepherd's Hardy Axe",            "item_type": "minecraft:stone_axe",         "description": "Cuts gorse for the winter byres.",                         "lore": "Kept by the byre-door against fell-wolves as much as for the wood.",                   "color": "yellow", "rarity": "Old" },
+        { "preset": "dungeon",  "name": "Deep-Warden's Iron Chestplate",   "item_type": "minecraft:iron_chestplate",   "description": "Worn only by those who work nearest the sealed gallery.",   "lore": "Its buckles are wrapped in grey wool, so they make no sound in the deep.",             "color": "green",  "rarity": "Uncommon" },
+        { "preset": "dungeon",  "name": "The Cautious Pick",               "item_type": "minecraft:iron_pickaxe",      "description": "Struck soft, a tap at a time, in the deep adits.",          "lore": "Balanced to swing quiet; a loud blow near the quiet is a delver's last mistake.",      "color": "green",  "rarity": "Uncommon" },
+        { "preset": "dungeon",  "name": "Silence-Watch Crossbow",          "item_type": "minecraft:crossbow",          "description": "Kept loaded at the cairn-gate.",                           "lore": "Against what, no elder will say; but it is checked before every deep shift.",          "color": "green",  "rarity": "Uncommon" },
+        { "preset": "ruins",    "name": "Salvager Ims's Old Pick",         "item_type": "minecraft:stone_pickaxe",     "description": "Works the dry adits the vein left behind.",                "lore": "Ims keeps clear of the low turnings that lead toward the deep, and mines up, never down.", "color": "yellow", "rarity": "Old" },
+        { "preset": "ruins",    "name": "The Dry-Adit Bow",                "item_type": "minecraft:bow",               "description": "Strung with goat-gut, kept for the fell-wolves.",          "lore": "Left leaning in a played-out adit, as if its owner meant a quick return.",             "color": "yellow", "rarity": "Old" },
+        { "preset": "landmark", "name": "The Cairn-Gate Ward-Blade",       "item_type": "minecraft:golden_sword",      "description": "Laid across the sealed door at the year's turning.",       "lore": "Gilt so the quiet, if it has eyes, sees that Karrhold still keeps its watch.",         "color": "aqua",   "rarity": "Rare" },
+        { "preset": "landmark", "name": "Wardstone Herald-Helm",           "item_type": "minecraft:golden_helmet",     "description": "Worn on the rise when a lost delver is named.",            "lore": "Its crest is a knot of gilt wire, shaped like the wool-knot at every door.",           "color": "aqua",   "rarity": "Rare" }
+      ],
+
+      "diaries": [
+        { "preset": "town",     "author_name": "Delve-Elder Voss",   "author_role": "delve-elder",   "book_title": "The Shoring Book",   "page": "Set nine props in the upper gallery before the frost-heaves. We mine shallow and mind the quiet, as the ring has sworn since the deep went silent. I keep a knot of grey wool at my door and touch it before I go down. The stone speaks; I have learned to listen." },
+        { "preset": "town",     "author_name": "Lampwright Hesk",    "author_role": "lampwright",    "book_title": "Lamp Ledger",        "page": "Trimmed and filled every lamp in the Delveyard. Oil runs short this dark month, shorter than the winter the passes closed. Karn wants the great hearth kept low. I hang a spare lamp at the cairn-gate all the same; no delver should meet the quiet without light." },
+        { "preset": "town",     "author_name": "Warden Dolla",       "author_role": "frost-warden",  "book_title": "Frost-Watch Notes",  "page": "The galleries groaned twice on my watch, only the cold in the stone. Still I counted heads at the shift-change, all of them, before I slept. We lost a whole delve in a night once. I will not lose one soul to carelessness while I hold the watch." },
+        { "preset": "nature",   "author_name": "Herder Wynn",        "author_role": "herder",        "book_title": "Fell Ledger",        "page": "Brought the herd off Grey Fell before dark; two strays, both found. The grass thins with the frost, thinner than the year of the herd-loss. I clipped grey wool for the lintels and rang the herd-bell twice. The goats mind the quiet better than we do." },
+        { "preset": "nature",   "author_name": "Grazier Sel",        "author_role": "grazier",       "book_title": "High-Grass Log",     "page": "Cold work on the fell, but the byres want gorse before the snow. I keep to the near slopes; the mist came down fast the day of the herd-loss and I have not trusted it since. Wynn says the goats will not graze above the sealed adit. Neither will I." },
+        { "preset": "ruins",    "author_name": "Salvager Ims",       "author_role": "salvager",      "book_title": "Dry-Adit Notes",     "page": "Worked the old vein that ran to nothing, pulling props and good stone. Folk call the dry adits unlucky, but tin is tin and Karn pays in oil. I keep well clear of the low turnings that lead toward the deep. A knot of wool at every timber, and up before dark." },
+        { "preset": "landmark", "author_name": "Warden Ola",         "author_role": "gate-warden",   "book_title": "By the Cairn-Gate",  "page": "Laid the ward-blade across the sealed door at the year's turning, as we do. I keep the tally for the ring: so many props set, so many adits closed. We do not open the deep. We only make sure the quiet stays where we left it." },
+        { "preset": "dungeon",  "author_name": "Deep-Warden Fenn",   "author_role": "deep-warden",   "book_title": "Nearest the Silence","page": "Worked the gallery closest to the cairn today, a tap at a time. The echo-shard at the mouth gave back a sound I did not make, so I set down my pick and climbed. Voss says trust that feeling always. I touched the wool-knot at the gate and did not look back." }
+      ]
     }
-  ],
 
-  "tools": [
-    {
-      "preset": "town",
-      "name": "Warden Aldra's Trusty Sword",
-      "item_type": "minecraft:iron_sword",
-      "description": "The hearth-warden's blade, kept for the long smoke-watches.",
-      "lore": "Carried on every wall since the night the bells first rang false.",
-      "color": "green",
-      "rarity": "Uncommon"
-    },
-    {
-      "preset": "nature",
-      "name": "Old Pell's Worn Hoe",
-      "item_type": "minecraft:wooden_hoe",
-      "description": "Tends the jealously-watered gardens by the spring.",
-      "lore": "Pell has turned the green margin with it every dry season since the summer of '31.",
-      "color": "yellow",
-      "rarity": "Old"
-    },
-    {
-      "preset": "ruins",
-      "name": "Bryn's Salvage Axe",
-      "item_type": "minecraft:stone_axe",
-      "description": "Pulled from a house the Burn left standing.",
-      "lore": "Its haft is scorched black but the head still bites clean.",
-      "color": "yellow",
-      "rarity": "Old"
-    },
-    {
-      "preset": "landmark",
-      "name": "The Coldwell Blessing-Blade",
-      "item_type": "minecraft:golden_sword",
-      "description": "Drawn only at the spring's yearly blessing.",
-      "lore": "Gilded by the first smiths who dared return to the cold water.",
-      "color": "aqua",
-      "rarity": "Rare"
-    },
-    {
-      "preset": "dungeon",
-      "name": "Tomas's Pit Pickaxe",
-      "item_type": "minecraft:iron_pickaxe",
-      "description": "For the collapsed charcoal pits below.",
-      "lore": "The only tool that came back up the season the pit-beams gave way.",
-      "color": "green",
-      "rarity": "Uncommon"
-    },
-    {
-      "preset": "town",
-      "name": "Smith Hedda's Sturdy Axe",
-      "item_type": "minecraft:iron_axe",
-      "description": "Splits cordwood for the charcoal mounds.",
-      "lore": "Reforged twice for the cistern work, when the smiths ran short of ore.",
-      "color": "green",
-      "rarity": "Uncommon"
-    },
-    {
-      "preset": "nature",
-      "name": "Joss's Patient Rod",
-      "item_type": "minecraft:fishing_rod",
-      "description": "Worked at the cold spring's outflow at dawn.",
-      "lore": "Joss fishes the spring-pool so the cistern crews have something hot waiting at dusk.",
-      "color": "yellow",
-      "rarity": "Common"
-    }
-  ],
-
-  "diaries": [
-    {
-      "preset": "town",
-      "author_name": "Hearth-Warden Aldra",
-      "author_role": "warden",
-      "book_title": "The Smoke-Watch",
-      "page": "Third night on the wall, and still I count the bells before I sleep. We must have the cistern deep before the dry months -- Sister Eda says the spring is already low. The night the bells rang false, I learned to trust my own nose over iron."
-    },
-    {
-      "preset": "nature",
-      "author_name": "Old Pell",
-      "author_role": "gardener",
-      "book_title": "Spring Ledger",
-      "page": "Turned the green margin again. It drinks more than the spring can spare this year, same as the long dry summer of '31. Aldra wants every bucket for the cistern now. I water at dusk so the warden won't see, and beg the spring's pardon."
-    },
-    {
-      "preset": "ruins",
-      "author_name": "Bryn",
-      "author_role": "salvager",
-      "book_title": "Cinderrow Notes",
-      "page": "Pulled good nails from a house the Burn left standing. Folk say Cinderrow is unlucky, but I married Sael by that same spring and we were glad. The cistern work pays in charcoal, so I dig. An iron bell still hangs in the dead doorway."
-    },
-    {
-      "preset": "landmark",
-      "author_name": "Sister Eda",
-      "author_role": "spring-keeper",
-      "book_title": "By the Coldwell",
-      "page": "The Coldwell has not gone warm in two generations, but it sinks. I keep the tally for Aldra -- so many hands a day on the cistern, so much water held. The spring remembers what the fire forgets, and I mean to help it remember longer."
-    },
-    {
-      "preset": "dungeon",
-      "author_name": "Tomas",
-      "author_role": "pit-warden",
-      "book_title": "Below the Pits",
-      "page": "Back down the charcoal pits since the collapse. We shore the old beams and haul out what ore the smiths ran short of. It is dark work and the air bites, but the cistern needs stone and the forges need fuel. I ring my bell at every shift."
-    },
-    {
-      "preset": "town",
-      "author_name": "Merin",
-      "author_role": "settler",
-      "book_title": "Hearth Notes",
-      "page": "Another day for the cistern. Everyone digs who can. I keep an iron bell by the door as my mother did, and listen for smoke on the wind. We lost a whole village once; we will not lose this cold spring too."
-    },
-    {
-      "preset": "nature",
-      "author_name": "Joss",
-      "author_role": "angler",
-      "book_title": "Spring-Mouth Log",
-      "page": "Cold work at the spring-mouth before dawn, but the cistern crews want something hot at dusk. The pool sinks lower each week, same as the long dry summer of '31. Aldra says fish while we still can. I keep my bell on the bank."
-    }
-  ]
+  }
 }

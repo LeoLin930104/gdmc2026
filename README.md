@@ -37,6 +37,22 @@ uv run pytest
 → narrative-layer orchestrator. Live runs require Minecraft plus the GDMC HTTP
 interface; `--dry-run` validates command wiring without world writes.
 
+## LLM config (`.env`)
+
+The narrative layer calls a hosted LLM. Config lives in the
+repo-root `.env` (tracked, so it's easy to find - real shell env vars override
+it):
+
+```dotenv
+LLM_API_KEY=                                  # required; blank → offline fallback content
+LLM_API_BASE_URL=https://api.openai.com/v1    # optional; any OpenAI-compatible endpoint
+LLM_API_MODEL=gpt-4o-mini                      # optional
+NARRATIVE_FALLBACK_VARIANT=1                    # offline lore when no key: 1=Emberwell, 2=Saltmere, 3=Karrhold
+```
+
+Without a key the pipeline still runs, generating authored offline content
+instead of live text.
+
 ## Public API
 
 ```python

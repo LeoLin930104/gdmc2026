@@ -44,16 +44,23 @@ def wrap_lore_text(text: str, width: int = DESCRIPTION_WRAP_WIDTH) -> list[str]:
     return textwrap.wrap(text, width=width, break_long_words=True, break_on_hyphens=False)
 
 
-def snbt_string(json_dict: dict) -> str:
-    """Convert a Python dict to a single-quoted SNBT string.
+def text_component_snbt(text: str, *, color: str | None = None,
+                        italic: bool | None = None) -> str:
+    """Build ONE text component as an INLINE SNBT compound: `{text:"..",color:"..",italic:false}`.
 
-    json.dumps produces a double-quoted JSON string.  We wrap it in single
-    quotes for SNBT so that no inner escaping is needed for the double quotes.
-    Any literal single quotes inside the JSON string are escaped to \\'.
+    MC 1.21.9+ (we target 1.21.11) stores item text components (custom_name,
+    lore) as REAL NBT — NOT the pre-1.21.9 single-quoted JSON-string form
+    (`'{"text":".."}'`). The old form now renders LITERALLY in-game (the tooltip
+    shows the raw `{"text":..}` characters), so we emit the compound directly.
+    The string value is double-quoted via json.dumps, whose escaping matches
+    SNBT double-quoted strings; keys/booleans are bare SNBT tokens.
     """
-    raw_json = json.dumps(json_dict, ensure_ascii=False, separators=(",", ":"))
-    escaped = raw_json.replace("'", "\\'")
-    return f"'{escaped}'"
+    parts = [f"text:{json.dumps(text, ensure_ascii=False)}"]
+    if color is not None:
+        parts.append(f"color:{json.dumps(color, ensure_ascii=False)}")
+    if italic is not None:
+        parts.append(f"italic:{'true' if italic else 'false'}")
+    return "{" + ",".join(parts) + "}"
 
 
 # ---------------------------------------------------------------------------
@@ -129,7 +136,7 @@ def _ensure_llm_on_path() -> None:
 
 
 def load_relics_from_llm(theme: str, count: int, settlement=None, biome: str | None = None) -> list:
-    """Generate relics via the LM Studio client and run them through validate_relic.
+    """Generate relics via the hosted LLM API and run them through validate_relic.
 
     If `settlement` is provided, its identity is threaded into the relic prompt
     so relic lore coheres with the rest of the settlement's narrative. `biome`
@@ -168,36 +175,27 @@ def build_item_nbt(relic: dict, slot: int, glint: bool = True) -> str:
     tool placer for low-rarity items (e.g. an "Old" wooden hoe shouldn't
     glow). Default True preserves the original relic-chest behavior.
     """
-    name_snbt = snbt_string({
-        "text":   relic["name"],
-        "color":  relic["color"],
-        "italic": False,        # Override Minecraft's default italic on display names
-    })
+    # Override Minecraft's default italic on display names.
+    name_snbt = text_component_snbt(relic["name"], color=relic["color"], italic=False)
 
     lore_parts = []
     if relic["description"]:
         # Word-wrap into multiple gray lore lines so a long description doesn't
         # run off the tooltip; each wrapped line is its own lore component.
         for line in wrap_lore_text(relic["description"]):
-            lore_parts.append(snbt_string({
-                "text":   line,
-                "color":  "gray",
-                "italic": False,
-            }))
+            lore_parts.append(text_component_snbt(line, color="gray", italic=False))
     if relic["lore"]:
         # Same word-wrap as the description so the italic story doesn't run off
         # the tooltip; each wrapped line is its own italic lore component.
         for line in wrap_lore_text(relic["lore"]):
-            lore_parts.append(snbt_string({
-                "text":   line,
-                "italic": True,
-            }))
+            lore_parts.append(text_component_snbt(line, italic=True))
 
     lore_snbt = "[" + ",".join(lore_parts) + "]"
 
     glint_part = ',"minecraft:enchantment_glint_override":true' if glint else ""
 
-    # Minecraft 1.20.5+ replaced tag.display with components.
+    # MC 1.20.5+ replaced tag.display with components; 1.21.9+ stores the
+    # custom_name/lore text components as real NBT (see text_component_snbt).
     # Keys containing ":" must be quoted in SNBT.
     return (
         f'{{Slot:{slot}b,'

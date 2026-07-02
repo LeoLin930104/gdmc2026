@@ -30,19 +30,18 @@ def zone_center_floor(zone) -> tuple[int, int, int]:
 def build_lectern_snbt(diary) -> str:
     """Build the lectern block-entity SNBT carrying `diary` as a written book.
 
-    Targets MC 1.21.x (pack format 26): written books use the
-    `minecraft:written_book_content` component (post-1.20.5 format) with
-    `title`, `author`, and `pages` as filterable strings — emitted here in
-    their plain-string form, equivalent to `/give @s minecraft:written_book[
-    minecraft:written_book_content={title:"...",author:"...",pages:["..."]}]`.
+    Targets MC 1.21.11: written books use the `minecraft:written_book_content`
+    component (post-1.20.5 format) with `title`, `author`, and `pages`.
+    Equivalent to `/give @s minecraft:written_book[minecraft:written_book_content=
+    {title:"...",author:"...",pages:[[["..."]]]}]`.
     """
     title  = json.dumps(diary.book_title,  ensure_ascii=False)
     author = json.dumps(diary.author_name, ensure_ascii=False)
-    # Each page is a single-quoted SNBT string containing a JSON text-component
-    # array of the form [["text"]]. Verified in-game with:
-    #   /give @a written_book[written_book_content={pages:['[["test text"]]'],...}]
-    # The {text:"..."} and {raw:"..."} compound forms both rendered blank when
-    # written via gdpc's data= path; this string-of-JSON form is what works.
+    # MC 1.21.9+ (we target 1.21.11): each page is an INLINE text-component list
+    # [["text"]], NOT the pre-1.21.9 single-quoted string-of-JSON form. Verified:
+    #   /give @a written_book[written_book_content={pages:[[["test text"]]],...}]
+    # (Pre-1.21.9 wanted pages:['[["test text"]]']; the {text:"..."}/{raw:"..."}
+    # compound forms still render blank via gdpc's data= path.)
     pages = "[" + ",".join(_format_page(p) for p in diary.pages) + "]"
 
     book_snbt = (
@@ -60,10 +59,15 @@ def build_lectern_snbt(diary) -> str:
 
 
 def _format_page(text: str) -> str:
-    """Encode one page as a single-quoted SNBT string wrapping `[["text"]]`."""
-    component_json = f"[[{json.dumps(text, ensure_ascii=False)}]]"
-    escaped = component_json.replace("\\", "\\\\").replace("'", "\\'")
-    return f"'{escaped}'"
+    """Encode one page as an inline SNBT text-component list: `[["text"]]`.
+
+    MC 1.21.9+ (we target 1.21.11) takes each page as a raw list value
+    (`pages:[[["text"]]]`), NOT the pre-1.21.9 single-quoted string-of-JSON
+    form (`pages:['[["text"]]']`). json.dumps escapes the inner string exactly
+    as an SNBT double-quoted string expects, so no extra escaping/quoting is
+    needed — we emit the array literal directly.
+    """
+    return f"[[{json.dumps(text, ensure_ascii=False)}]]"
 
 
 def build_book_item_nbt(diary, slot: int) -> str:
@@ -72,8 +76,8 @@ def build_book_item_nbt(diary, slot: int) -> str:
     The lectern form (`build_lectern_snbt`) wraps the book as a block-entity's
     held `Book`; this is the same `minecraft:written_book` stack but as a chest
     `Items` entry (with a `Slot`), so a diary can live inside a premade build's
-    chest alongside its tool. Same 1.21.x `written_book_content` component and
-    the verified `pages:['[["text"]]']` string-of-JSON page form.
+    chest alongside its tool. Same 1.21.11 `written_book_content` component and
+    the inline `pages:[[["text"]]]` list page form.
     """
     title  = json.dumps(diary.book_title,  ensure_ascii=False)
     author = json.dumps(diary.author_name, ensure_ascii=False)

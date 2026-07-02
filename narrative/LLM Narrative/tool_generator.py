@@ -42,8 +42,11 @@ def _is_tool_or_gear(item_type: str) -> bool:
     return any(bare.endswith(s) for s in _TOOL_SUFFIXES)
 
 
-SYSTEM_PROMPT = """You generate ONE FUNCTIONAL TOOL OR PIECE OF WEARABLE GEAR per zone for a Minecraft Java Edition 1.21 settlement.
+SYSTEM_PROMPT = """You generate FUNCTIONAL TOOLS OR WEARABLE GEAR for the zones of a Minecraft Java Edition 1.21 settlement.
 Output ONLY a JSON array of tool objects. No markdown fences, no prose before or after.
+The user says how many tools each zone needs. When a zone needs more than one,
+make them DISTINCT — vary the item type, the invented owner name, and the rarity
+so the zone reads as several different workers' and guardians' gear, not copies.
 
 CRITICAL — what counts as a "tool" or "gear":
   Tools (item id MUST include a material prefix from the list below):
@@ -321,12 +324,17 @@ def generate_tools(
     zone_specs: Iterable[tuple],
     biome: str | None = None,
     max_tokens: int = 1000,
+    per_zone: int = 1,
 ) -> list[Tool]:
-    """Generate one Tool per entry in `zone_specs`.
+    """Generate `per_zone` Tool(s) per entry in `zone_specs`.
 
     `zone_specs` is the same shape used by `example_settlement_demo.py`:
     each entry is `(zone_id, display_name, preset, *rest)`. Only the first
     three fields are sent to the LLM; any AABB tuple at position 3 is ignored.
+
+    `per_zone` asks the model for that many DISTINCT tools per zone (they share
+    the zone's `zone_id`, so the caller groups them by zone). The returned list
+    is flat and may hold several tools with the same `zone_id`.
 
     Settlement identity + biome are threaded in so tools share narrative
     context with zones, diaries, and relics. Each Tool carries a `zone_id`
@@ -339,6 +347,10 @@ def generate_tools(
     specs = [(z[0], z[1], z[2]) for z in zone_specs]
     if not specs:
         raise ValueError("zone_specs is empty - no tools to generate")
+    per_zone = max(1, per_zone)
+    # Room for every requested tool: ~150 tokens of JSON each, never below the
+    # caller's floor. Without this a big per_zone request truncates mid-array.
+    max_tokens = max(max_tokens, len(specs) * per_zone * 150)
 
     effective_biome = biome or settlement.biome
     hint = biome_hint(effective_biome)
@@ -365,15 +377,27 @@ def generate_tools(
         for zid, name, preset in specs
     )
 
+    if per_zone > 1:
+        count_line = f"Zones in this settlement (generate {per_zone} DISTINCT tools per zone):\n"
+        total_line = (
+            f"Generate exactly {per_zone} tools for EACH zone "
+            f"({len(specs) * per_zone} tools total). Repeat each zone_id "
+            f"{per_zone} times, once per tool, and within a zone vary the item "
+            f"type, the invented owner name, and the rarity. Each tool's "
+        )
+    else:
+        count_line = "Zones in this settlement (generate ONE tool per zone):\n"
+        total_line = f"Generate exactly {len(specs)} tools (one per zone). Each tool's "
+
     user_prompt = (
         f"{biome_block}"
         f"{axes_block}"
         f"{events_block}"
         f"{goal_block}"
         f"{context_block}"
-        f"Zones in this settlement (generate ONE tool per zone):\n"
+        f"{count_line}"
         f"{zones_block}\n\n"
-        f"Generate exactly {len(specs)} tools (one per zone). Each tool's "
+        f"{total_line}"
         f"item_type must be thematically native to its zone's preset and its "
         f"material must match its rarity tier. Return ONLY the JSON array."
     )
@@ -388,7 +412,7 @@ def generate_tools(
         )
     except LLMUnavailable as exc:
         print(f"[warn] generate_tools: LLM unavailable ({exc}); using offline fallback tools.")
-        return fallback_tools(settlement, specs, effective_biome)
+        return fallback_tools(settlement, specs, effective_biome, per_zone=per_zone)
 
     # Strict parse first; on a stochastic JSON glitch, fall back to salvaging
     # individual objects so one malformed entry doesn't waste the whole run.

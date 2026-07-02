@@ -47,19 +47,50 @@ _MINIMAL = {
 
 _cache: dict | None = None
 
+DEFAULT_VARIANT = "1"
+
+
+def _select_variant(variants: dict) -> str:
+    """Pick the fallback lore variant from NARRATIVE_FALLBACK_VARIANT (default '1').
+
+    Judges set this in the repo-root .env (loaded by lm_client at import). Each
+    variant is a wholly different authored settlement; the number just chooses
+    which offline place the pipeline reads as. An unknown value warns and falls
+    back to '1' (or the first available variant).
+    """
+    key = os.environ.get("NARRATIVE_FALLBACK_VARIANT", DEFAULT_VARIANT).strip() or DEFAULT_VARIANT
+    if key in variants:
+        return key
+    print(f"[warn] fallback_content: variant {key!r} not found "
+          f"(have {sorted(variants)}); using {DEFAULT_VARIANT!r}.")
+    return DEFAULT_VARIANT if DEFAULT_VARIANT in variants else next(iter(variants))
+
 
 def _load() -> dict:
-    """Return the authored fallback content, cached. Never raises."""
+    """Return the authored fallback content for the selected variant, cached.
+
+    The JSON file holds several numbered lore variants under "variants"; the
+    active one is chosen by NARRATIVE_FALLBACK_VARIANT so judges can swap the
+    offline settlement's whole flavor without touching code. A file with no
+    "variants" key is treated as a single flat variant (backward compatible).
+    Never raises.
+    """
     global _cache
     if _cache is not None:
         return _cache
     try:
         with open(_JSON_PATH, "r", encoding="utf-8") as fh:
-            _cache = json.load(fh)
+            data = json.load(fh)
     except Exception as exc:  # missing file, bad JSON, permissions...
         print(f"[warn] fallback_content: could not load {_JSON_PATH} ({exc}); "
               f"using minimal built-in content.")
         _cache = _MINIMAL
+        return _cache
+    variants = data.get("variants")
+    if isinstance(variants, dict) and variants:
+        _cache = variants[_select_variant(variants)]
+    else:
+        _cache = data  # flat/legacy format (no numbered variants)
     return _cache
 
 
@@ -183,8 +214,12 @@ def fallback_relics(theme: str, count: int = 3, settlement=None,
 
 
 def fallback_tools(settlement, zone_specs: Iterable[tuple],
-                   biome: str | None = None) -> list:
-    """Return one authored Tool per zone spec, themed to the zone's preset."""
+                   biome: str | None = None, per_zone: int = 1) -> list:
+    """Return `per_zone` authored Tool(s) per zone spec, themed to the preset.
+
+    `_pick_by_preset` is uniqueness-aware, so a zone asking for several tools
+    gets distinct pool entries before any repeat.
+    """
     from tool_generator import Tool  # lazy: avoids circular import
 
     specs = [(z[0], z[1], z[2]) for z in zone_specs]
@@ -194,16 +229,17 @@ def fallback_tools(settlement, zone_specs: Iterable[tuple],
     used: set[int] = set()
     tools = []
     for zid, _name, preset in specs:
-        entry = _pick_by_preset(pool, preset, used)
-        tools.append(Tool(
-            zone_id=zid,
-            name=entry["name"],
-            item_type=entry["item_type"],
-            description=entry.get("description", ""),
-            lore=entry.get("lore", ""),
-            color=entry.get("color", "yellow"),
-            rarity=entry.get("rarity", "Common"),
-        ))
+        for _ in range(max(1, per_zone)):
+            entry = _pick_by_preset(pool, preset, used)
+            tools.append(Tool(
+                zone_id=zid,
+                name=entry["name"],
+                item_type=entry["item_type"],
+                description=entry.get("description", ""),
+                lore=entry.get("lore", ""),
+                color=entry.get("color", "yellow"),
+                rarity=entry.get("rarity", "Common"),
+            ))
     return tools
 
 

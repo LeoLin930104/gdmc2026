@@ -162,7 +162,7 @@ def _pick_size(fit_square: int, role: str, cache: dict) -> int | None:
 
 
 # ---------------------------------------------------------------------------
-# settlement identity (graceful without LM Studio)
+# settlement identity (graceful without a live LLM API)
 # ---------------------------------------------------------------------------
 
 def _make_settlement(theme: str, biome: str | None):
@@ -364,32 +364,49 @@ def plan_placements(zone_map, origin, heightmap, farms, roles, path_mask=None,
 
 
 # ---------------------------------------------------------------------------
-# narrative items: one diary + tool per district, dropped into a build's chest
+# narrative items: several diaries + tools + relics per district, SCATTERED
+# across the district's build chests (not piled into one)
 # ---------------------------------------------------------------------------
 
-def _narrative_chest_snbt(diary, tool, relic=None) -> str | None:
-    """Chest block-entity SNBT holding a diary (book) + a tool + a relic, or None.
+# How many relics + tools each district gets (was one each). They're then spread
+# across the district's build chests so a settlement feels lived-in without every
+# find sitting in a single chest. Diaries stay one per district (one voice each).
+RELICS_PER_DISTRICT = 4
+TOOLS_PER_DISTRICT = 4
 
-    Slots are assigned in order of what's present, so a district with only some
-    of the three still gets a valid chest. Reuses the diary book-item builder and
-    the relic/tool item builder so rendering matches the standalone diary/tool/
-    relic chests elsewhere. The relic is a dict (relics.json schema) and shimmers
-    by default, matching the standalone relic chest.
+# Hard cap on relics in ANY single chest. Some districts have only one or two
+# premades (so one or two chests) — without a cap the district's whole relic
+# share piles into a cramped chest. Overflow relics beyond this are dropped for
+# that chest rather than crammed in.
+MAX_RELICS_PER_CHEST = 3
+
+
+def _narrative_chest_snbt(diaries=None, tools=None, relics=None) -> str | None:
+    """Chest block-entity SNBT holding any diaries + tools + relics, or None.
+
+    Each argument is a list (any may be empty/None); slots are assigned in order
+    across everything present, so a chest with only tools — or only relics — is
+    still valid. Reuses the diary book-item builder and the relic/tool item
+    builder so rendering matches the standalone diary/tool/relic chests. Tools
+    glint by rarity; relics always shimmer, matching the standalone relic chest.
+    Relics are capped per chest at MAX_RELICS_PER_CHEST (overflow dropped) so a
+    chest never crams a whole district's share. Returns None if nothing supplied.
     """
     from place_diary_lectern import build_book_item_nbt, glint_for_rarity
     from place_relic_chest import build_item_nbt
 
     items: list[str] = []
-    if diary is not None:
+    for diary in (diaries or []):
         items.append(build_book_item_nbt(diary, slot=len(items)))
-    if tool is not None:
+    for tool in (tools or []):
         tool_dict = {
             "name": tool.name, "item_type": tool.item_type,
             "description": tool.description, "lore": tool.lore, "color": tool.color,
         }
         items.append(build_item_nbt(tool_dict, slot=len(items),
                                     glint=glint_for_rarity(tool.rarity)))
-    if relic is not None:
+    # Cap relics per chest so a district with few chests doesn't cram them all in.
+    for relic in (relics or [])[:MAX_RELICS_PER_CHEST]:
         # generate_relics validates name + item_type; other fields may be absent,
         # so default them the same way place_relic_chest.validate_relic does.
         relic_dict = {
@@ -433,22 +450,25 @@ def _plot_anchor(cells) -> tuple[int, int]:
 
 def plan_narrative_items(settlement, biome, placements, roles, zone_seed_points,
                          origin, heightmap, fields=None):
-    """Generate one diary + tool + relic per district and route them into chests.
+    """Generate several diaries/tools/relics per district and scatter them.
 
-    A district whose premade builds carry chests (every non-farm district) gets
-    its three items combined into the ONE build chest nearest the district center
-    (`zone_seed_points`) — the original, working behavior.
+    Each district gets one diary, `TOOLS_PER_DISTRICT` tools, and
+    `RELICS_PER_DISTRICT` relics. A district whose premade builds carry chests
+    (every non-farm district) has those items SCATTERED across its build chests
+    (nearest-first) rather than piled into one: the diary anchors the nearest
+    chest, and tools + relics spread round-robin across the rest. With only one
+    chest in a district they all land there (nothing to scatter across).
 
     The farm district has no premade builds (so no build chests); it instead gets
-    ONE chest per FARM PLOT, the items spread across the plots (from `fields`,
-    chosen via `_spread_indices`), each chest sitting on a plot's centroid
-    (`_plot_anchor`) on top of the rendered field. With no plots known
+    ONE chest per FARM PLOT, all its items spread across the plots (from
+    `fields`, chosen via `_spread_indices`), each chest sitting on a plot's
+    centroid (`_plot_anchor`) on top of the rendered field. With no plots known
     (e.g. --no-farm-fields) it falls back to one combined chest at the center.
 
     The relics are generated as one settlement-wide collection (so the set coheres
-    as a whole) and then spread ONE-per-district rather than concentrated in a
-    single chest. Relic generation has its own warn-and-recover so a relic failure
-    still leaves each chest with its diary + tool.
+    as a whole) and then dealt round-robin across districts. Relic generation has
+    its own warn-and-recover so a relic failure still leaves each chest with its
+    diaries + tools.
 
     Returns `(fallback_chests, summary)` where fallback_chests is a list of
     `(world_pos, payload, zone_id)`. Warn-and-recover: any LLM failure logs and
@@ -463,31 +483,37 @@ def plan_narrative_items(settlement, biome, placements, roles, zone_seed_points,
     ]
     try:
         diaries = generate_diaries(settlement=settlement, zone_specs=zone_specs, biome=biome)
-        tools = generate_tools(settlement=settlement, zone_specs=zone_specs, biome=biome)
+        tools = generate_tools(settlement=settlement, zone_specs=zone_specs, biome=biome,
+                               per_zone=TOOLS_PER_DISTRICT)
     except Exception as exc:  # noqa: BLE001 - items are optional; keep geometry working
         print(f"[warn] narrative item generation failed ({exc!r}); "
               f"placing builds without items.")
         return [], {"in_build": 0, "fallback": 0, "skipped": 0, "relics": 0}
 
-    # Relics: generate one per district as a single coherent set, then spread them
-    # across districts. Separate try so a relic failure keeps diaries + tools.
-    relic_by_zone: dict = {}
+    # Relics: generate a coherent settlement-wide set (RELICS_PER_DISTRICT per
+    # district), then deal them round-robin so each district gets a balanced
+    # share even if the model returns fewer than asked. Separate try so a relic
+    # failure keeps diaries + tools.
+    relics_by_zone: dict[str, list] = {}
     try:
         from relic_generator import generate_relics
         relic_theme = getattr(settlement, "theme", None) or settlement.name
-        relics = generate_relics(relic_theme, count=len(zone_specs),
+        zids = sorted(roles)
+        total_relics = len(zids) * RELICS_PER_DISTRICT
+        relics = generate_relics(relic_theme, count=total_relics,
+                                 max_tokens=max(600, total_relics * 120),
                                  settlement=settlement, biome=biome)
-        # zone_specs is in sorted(roles) order, so zip assigns one relic per
-        # district in that order; if generate_relics returns fewer, the trailing
-        # districts simply get no relic.
-        for zid, relic in zip(sorted(roles), relics):
-            relic_by_zone[f"district_{zid}"] = relic
-    except Exception as exc:  # noqa: BLE001 - relics optional; keep diary + tool
+        for i, relic in enumerate(relics):
+            zid = zids[i % len(zids)]
+            relics_by_zone.setdefault(f"district_{zid}", []).append(relic)
+    except Exception as exc:  # noqa: BLE001 - relics optional; keep diaries + tools
         print(f"[warn] relic generation failed ({exc!r}); "
-              f"district chests get diary + tool only.")
+              f"district chests get diaries + tools only.")
 
     diary_by_zone = {d.zone_id: d for d in diaries}
-    tool_by_zone = {t.zone_id: t for t in tools}
+    tools_by_zone: dict[str, list] = {}
+    for t in tools:
+        tools_by_zone.setdefault(t.zone_id, []).append(t)
 
     # Farm plots per district (for districts with no chest-bearing build), so the
     # farm district's items can sit ONE PER PLOT instead of floating at the center.
@@ -501,14 +527,14 @@ def plan_narrative_items(settlement, biome, placements, roles, zone_seed_points,
 
     fallback_chests: list[tuple] = []
     summary = {"in_build": 0, "fallback": 0, "skipped": 0,
-               "relics": len(relic_by_zone)}
+               "relics": sum(len(v) for v in relics_by_zone.values())}
 
     for zid in sorted(roles):
         zone_id = f"district_{zid}"
         diary = diary_by_zone.get(zone_id)
-        tool = tool_by_zone.get(zone_id)
-        relic = relic_by_zone.get(zone_id)
-        if diary is None and tool is None and relic is None:
+        tools_z = tools_by_zone.get(zone_id, [])
+        relics_z = relics_by_zone.get(zone_id, [])
+        if diary is None and not tools_z and not relics_z:
             summary["skipped"] += 1
             continue
 
@@ -529,25 +555,45 @@ def plan_narrative_items(settlement, biome, placements, roles, zone_seed_points,
         candidates.sort(key=lambda t: t[0])
 
         if candidates:
-            # Non-farm district: its builds already carry chests — drop the diary
-            # + tool + relic into the ONE build nearest the district center.
-            candidates[0][1]["chest_payload"] = _narrative_chest_snbt(diary, tool, relic)
-            summary["in_build"] += 1
+            # Non-farm district: its builds already carry chests — SCATTER the
+            # items across them (nearest-first). Diary anchors the nearest chest;
+            # tools and relics deal round-robin across every chest (relics offset
+            # by one so they don't always share a chest with the same tool).
+            chests = [b for _, b in candidates]
+            n = len(chests)
+            buckets = [{"diaries": [], "tools": [], "relics": []} for _ in range(n)]
+            if diary is not None:
+                buckets[0]["diaries"].append(diary)
+            for i, t in enumerate(tools_z):
+                buckets[i % n]["tools"].append(t)
+            for i, r in enumerate(relics_z):
+                buckets[(i + 1) % n]["relics"].append(r)
+            for b, bucket in zip(chests, buckets):
+                payload = _narrative_chest_snbt(
+                    bucket["diaries"], bucket["tools"], bucket["relics"])
+                if payload is None:
+                    continue  # a spare chest this district's items didn't reach
+                b["chest_payload"] = payload
+                summary["in_build"] += 1
         elif plots_by_zone.get(zid):
             # Farm district (no premade builds, so no build chests): ONE chest per
-            # farm plot, the items spread across the plots — each chest sits on a
+            # farm plot, all items spread across the plots — each chest sits on a
             # plot's centroid, on top of the just-rendered field.
-            items = [(k, o) for k, o in (("diary", diary), ("tool", tool), ("relic", relic))
-                     if o is not None]
+            flat = ([("diary", diary)] if diary is not None else [])
+            flat += [("tool", t) for t in tools_z]
+            flat += [("relic", r) for r in relics_z]
             plots = plots_by_zone[zid]
-            n_groups = min(len(plots), len(items))
-            groups: list[dict] = [{} for _ in range(n_groups)]
-            for i, (kind, obj) in enumerate(items):
-                groups[i % n_groups][kind] = obj
+            n_groups = min(len(plots), len(flat))
+            groups: list[list] = [[] for _ in range(n_groups)]
+            for i, item in enumerate(flat):
+                groups[i % n_groups].append(item)
             chosen_plots = [plots[i] for i in _spread_indices(len(plots), n_groups)]
             for plot, group in zip(chosen_plots, groups):
                 payload = _narrative_chest_snbt(
-                    group.get("diary"), group.get("tool"), group.get("relic"))
+                    [o for k, o in group if k == "diary"],
+                    [o for k, o in group if k == "tool"],
+                    [o for k, o in group if k == "relic"],
+                )
                 px, pz = _plot_anchor(plot["cells"])
                 wx, wz = ox + px, oz + pz
                 fallback_chests.append(((wx, ground_y(wx, wz) + 1, wz), payload, zone_id))
@@ -557,7 +603,9 @@ def plan_narrative_items(settlement, biome, placements, roles, zone_seed_points,
             # chest at the district center.
             wx, wz = int(ox + cx), int(oz + cz)
             fallback_chests.append(((wx, ground_y(wx, wz) + 1, wz),
-                                    _narrative_chest_snbt(diary, tool, relic), zone_id))
+                                    _narrative_chest_snbt(
+                                        [diary] if diary is not None else [],
+                                        tools_z, relics_z), zone_id))
             summary["fallback"] += 1
 
     return fallback_chests, summary
@@ -586,12 +634,13 @@ def main(
     `settlement` (optional): reuse a pre-built Settlement (with its mood_tier
     pre-pass already run) instead of generating one here, so an orchestrator can
     thread ONE shared identity through every narrative feature. When None, a
-    Settlement + the 3 pre-passes are generated here (graceful without LM Studio).
+    Settlement + the 3 pre-passes are generated here (graceful without a live LLM API).
 
-    `place_items`: also generate one diary + tool + relic per district and drop
-    them into the chest of the build nearest each district center (standalone
-    chest at the center as a fallback where no build has a chest). The relics are
-    a single coherent set spread one-per-district. Skipped on `--dry-run`.
+    `place_items`: also generate one diary + several tools + several relics per
+    district (RELICS_PER_DISTRICT / TOOLS_PER_DISTRICT) and SCATTER them across
+    the district's build chests, nearest-first (standalone chests as a fallback
+    where no build has a chest). The relics are a single coherent set dealt
+    round-robin across districts. Skipped on `--dry-run`.
 
     `farm_fields`: also render the farm-ROLE district's cells as mood-scaled crop
     fields (the generator no longer places them — BUILD_FARM_FIELDS=False). Skip
@@ -687,20 +736,21 @@ def main(
     seed_name = str(settlement.name)
     totals = Counter()
 
-    # Narrative items: one diary + tool + relic per district, routed into a
-    # build's chest. Planned over `chosen` so a payload always lands on a build we
-    # actually place; districts without an available chest get a fallback chest.
+    # Narrative items: one diary + several tools + several relics per district,
+    # scattered across the district's build chests. Planned over `chosen` so a
+    # payload always lands on a build we actually place; districts without an
+    # available chest get fallback chests.
     fallback_chests: list[tuple] = []
     if place_items:
-        print("\nGenerating diaries + tools + relics and routing them into district chests...")
+        print("\nGenerating diaries + tools + relics and scattering them across district chests...")
         fallback_chests, item_summary = plan_narrative_items(
             settlement, biome_override, chosen, roles, zone_seed_points,
             origin, heightmap, fields=fields,
         )
         if item_summary:
-            print(f"  district items: {item_summary['in_build']} into build chests, "
+            print(f"  district items: {item_summary['in_build']} build chest(s) filled, "
                   f"{item_summary['fallback']} on farm plots / standalone, "
-                  f"{item_summary['skipped']} skipped (no content); "
+                  f"{item_summary['skipped']} district(s) skipped (no content); "
                   f"{item_summary['relics']} relic(s) spread across districts.")
 
     decay_note = "" if (decay and tier == "struggling") else " (decay off)" if not decay else ""
