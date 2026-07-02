@@ -665,6 +665,75 @@ def _load_settlement_arrays(upstream_dir: Path) -> dict[str, Any]:
     return {key: data[key] for key in data.files}
 
 
+def _nearest_seed_membership_mask(
+    *,
+    seeds: np.ndarray,
+    selected_indices: np.ndarray,
+    shape: tuple[int, int],
+) -> np.ndarray:
+    if seeds.ndim != 2 or seeds.shape[1] < 2:
+        raise ValueError("settlement seeds must have shape (n, 2)")
+
+    selected_indices = np.asarray(selected_indices, dtype=np.int64).ravel()
+    selected_indices = selected_indices[
+        (selected_indices >= 0) & (selected_indices < seeds.shape[0])
+    ]
+    if selected_indices.size == 0:
+        return np.zeros(shape, dtype=bool)
+
+    selected = np.zeros(seeds.shape[0], dtype=bool)
+    selected[selected_indices] = True
+
+    depth, width = shape
+    seed_x = np.asarray(seeds[:, 0], dtype=np.float64)
+    seed_z = np.asarray(seeds[:, 1], dtype=np.float64)
+    x_values = np.arange(width, dtype=np.float64)
+    mask = np.zeros(shape, dtype=bool)
+    chunk_depth = 32
+
+    for z0 in range(0, depth, chunk_depth):
+        z1 = min(depth, z0 + chunk_depth)
+        z_values = np.arange(z0, z1, dtype=np.float64)
+        dx = x_values[None, :, None] - seed_x[None, None, :]
+        dz = z_values[:, None, None] - seed_z[None, None, :]
+        nearest = np.argmin((dx * dx) + (dz * dz), axis=2)
+        mask[z0:z1, :] = selected[nearest]
+
+    return mask
+
+
+def _settlement_footprint_mask(
+    upstream_dir: Path,
+    *,
+    shape: tuple[int, int],
+    fallback_core_mask: np.ndarray,
+) -> np.ndarray:
+    mask = np.asarray(fallback_core_mask, dtype=bool)
+    if mask.shape != shape:
+        raise ValueError("fallback_core_mask shape must match shape")
+    mask = mask.copy()
+
+    core_path = upstream_dir.resolve() / "data" / "settlement_core.npz"
+    if not core_path.exists():
+        return mask
+
+    payload = _load_npz_payload(core_path)
+    seeds = np.asarray(payload.get("seeds", np.empty((0, 2))), dtype=np.float64)
+    core_indices = np.asarray(payload.get("core_indices", np.array([], dtype=np.int64)))
+    if seeds.size == 0 or core_indices.size == 0:
+        return mask
+
+    try:
+        mask |= _nearest_seed_membership_mask(
+            seeds=seeds,
+            selected_indices=core_indices,
+            shape=shape,
+        )
+    except ValueError:
+        return mask
+    return mask
+
+
 @dataclass(frozen=True, slots=True)
 class CapturedMapQuality:
     water_ratio: float
@@ -1942,9 +2011,18 @@ def _load_reverse_sweep_lighting_plan(
     heightmap = np.asarray(arrays["heightmap"], dtype=np.int32)
     shape = heightmap.shape
     core_mask = _bool_array(arrays, "core_cell_mask", shape=shape, default=True)
+    path_mask = _bool_array(arrays, "path_mask", shape=shape, default=False)
     water_mask = _bool_array(arrays, "water_map", shape=shape, default=False)
     chasm_mask = _bool_array(arrays, "chasm_mask", shape=shape, default=False)
-    target_mask = core_mask & ~(water_mask | chasm_mask)
+    settlement_mask = _settlement_footprint_mask(
+        args.upstream_dir,
+        shape=shape,
+        fallback_core_mask=core_mask,
+    )
+    building_mask = _building_mask_from_plan(plan, shape=shape)
+    target_mask = (settlement_mask | path_mask | building_mask) & ~(
+        water_mask | chasm_mask
+    )
 
     min_y_by_cell = np.maximum(0, heightmap - 2).astype(np.int32)
     building_floor_y = _building_floor_y_from_plan(plan, shape=shape)

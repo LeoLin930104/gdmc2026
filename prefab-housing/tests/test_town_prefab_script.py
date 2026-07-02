@@ -218,6 +218,79 @@ def test_prefab_support_maps_use_actual_block_shape_not_slot_rectangle() -> None
     assert floor_y[8, 8] == -1
 
 
+def test_settlement_footprint_mask_uses_core_seed_ownership(tmp_path: Path) -> None:
+    upstream_dir = tmp_path / "upstream"
+    data_dir = upstream_dir / "data"
+    data_dir.mkdir(parents=True)
+    np.savez(
+        data_dir / "settlement_core.npz",
+        seeds=np.array([[0.0, 0.0], [3.0, 0.0]], dtype=float),
+        core_indices=np.array([1], dtype=np.int32),
+    )
+
+    mask = town._settlement_footprint_mask(
+        upstream_dir,
+        shape=(4, 4),
+        fallback_core_mask=np.zeros((4, 4), dtype=bool),
+    )
+
+    assert not np.any(mask[:, :2])
+    assert np.all(mask[:, 2:])
+
+
+def test_reverse_sweep_targets_settlement_footprint_not_changed_core_mask(
+    tmp_path: Path,
+) -> None:
+    upstream_dir = tmp_path / "upstream"
+    data_dir = upstream_dir / "data"
+    data_dir.mkdir(parents=True)
+    heightmap = np.full((4, 4), 64, dtype=np.int32)
+    np.savez(
+        data_dir / "settlement_data.npz",
+        heightmap=heightmap,
+        core_cell_mask=np.zeros_like(heightmap, dtype=bool),
+        path_mask=np.zeros_like(heightmap, dtype=bool),
+        water_map=np.zeros_like(heightmap, dtype=bool),
+        chasm_mask=np.zeros_like(heightmap, dtype=bool),
+    )
+    np.savez(
+        data_dir / "settlement_core.npz",
+        seeds=np.array([[0.0, 0.0], [3.0, 0.0]], dtype=float),
+        core_indices=np.array([1], dtype=np.int32),
+    )
+    args = SimpleNamespace(
+        upstream_dir=upstream_dir,
+        lighting_seed=1337,
+        road_light_spacing=11,
+        road_embed_light_spacing=9,
+        farm_light_spacing=12,
+        coverage_light_spacing=18,
+        coverage_light_radius=12,
+        max_road_lights=96,
+        max_road_embed_lights=0,
+        max_farm_lights=48,
+        max_coverage_lights=768,
+        reverse_sweep_min_block_light=1,
+        reverse_sweep_light_level=15,
+        max_reverse_sweep_lights=0,
+        reverse_sweep_fast_path=False,
+        town_clear_height=0,
+    )
+
+    def block_at(_local_x: int, y: int, _local_z: int) -> str:
+        return "minecraft:grass_block" if y == 64 else town.AIR_BLOCK
+
+    reverse_plan = town._load_reverse_sweep_lighting_plan(
+        args,
+        plan=SimpleNamespace(placements=()),
+        block_at=block_at,
+        existing_fixtures=(),
+    )
+
+    assert reverse_plan.audit.reverse_sweep_targets == 8
+    assert reverse_plan.audit.reverse_sweep_uncovered == 0
+
+
 def test_player_origin_capture_disables_automatic_teleport() -> None:
     assert town._uses_player_origin_capture(
         SimpleNamespace(
