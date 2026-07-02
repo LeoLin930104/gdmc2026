@@ -360,6 +360,182 @@ def dilate_mask(mask, radius=1):
     return result
 
 
+# --- Border-tree cleanup (Phase 1B) ------------------------------------------
+# Footprint clearing slices through any natural tree straddling the settlement
+# border, leaving floating canopies, trunk stumps, and half-cut crowns in the
+# wild. Phase 1B fells every tree the clearing touched.
+LEAF_DECAY_DISTANCE = 6  # vanilla leaf decay: leaves survive within 6 blocks of a log
+TREE_REMOVE_RADIUS = 16  # how far outside the footprint orphaned leaves are cleaned up
+TREE_SCAN_PAD = TREE_REMOVE_RADIUS + LEAF_DECAY_DISTANCE + 2  # world padding so supporting trunks outside the area are seen
+MAX_TREE_SCAN_DEPTH = 42  # tallest natural canopy-top-to-ground span worth scanning
+
+TREE_LOG_BLOCKS = {
+    "minecraft:mangrove_roots",
+    "minecraft:muddy_mangrove_roots",
+    "minecraft:mushroom_stem",
+    "minecraft:crimson_stem",
+    "minecraft:warped_stem",
+    "minecraft:stripped_crimson_stem",
+    "minecraft:stripped_warped_stem",
+}
+TREE_LEAF_BLOCKS = {
+    "minecraft:nether_wart_block",
+    "minecraft:warped_wart_block",
+    "minecraft:shroomlight",
+    "minecraft:brown_mushroom_block",
+    "minecraft:red_mushroom_block",
+}
+TREE_SCAN_PASSTHROUGH = {"minecraft:air", "minecraft:cave_air", "minecraft:void_air"}
+TREE_HANGING_BLOCKS = {"minecraft:vine", "minecraft:mangrove_propagule"}
+_N6 = ((1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1))
+_N26 = tuple(
+    (dx, dy, dz)
+    for dx in (-1, 0, 1) for dy in (-1, 0, 1) for dz in (-1, 0, 1)
+    if (dx, dy, dz) != (0, 0, 0)
+)
+
+
+def _is_tree_log(block_id):
+    return (block_id.endswith("_log") or block_id.endswith("_wood")
+            or block_id.endswith("_hyphae") or block_id in TREE_LOG_BLOCKS)
+
+
+def _is_tree_leaf(block_id):
+    return block_id.endswith("_leaves") or block_id in TREE_LEAF_BLOCKS
+
+
+def remove_partial_border_trees(tree_slice, target_mask, clear_block, pad=TREE_SCAN_PAD):
+    """Fell every natural tree the footprint clearing cuts into.
+
+    Phase 1 clears `target_mask` columns down to the new terrain, which slices
+    through trees straddling the settlement border: trunks keep floating
+    canopies, canopies lose their trunks, edge trees keep half a crown. This
+    pass works on `tree_slice`, a pre-clearing snapshot padded `pad` blocks
+    beyond the sim area so border trees are seen whole:
+
+    * every log/leaf in a `target_mask` column counts as destroyed by clearing;
+    * destroyed leaves are walked back (<= LEAF_DECAY_DISTANCE leaf steps,
+      vanilla's decay reach) to the trunks that fed them, and those trunks --
+      grown to their full 26-connected log component, so angled branches fall
+      too -- are felled entirely;
+    * any leaf within TREE_REMOVE_RADIUS of the footprint that is no longer
+      within decay reach of a surviving trunk is cleared (exactly the leaves
+      vanilla would eventually decay), along with snow layers and hanging
+      vines/propagules left floating by the felling.
+
+    `clear_block(local_x, y, local_z)` receives sim-local coordinates which
+    may lie outside the sim area. Returns the number of blocks cleared.
+    """
+    D, W = target_mask.shape
+    top_hm = np.array(tree_slice.heightmaps["MOTION_BLOCKING"], dtype=int)
+    max_x, max_z = W + 2 * pad, D + 2 * pad
+
+    padded_target = np.zeros((max_z, max_x), dtype=bool)
+    padded_target[pad:pad + D, pad:pad + W] = target_mask
+    scan_mask = dilate_mask(padded_target, radius=TREE_SCAN_PAD)
+    removal_mask = dilate_mask(padded_target, radius=TREE_REMOVE_RADIUS)
+
+    def read_block(px, y, pz):
+        if not (0 <= px < max_x and 0 <= pz < max_z):
+            return AIR_BLOCK
+        return tree_slice.getBlock((px, y, pz)).id.split('[')[0]
+
+    # 1. Inventory logs/leaves around the footprint in the pre-clearing world.
+    # Each column is scanned from its motion-blocking top down to the first
+    # non-tree solid block (the ground under the canopy).
+    kind = {}
+    snow_tops = set()
+    destroyed = set()  # tree blocks the clearing/terrain rebuild consumes
+    for pz, px in np.argwhere(scan_mask):
+        px, pz = int(px), int(pz)
+        in_target = bool(padded_target[pz, px])
+        top = int(top_hm[px, pz])
+        for y in range(top, max(top - MAX_TREE_SCAN_DEPTH, -64) - 1, -1):
+            block = read_block(px, y, pz)
+            if _is_tree_log(block):
+                kind[(px, y, pz)] = "log"
+            elif _is_tree_leaf(block):
+                kind[(px, y, pz)] = "leaf"
+            elif block == "minecraft:snow":
+                snow_tops.add((px, y, pz))
+                continue
+            elif block in TREE_SCAN_PASSTHROUGH or block in TREE_HANGING_BLOCKS:
+                continue
+            else:
+                break
+            if in_target:
+                destroyed.add((px, y, pz))
+    if not destroyed:
+        return 0
+
+    # 2. Trunks the clearing touches: destroyed logs, plus trunks reached by
+    # walking destroyed leaves back within decay reach.
+    seed_logs = {p for p in destroyed if kind[p] == "log"}
+    frontier = [p for p in destroyed if kind[p] == "leaf"]
+    seen = set(frontier)
+    for _ in range(LEAF_DECAY_DISTANCE):
+        next_frontier = []
+        for x, y, z in frontier:
+            for dx, dy, dz in _N6:
+                n = (x + dx, y + dy, z + dz)
+                if n in seen:
+                    continue
+                k = kind.get(n)
+                if k == "log":
+                    seed_logs.add(n)
+                elif k == "leaf":
+                    seen.add(n)
+                    next_frontier.append(n)
+        frontier = next_frontier
+
+    felled_logs = set(seed_logs)
+    stack = list(seed_logs)
+    while stack:
+        x, y, z = stack.pop()
+        for dx, dy, dz in _N26:
+            n = (x + dx, y + dy, z + dz)
+            if n not in felled_logs and kind.get(n) == "log":
+                felled_logs.add(n)
+                stack.append(n)
+
+    # 3. Leaves within decay reach of a surviving trunk stay (merged canopies
+    # keep the neighbour's share); the rest inside the cleanup radius are
+    # orphans vanilla would decay anyway.
+    supported = set()
+    frontier = [p for p, k in kind.items()
+                if k == "log" and p not in felled_logs and p not in destroyed]
+    for _ in range(LEAF_DECAY_DISTANCE):
+        next_frontier = []
+        for x, y, z in frontier:
+            for dx, dy, dz in _N6:
+                n = (x + dx, y + dy, z + dz)
+                if n not in supported and kind.get(n) == "leaf":
+                    supported.add(n)
+                    next_frontier.append(n)
+        frontier = next_frontier
+
+    to_clear = {p for p in felled_logs if p not in destroyed}
+    for p, k in kind.items():
+        if (k == "leaf" and p not in supported and p not in destroyed
+                and removal_mask[p[2], p[0]]):
+            to_clear.add(p)
+
+    # Snow layers and hanging vines/propagules left floating by the felling.
+    extras = set()
+    for x, y, z in to_clear:
+        above = (x, y + 1, z)
+        if above in snow_tops:
+            extras.add(above)
+        hang_y = y - 1
+        while (x, hang_y, z) not in kind and read_block(x, hang_y, z) in TREE_HANGING_BLOCKS:
+            extras.add((x, hang_y, z))
+            hang_y -= 1
+
+    for x, y, z in sorted(to_clear | extras, key=lambda p: (-p[1], p[0], p[2])):
+        clear_block(x - pad, y, z - pad)
+    return len(to_clear | extras)
+
+
 def select_spaced_points(candidates, min_spacing, rng):
     shuffled = candidates.copy()
     rng.shuffle(shuffled)
@@ -506,6 +682,20 @@ def deploy_settlement(
     world_slice = editor.loadWorldSlice(Rect((int(ox), int(oz)), (W, D)))
     base_hm = np.array(world_slice.heightmaps["MOTION_BLOCKING"], dtype=int)
 
+    # Padded pre-clearing snapshot for the border-tree pass (Phase 1B). It must
+    # be captured now, before any buffered placement can flush, so clipped trees
+    # are still seen whole; the pad lets trees rooted outside the build area
+    # (whose canopies poke in) be felled too.
+    tree_pad = TREE_SCAN_PAD
+    try:
+        tree_slice = editor.loadWorldSlice(
+            Rect((int(ox) - tree_pad, int(oz) - tree_pad), (W + 2 * tree_pad, D + 2 * tree_pad))
+        )
+    except Exception as exc:
+        print(f"[warn] padded world slice failed ({exc!r}); "
+              "border-tree cleanup limited to the build area.")
+        tree_slice, tree_pad = world_slice, 0
+
     stats = {
         "placed": 0,
         "skipped": 0,
@@ -518,6 +708,7 @@ def deploy_settlement(
         "bushes": 0,
         "flowers": 0,
         "erosion": 0,
+        "felled": 0,
     }
     placed_blocks = {}
 
@@ -859,6 +1050,21 @@ def deploy_settlement(
         for local_x, local_z in iter_mask(target_mask):
             clear_above_surface(local_x, local_z)
 
+        print("🌲 Phase 1B: Felling border trees the clearing cut into...")
+
+        def clear_tree_block(local_x, y, local_z):
+            # Felled blocks can lie outside the sim area (padded scan); those
+            # bypass the differential cache, which only covers the build area.
+            if 0 <= local_x < W and 0 <= local_z < D:
+                place_if_needed(local_x, y, local_z, AIR_BLOCK)
+            else:
+                editor.placeBlock(local_to_world(origin, local_x, y, local_z), Block(AIR_BLOCK))
+                stats["cleared"] += 1
+
+        stats["felled"] = remove_partial_border_trees(
+            tree_slice, target_mask, clear_tree_block, pad=tree_pad
+        )
+
         print("🏗️ Phase 2A: Placing terraced Voronoi cells...")
         cell_mask = core_cell_mask & ~path_mask
         for local_x, local_z in iter_mask(cell_mask):
@@ -943,7 +1149,8 @@ def deploy_settlement(
             f"{stats['cells']} cell columns, {stats['paths']} path columns, "
             f"{stats['farms']} farm columns, {stats['buildings']} modules. "
             f"{stats['trees']} trees, {stats['bushes']} bushes, {stats['flowers']} flowers, "
-            f"{stats['erosion']} eroded boundary columns. "
+            f"{stats['erosion']} eroded boundary columns, "
+            f"{stats['felled']} border-tree blocks felled. "
             f"Placed {stats['placed']} blocks, cleared {stats['cleared']}, "
             f"skipped {stats['skipped']}."
         )
